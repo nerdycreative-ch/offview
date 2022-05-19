@@ -59,6 +59,7 @@ const Login = () => {
           <RegisterTitle title="Login" fontSize={28} />
           <p className="subTitle">Manage your real estate here.</p>
         </div>
+        <h1>hello world</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
