@@ -1,5 +1,4 @@
-const Advertisement = require("../model/createAdvertisement/Advertisement")
-
+const Advertisement = require("../model/createAdvertisement/Advertisement");
 
 //image uploader requires
 const fs = require("fs");
@@ -18,32 +17,49 @@ const s3 = new S3({
   secretAccessKey,
 });
 
-const uploadFile = async (file, bucketName) => {
+const uploadFile = async (file, type) => {
   const fileStream = await fs.createReadStream(file.path);
+  const bucketi = undefined;
+  if (type === "file") {
+    bucketi = process.env.FILE_BUCKET_NAME;
+  }
+  if (type === "image") {
+    bucketi = process.env.IMAGE_BUCKET_NAME;
+  }
+  if (type === "profile") {
+    bucketi = process.env.PROFILE_BUCKET_NAME;
+  }
 
   const uploadParams = {
-    Bucket: process.env.bucketName,
+    Bucket: bucketi,
     Body: fileStream,
     Key: file.filename,
   };
   await s3.upload(uploadParams).promise();
 };
 
-
-const getFileStream = (fileKey,bucketName) => {
+const getFileStream = (fileKey, bucketName) => {
   const downloadParams = {
     Key: fileKey,
-    Bucket: process.env.bucketName,
+    Bucket: bucketi,
   };
-  return s3.getObject(downloadParams).createReadStream();
+  return s3.getObject(downloadParams).createReadStr;
+  eam();
 };
 
-const deleteFileStream = async (fileKey,bucketName) => {
-  const advertisementFile = await Advertisement.findOne({
-    url: `https://${process.env.bucketName}.s3.eu-central-1.amazonaws.com/${fileKey}`,
-  });
+const deleteFileStream = async (fileKey, type) => {
+  const bucketi = undefined;
+  if (type === "file") {
+    bucketi = process.env.FILE_BUCKET_NAME;
+  } else if (type === "image") {
+    bucketi = process.env.IMAGE_BUCKET_NAME;
+  } else {
+    console.log("Wrong Type of file");
+  }
+  const url = `https://${bucketi}.s3.eu-central-1.amazonaws.com/${fileKey}`;
+  const advertisementFile = await Advertisement.findOne({ file: url });
   const deleteParams = {
-    Bucket: process.env.bucketName,
+    Bucket: bucketi,
     Key: fileKey,
   };
   s3.deleteObject(deleteParams, function (err, data) {
@@ -54,9 +70,10 @@ const deleteFileStream = async (fileKey,bucketName) => {
     }
   }).promise();
 
-  Advertisement.deleteOne(advertisementFile._id);
+  Advertisement.deleteOne({ _id: advertisementFile._id });
 };
 
+//aws doesn't support edit files it rewrites them(just a test)
 const editFile = async (file, fileKey) => {
   try {
     await deleteFileStream(fileKey);
@@ -69,7 +86,6 @@ const editFile = async (file, fileKey) => {
 };
 
 module.exports = {
-  createDBfile
   uploadFile,
   getFileStream,
   deleteFileStream,

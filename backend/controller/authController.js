@@ -62,7 +62,9 @@ const signup_post = async (req, res) => {
     const {
       email,
       password,
+      mainrole,
       role,
+      gender,
       title,
       firstName,
       lastName,
@@ -81,7 +83,9 @@ const signup_post = async (req, res) => {
       const owner = await sownerSchema.create({
         email,
         password,
+        mainrole,
         role,
+        gender,
         title,
         firstName,
         lastName,
@@ -110,7 +114,9 @@ const signup_post = async (req, res) => {
       const investorCompany = await icompanySchema.create({
         email,
         password,
+        mainrole,
         role,
+        gender,
         baseObj,
         companyName,
         legalForm,
@@ -136,7 +142,9 @@ const signup_post = async (req, res) => {
       const investorPrivate = await iprivateSchema.create({
         email,
         password,
+        mainrole,
         role,
+        gender,
         title,
         firstName,
         lastName,
@@ -163,10 +171,11 @@ const signup_post = async (req, res) => {
     //create broker and save to mongodb
     if (role === "broker") {
       const broker = await sbrokerSchema.create({
-        
         email,
         password,
+        mainrole,
         role,
+        gender,
         title,
         firstName,
         lastName,

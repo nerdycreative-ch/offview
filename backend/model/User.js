@@ -28,6 +28,11 @@ const baseSchema = mongoose.model(
         required: true,
         minlength: [8, "Minimum password length is 8 characters"],
       },
+      mainrole: {
+        type: String,
+        default: "investor",
+        enum: ["investor", "seller"],
+      },
       role: {
         type: String,
         default: "private",
@@ -49,6 +54,10 @@ const baseSchema = mongoose.model(
         type: String,
         required: false,
       },
+      // gender: {
+      //   type: String,
+      //   required: true,
+      // },
     },
     baseOptions,
     { timestamps: true }
