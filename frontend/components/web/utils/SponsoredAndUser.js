@@ -6,7 +6,7 @@ const SponsoredAndUser = () => {
   return (
     <SponsoredAndUserStyled>
       {/* SPONSORS */}
-      <Sponsors />
+      {/* <Sponsors /> */}
 
       {/*WHY CUSTOMERS LOVE  */}
       <div className="whyCustomersLove">

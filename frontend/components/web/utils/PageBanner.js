@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "../utils/Button";
 import TagItem from "./TagItem";
 
-const PageBanner = ({ title, content,price,category, additionalData }) => {
+const PageBanner = ({ title, content, price, category, additionalData }) => {
   return (
     <PageBannerStyled>
       <div>

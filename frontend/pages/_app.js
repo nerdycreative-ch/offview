@@ -5,13 +5,13 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthWrappercontext>
-      <Webcontext>
+    <Webcontext>
+      <AuthWrappercontext>
         <Dashboardcontext>
           <Component {...pageProps} />
         </Dashboardcontext>
-      </Webcontext>
-    </AuthWrappercontext>
+      </AuthWrappercontext>
+    </Webcontext>
   );
 }
 

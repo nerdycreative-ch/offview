@@ -5,12 +5,17 @@ import SponsoredAndUser from "../components/web/utils/SponsoredAndUser";
 import Exclusive from "../components/web/utils/Exclusive";
 import HowOffviewWorks from "../components/web/utils/HowOffviewWorks";
 import HomeHeader from "../components/web/utils/HomeHeader";
+import HomePageGreenSection from "../components/web/utils/HomePageGreenSection";
 
 const Home = () => {
   return (
     <HomeStyled>
       {/* HEADER */}
       <HomeHeader />
+
+      {/* GREEN CONTAINER */}
+
+      <HomePageGreenSection />
 
       {/* HOW OFFVIEW WORKS */}
       <HowOffviewWorks />

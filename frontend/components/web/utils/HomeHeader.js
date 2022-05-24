@@ -14,11 +14,9 @@ const HomeHeader = () => {
 
 const HomeHeaderStyled = styled.div`
   /* padding: 40px 11.25%; */
-  @media (max-width: 1199.98px) { 
-    display: none;
-   }
-
-   
+  @media (max-width: 1199.98px) {
+    /* display: none; */
+  }
 `;
 
 export default HomeHeader;

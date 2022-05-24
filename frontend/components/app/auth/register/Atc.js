@@ -17,14 +17,6 @@ const Atc = () => {
 
   const { userData, setUserData, submitDataToBackend } = useAuthContext();
 
-  const onSubmit = (values, onSubmitProps) => {
-    setUserData({
-      ...userData,
-      acceptAgreement: isAccepted ? true : false,
-    });
-    setIsOpen(true);
-  };
-
   return (
     <AtcStyled>
       {" "}
@@ -84,7 +76,10 @@ const Atc = () => {
             <Button
               title="Continue"
               disabled={!isAccepted}
-              onClick={onSubmit}
+              onClick={() => {
+                submitDataToBackend();
+                setIsOpen(true);
+              }}
             />
           </div>
         </div>

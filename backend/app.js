@@ -11,12 +11,17 @@ const imprint = require("./routes/imprintRoutes");
 const contact = require("./routes/contactRoutes");
 const faq = require("./routes/faqRoutes");
 const about = require("./routes/aboutRoutes");
+const cors = require("cors")
 const {
   requireAuth,
   // checkRole,
   checkUser,
 } = require("./middleware/authMiddleware");
 require(`dotenv`).config();
+
+
+//cors
+app.use(cors())
 
 //import passport middleware
 require("./middleware/passport");
@@ -29,6 +34,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //view-engine
 app.set("view engine", "ejs");

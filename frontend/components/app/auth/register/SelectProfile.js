@@ -13,7 +13,14 @@ import { useRouter } from "next/router";
 const SelectProfile = ({ changeStep }) => {
   const Router = useRouter();
 
-  const { userData, setUserData } = useAuthContext();
+  const {
+    userData,
+    setUserData,
+    singleCategory,
+    setSingleCategory,
+    singleTypeCategory,
+    setSingleTypeCategory,
+  } = useAuthContext();
 
   const [heightOfScreen, setHeightOffScreen] = useState(0);
 
@@ -41,9 +48,14 @@ const SelectProfile = ({ changeStep }) => {
 
   const [typeOfCat, setTypeOfCat] = useState([
     {
-      id: 5,
+      id: 4,
       name: "Private",
       key: "private",
+    },
+    {
+      id: 5,
+      name: "Owner",
+      key: "owner",
     },
     {
       id: 6,
@@ -52,8 +64,8 @@ const SelectProfile = ({ changeStep }) => {
     },
   ]);
 
-  const [singleCategory, setSingleCategory] = useState(0);
-  const [singleTypeCategory, setSingleTypeCategory] = useState(0);
+  // const [singleCategory, setSingleCategory] = useState("");
+  // const [singleTypeCategory, setSingleTypeCategory] = useState("");
 
   const onClick = () => {
     changeStep();
@@ -109,7 +121,7 @@ const SelectProfile = ({ changeStep }) => {
             >
               <p className={`smallText`}>How are you going to use offview?</p>
               <div className="radioButtonGroup">
-                {typeOfCat.map((item, index) => {
+                {/* {typeOfCat.map((item, index) => {
                   return (
                     <BigRadioButton
                       onClick={() => setSingleTypeCategory(item.key)}
@@ -122,7 +134,42 @@ const SelectProfile = ({ changeStep }) => {
                       nameOfCat="PC"
                     />
                   );
-                })}
+                })} */}
+
+                {singleCategory == "investor" ? (
+                  <BigRadioButton
+                    onClick={() => setSingleTypeCategory("private")}
+                    // key={index}
+                    width={45}
+                    type="Private"
+                    height={116}
+                    PCactiveLink={singleTypeCategory}
+                    // id={item.id}
+                    nameOfCat="PC"
+                  />
+                ) : (
+                  <BigRadioButton
+                    onClick={() => setSingleTypeCategory("owner")}
+                    // key={index}
+                    width={45}
+                    type="Owner"
+                    height={116}
+                    PCactiveLink={singleTypeCategory}
+                    // id={item.id}
+                    nameOfCat="PC"
+                  />
+                )}
+
+                <BigRadioButton
+                  onClick={() => setSingleTypeCategory("company")}
+                  // key={index}
+                  width={45}
+                  type="Company"
+                  height={116}
+                  PCactiveLink={singleTypeCategory}
+                  // id={item.id}
+                  nameOfCat="PC"
+                />
               </div>
             </div>
           </div>

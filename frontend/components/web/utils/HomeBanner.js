@@ -44,11 +44,16 @@ const HomeBannerStyled = styled.div`
   .banner {
     padding: 200px 0;
     width: 100%;
-    background: url("../../../assets/images/web/homebannerHeader.png");
+    background: url("../../../assets/images/web/shapeHomePageBanner.png");
     background-repeat: no-repeat;
-    background-position: right bottom;
+    background-position: left bottom;
+    background-size: contain;
 
     padding-bottom: 400px;
+  }
+  .leftSideContent {
+    border-left: 1px solid #e1e1e1;
+    padding-left: 40px;
   }
 
   .banner .title {
@@ -88,6 +93,28 @@ const HomeBannerStyled = styled.div`
     color: #175041;
     cursor: pointer;
   }
+  @media (max-width: 991.98px) {
+    padding: 0 20px;
+
+    .leftSideContent {
+      width: 100%;
+      max-width: 420px;
+    }
+    .leftSideContent .title {
+      font-size: 22px;
+      line-height: 34px;
+    }
+    .banner {
+      background-position: left;
+      padding: 40px 0;
+      padding-bottom: 200px;
+    }
+  }
+  .leftSideContent {
+    border-left: 1px solid #e1e1e1;
+    padding-left: 20px;
+  }
+
 `;
 
 export default HomeBanner;

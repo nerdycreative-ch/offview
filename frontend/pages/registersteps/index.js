@@ -7,6 +7,8 @@ import AuthLeftSideContainer from "../../components/app/wrappers/AuthLeftSideCon
 import { useRouter } from "next/router";
 
 import { useDashboardContext } from "../../context/dashboard";
+import { useAuthContext } from "../../context/auth";
+import CompanyDetails from "../../components/app/auth/register/CompanyDetails";
 
 const Register = () => {
   const router = useRouter();
@@ -16,8 +18,12 @@ const Register = () => {
 
   const [formStep, setFormStep] = useState(1);
 
+  const { singleCategory, singleTypeCategory } = useAuthContext();
+
   const { stepsActiveLink, setStepsActiveLink, changeStep } =
     useDashboardContext();
+
+  const { usersData, setUsersData } = useAuthContext();
 
   // const changeStep = () => {
   //   setFormStep((prev) => prev + 1);
@@ -26,50 +32,52 @@ const Register = () => {
 
   return (
     <RegisterStepsStyled>
-      {/* {stepsActiveLink == 1 && (
-        <SelectProfile
-          changeStep={() => setStepsActiveLink((prev) => prev + 1)}
-        />
-      )} */}
-
       {page == "selectprofile" && (
         <SelectProfile
           changeStep={() => setStepsActiveLink((prev) => prev + 1)}
         />
       )}
 
-      {page == "userdetails" && (
-        <UserDetails
-          changeStep={() => setStepsActiveLink((prev) => prev + 1)}
-        />
-      )}
+      {page == "userdetails" &&
+        singleCategory == "investor" &&
+        singleTypeCategory == "private" && (
+          <UserDetails
+            privateDetails={singleTypeCategory == "private" ? true : false}
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
+        )}
+      {page == "userdetails" &&
+        singleCategory == "seller" &&
+        singleTypeCategory == "owner" && (
+          <UserDetails
+            privateDetails={singleTypeCategory == "private" ? true : false}
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
+        )}
+      {page == "userdetails" &&
+        singleCategory == "investor" &&
+        singleTypeCategory == "company" && (
+          <CompanyDetails
+            whichType={singleCategory == "investor" && true}
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
+        )}
+
+      {page == "userdetails" &&
+        singleCategory == "seller" &&
+        singleTypeCategory == "company" && (
+          <CompanyDetails
+            whichType={singleCategory == "seller" && false}
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
+        )}
 
       {page == "atc" && <Atc changeStep={changeStep} />}
-
-      {/* 
-      {stepsActiveLink == 2 && (
-        <UserDetails
-          changeStep={() => setStepsActiveLink((prev) => prev + 1)}
-        />
-      )} */}
-      {/* {stepsActiveLink == 3 && <Atc changeStep={changeStep} />} */}
-
-      {/* <UserDetails privateDetails={true} /> */}
-      {/* <Atc /> */}
     </RegisterStepsStyled>
   );
 };
 
 const RegisterStepsStyled = styled.div`
-  /* display: flex;
-  justify-content: center;
-
-  .rightSideRegister {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  } */
   .btnContainer {
     margin-top: 40px;
     width: 100%;
