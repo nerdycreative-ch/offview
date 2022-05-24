@@ -20,10 +20,10 @@ const advertisement_Get = async (req, res) => {
   try {
     const id = req.params.id;
     const advertisement = await Advertisement.findOne({ _id: id });
-    res.status(200).json({ advertisement });
+    return res.status(200).json({ advertisement });
   } catch (error) {
     console.log(error);
-    res
+    return res
       .status(500)
       .json({ success: false, message: "Error getting the advertisement" });
   }
@@ -38,9 +38,9 @@ const advertisement_Get = async (req, res) => {
 const advertisement_GetAll = async (req, res) => {
   try {
     const advertisements = await Advertisement.find({});
-    res.status(200).json({ advertisements });
+    return res.status(200).json({ advertisements });
   } catch (error) {
-    res
+    return res
       .status(500)
       .json({ success: false, message: "Error getting all advertisements" });
   }
@@ -57,7 +57,7 @@ const advertisement_Post = async (req, res) => {
 };
 
 /**
- * @description Edit user
+ * @description Edit advertisenent
  * @type PATCH
  * @url /advertisement/dashboard/edit/:id
  */
@@ -69,17 +69,19 @@ const advertisement_Patch = async (req, res) => {
     const advertisement = await Advertisement.findOne({ _id: id });
     await Object.assign(advertisement, body);
     await advertisement.save();
-    res.status(200).json({ success: true, message: "Edited successfully" });
+    return res
+      .status(200)
+      .json({ success: true, message: "Edited successfully" });
   } catch (error) {
     console.log(error);
-    res
+    return res
       .status(500)
       .json({ success: false, message: "Error editing advertisement" });
   }
 };
 
 /**
- * @description Delete user
+ * @description Delete advertisement
  * @type DELETE
  * @url /advertisement/dashboard/delete/:id
  */
@@ -88,10 +90,12 @@ const advertisement_Delete = async (req, res) => {
   try {
     const id = req.params.id;
     const advertisement = await Advertisement.deleteOne({ _id: id });
-    res.status(200).json({ success: true, message: "Deleted successfully" });
+    return res
+      .status(200)
+      .json({ success: true, message: "Deleted successfully" });
   } catch (error) {
     console.log(error);
-    res
+    return res
       .status(500)
       .json({ success: false, message: "Error editing advertisement" });
   }

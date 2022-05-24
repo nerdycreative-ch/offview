@@ -8,15 +8,15 @@ const {
 } = require("../controller/advertisementController");
 
 // route to get one advertisement
-router.get("/advertisement/dashboard/getOne/:id", advertisement_Get);
+router.get("/dashboard/getOne/:id", advertisement_Get);
 // route to get all advertisements
-router.get("/advertisement/dashboard/getAll", advertisement_GetAll);
+router.get("/dashboard/getAll", advertisement_GetAll);
 // route to post an advertisement
-router.post("/advertisement/dashboard/createAdvertisement", advertisement_Post);
+router.post("/dashboard/createAdvertisement", advertisement_Post);
 // route to edit an advertisement
-router.patch("/advertisement/dashboard/edit/:id", advertisement_Patch);
+router.patch("/dashboard/edit/:id", advertisement_Patch);
 // route to delete an advertisement
-router.delete("/advertisement/dashboard/delete/:id", advertisement_Delete);
+router.delete("/dashboard/delete/:id", advertisement_Delete);
 // route to search an advertisement
 
 module.exports = router;

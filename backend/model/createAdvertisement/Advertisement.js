@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const geocoder = require("../../functions/geocodingMap");
 
 const baseOptions = {
   discriminatorKey: "__type",
@@ -41,6 +42,27 @@ const advertisementBaseSchema = mongoose.model(
         type: String,
         required: true,
       },
+      address: {
+        type: String,
+        required: [true, "Please enter an address"],
+      },
+      location: {
+        type: {
+          type: String,
+          enum: ["Point"],
+        },
+        coordinates: {
+          type: [Number],
+          index: "2dsphere",
+        },
+        formattedAddress: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
 
       //third part
       totalActualRentalIncome: {
@@ -52,11 +74,11 @@ const advertisementBaseSchema = mongoose.model(
         required: true,
       },
       image: {
-        type: String,
+        type: String, //url s3 bucket
         required: true,
       },
       file: {
-        type: String,
+        type: String, //url s3 bucket
         required: true,
       },
       typeOfFile: {
@@ -75,6 +97,21 @@ const advertisementBaseSchema = mongoose.model(
     { timestamps: true }
   )
 );
+
+advertisementBaseSchema.schema.pre("save", async function (next) {
+  const locat = await geocoder.geocode(this.address);
+  this.location = {
+    type: "Point",
+    coordinates: [locat[0].longitude, locat[0].latitude],
+    formattedAddress: locat[0].formattedAddress,
+  };
+
+  //address is not needed
+  this.address = undefined;
+
+  next();
+});
+
 //Type:invesment
 const invesmentCommercialSchema = advertisementBaseSchema.discriminator(
   "iCommercial",
