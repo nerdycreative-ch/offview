@@ -74,6 +74,9 @@ const NavbarStyled = styled.nav`
     font-size: 14px;
     line-height: 18px;
     color: var(--Grey-500);
+    border-bottom: 1px solid var(--greenToBlack);
+    padding-bottom: 5px;
+    border-radius: 1px;
   }
   .rightSide {
     display: flex;

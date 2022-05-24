@@ -111,7 +111,7 @@ const HowOffviewWorks = () => {
         </div>
         <div className="rightSide">
           {console.log(filter.image)}
-          <img src={filter.image} alt="asd" />
+          <img src={filter.image} alt="" />
           {/* searchProfileScreen */}
         </div>
       </div>
@@ -121,6 +121,7 @@ const HowOffviewWorks = () => {
 
 const HowOffviewWorksStyled = styled.div`
   padding: 128px 11.25%;
+  margin-top: 300px;
 
   .topContainer .title {
     font-weight: 700;
@@ -190,7 +191,27 @@ const HowOffviewWorksStyled = styled.div`
     height: 400px;
   }
   @media (max-width: 1199.98px) {
-    display: none;
+    /* display: none; */
+
+    padding: 40px 5%;
+
+    .bottomContainer {
+      display: flex;
+      flex-direction: column;
+      margin-top: 64px;
+    }
+    .bottomContainer .rightSide {
+      flex: 1;
+      height: 242px;
+    }
+    .rightSide img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  @media (max-width: 991.98px) {
+    margin-top: 100px;
+
   }
 `;
 

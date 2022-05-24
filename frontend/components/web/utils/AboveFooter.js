@@ -18,7 +18,7 @@ const AboveFooter = () => {
             <p>FAQ</p>
           </Link>
           <Link href="/contact">
-            <div>
+            <div className="greenContactUs">
               <Button text="Contact Us" green />
             </div>
           </Link>
@@ -93,6 +93,10 @@ const AboveFooterStyled = styled.div`
   @media (max-width: 575.98px) {
     .leftSideAbovePart {
       width: 300px;
+    }
+    .greenContactUs {
+      order: -1;
+      margin-right: 32px;
     }
   }
   @media (max-width: 376.98px) {

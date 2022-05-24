@@ -57,12 +57,34 @@ const ExclusiveStyled = styled.div`
   }
 
   @media (max-width: 991.98px) {
+    display: flex;
+    flex-direction: column;
     .exclusiveLeftSide {
       width: 100%;
     }
     .exclusiveRightSide {
-      display: none;
+      width: 100%;
+      padding-right: 0%;
+      position: relative;
     }
+    .exclusiveRightSide img {
+      width: 100%;
+      height: 123.74px;
+      margin-top: 52px;
+    }
+    /* .exclusiveRightSide {
+      display: none;
+    } */
+  }
+  @media (max-width: 575.98px) {
+    padding: 40px 10%;
+
+    .title,
+    .btnContainer {
+      text-align: center;
+    }
+
+
   }
 `;
 

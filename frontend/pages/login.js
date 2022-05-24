@@ -28,7 +28,7 @@ const Login = () => {
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
-    password: Yup.string().required("Password is required").min(6),
+    password: Yup.string().required("Password is required").min(8),
   });
 
   const onSubmit = (values, onSubmitProps) => {

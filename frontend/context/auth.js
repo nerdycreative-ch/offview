@@ -7,13 +7,17 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthWrappercontext = ({ children }) => {
+  // SELECT PROFILE
+  const [singleCategory, setSingleCategory] = useState("");
+  const [singleTypeCategory, setSingleTypeCategory] = useState("");
+
   const [registerSteps, setRegisterSteps] = useState(1);
 
   const [userData, setUserData] = useState({});
 
   const globalValues = {
-    email: "",
-    password: "",
+    // email: "",
+    // password: "",
     title: "",
     firstname: "",
     lastname: "",
@@ -22,6 +26,12 @@ export const AuthWrappercontext = ({ children }) => {
     no: "",
     zipcode: "",
     country: "",
+    companyname: "",
+    legalForm: "",
+    uid: "",
+    website: "",
+    position: "",
+    postalcode: "",
   };
 
   const registerValues = {
@@ -36,9 +46,9 @@ export const AuthWrappercontext = ({ children }) => {
       .required("Email is required"),
     password: Yup.string()
       .required("Password is required")
-      .min(6, "Password must be at least 6 characters"),
+      .min(8, "Password must be at least 8 characters"),
     ConfirmPassword: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
       .when("password", {
         is: (val) => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
@@ -58,6 +68,11 @@ export const AuthWrappercontext = ({ children }) => {
     no: Yup.string().required("No is required"),
     zipcode: Yup.string().required("Zip Code is required"),
     country: Yup.string().required("Country is required"),
+    companyname: Yup.string().required("Company Name is required"),
+    legalForm: Yup.string().required("Legal Form is required"),
+    uid: Yup.string().required("UID is required"),
+    website: Yup.string().required("Website is required"),
+    position: Yup.string().required("Position is required"),
   });
 
   const RegisterOnSubmit = (values, onSubmitProps) => {
@@ -66,9 +81,40 @@ export const AuthWrappercontext = ({ children }) => {
   };
 
   const submitDataToBackend = () => {
-    axios.post("url", {}).then((res) => {
-      console.log(res);
-    });
+    axios
+      .post(
+        "http://localhost:3000/users/signup",
+        {
+          companyName: userData.companyname,
+          legalForm: userData.legalForm,
+          UID: userData.uid,
+          title: userData.title,
+          firstName: userData.firstname,
+          lastName: userData.lastname,
+          phoneNumber: userData.phonenumber,
+          street: userData.streetaddress,
+          postalCode: userData.postalcode,
+          country: userData.country,
+          email: userData.email,
+          password: userData.password,
+          mainrole: userData.singleCategory,
+          role: userData.singleTypeCategory,
+          website: userData.website,
+          postalcode: userData.postalcode,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   console.log(userData);
@@ -83,7 +129,11 @@ export const AuthWrappercontext = ({ children }) => {
         RegisterOnSubmit,
         userData,
         setUserData,
-        submitDataToBackend
+        submitDataToBackend,
+        singleCategory,
+        setSingleCategory,
+        singleTypeCategory,
+        setSingleTypeCategory,
       }}
     >
       {children}
