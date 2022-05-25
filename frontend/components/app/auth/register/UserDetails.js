@@ -14,7 +14,11 @@ import { useRouter } from "next/router";
 const UserDetails = ({ privateDetails, changeStep }) => {
   const Router = useRouter();
 
+  const { globalValues, UserValidationSchema, userData, setUserData } =
+    useAuthContext();
+
   const onSubmit = (values, onSubmitProps) => {
+    console.log("VALUES", values);
     setUserData({
       ...userData,
       title: values.title,
@@ -29,11 +33,9 @@ const UserDetails = ({ privateDetails, changeStep }) => {
 
     changeStep();
 
+    console.log("A PO A??");
     Router.push("/registersteps?page=atc");
   };
-
-  const { globalValues, UserValidationSchema, userData, setUserData } =
-    useAuthContext();
 
   const [heightOfScreen, setHeightOffScreen] = useState(0);
 

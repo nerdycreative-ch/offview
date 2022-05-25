@@ -2,10 +2,19 @@ import styled from "styled-components";
 import Footer from "../components/web/utils/Footer";
 import GreenContainer from "../components/web/utils/GreenContainer";
 import Header from "../components/web/utils/Header";
+import Head from "next/head";
 
 const About = () => {
   return (
     <AboutStyled>
+      <Head>
+        <title>About - Offview</title>
+        <meta
+          name="description"
+          content="Offview is a brokerage platform for real estate.The platform offer is aimed at prospective buyers and sellers of real estate."
+        />
+      </Head>
+
       {/* GREEN CONTAINER BANNER */}
       <Header
         title="About"
@@ -36,7 +45,7 @@ const About = () => {
         </div>
       </GreenContainer>
 
-      <div className="aboutTeam">
+      {/* <div className="aboutTeam">
         <div className="aboutTitleContainer">
           <h1 className="aboutTitle">Management Team</h1>
           <div className="verticalLine"></div>
@@ -83,7 +92,7 @@ const About = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* FOOTER */}
       <Footer />

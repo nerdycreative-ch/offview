@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { css } from "styled-components";
-
-// import asd from "../../../assets/images/web/selectProfileScreen.png";
+import Image from "next/image";
+import searchProfileScreen from "../../../public/assets/images/web/searchProfileScreen.png";
+import selectProfileScreen from "../../../public/assets/images/web/selectProfileScreen.png";
 
 const HowOffviewWorks = () => {
   const [isActive, setIsActive] = useState(1);
@@ -11,7 +11,7 @@ const HowOffviewWorks = () => {
     {
       id: 1,
       title: "Become a member",
-      image: "../../../assets/images/web/selectProfileScreen.png",
+      image: selectProfileScreen,
       data: [
         {
           id: 1,
@@ -30,7 +30,7 @@ const HowOffviewWorks = () => {
     {
       id: 2,
       title: "Search Profile",
-      image: "../../../assets/images/web/searchProfileScreen.png",
+      image: searchProfileScreen,
 
       data: [
         {
@@ -50,7 +50,7 @@ const HowOffviewWorks = () => {
     {
       id: 3,
       title: "Close Deals",
-      image: "../../../assets/images/web/selectProfileScreen.png",
+      image: selectProfileScreen,
       data: [
         {
           id: 1,
@@ -110,9 +110,14 @@ const HowOffviewWorks = () => {
           })}
         </div>
         <div className="rightSide">
-          {console.log(filter.image)}
-          <img src={filter.image} alt="" />
-          {/* searchProfileScreen */}
+          <div className="howOffViewWorksImage">
+            <Image
+              src={filter.image}
+              alt="dashboard img"
+              width={640}
+              height={400}
+            />
+          </div>
         </div>
       </div>
     </HowOffviewWorksStyled>
@@ -185,10 +190,14 @@ const HowOffviewWorksStyled = styled.div`
   }
   .bottomContainer .rightSide {
     flex: 1.6;
+    display: flex;
   }
-  .rightSide img {
-    width: 640px;
-    height: 400px;
+  .howOffViewWorksImage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
   }
   @media (max-width: 1199.98px) {
     /* display: none; */
@@ -211,7 +220,6 @@ const HowOffviewWorksStyled = styled.div`
   }
   @media (max-width: 991.98px) {
     margin-top: 100px;
-
   }
 `;
 
