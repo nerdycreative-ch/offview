@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = ({ title, disabled, onClick,type }) => {
+const Button = ({ title, disabled, onClick, type }) => {
   return (
     <ButtonStyle
       style={{
@@ -8,7 +8,7 @@ const Button = ({ title, disabled, onClick,type }) => {
       }}
       disabled={disabled}
       onClick={onClick}
-      type={type ? "submit" : "button"}
+      type={type && "submit"}
     >
       {title}
     </ButtonStyle>

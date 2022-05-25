@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Footer from "../components/web/utils/Footer";
 import GreenContainer from "../components/web/utils/GreenContainer";
 import Header from "../components/web/utils/Header";
+import Head from "next/head";
 
 const PrivacyPolicy = () => {
   const data = [
@@ -37,6 +38,14 @@ const PrivacyPolicy = () => {
 
   return (
     <PrivacyPolicyStyled>
+      <Head>
+        <title>Privacy Policy - Offview</title>
+        <meta
+          name="description"
+          content="Offview is a brokerage platform for real estate.The platform offer is aimed at prospective buyers and sellers of real estate."
+        />
+      </Head>
+
       <Header title="Privacy Policy" />
       {/* GREEN CONTAINER */}
       <GreenContainer>

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { AuthWrappercontext } from "../context/auth";
 import { Dashboardcontext } from "../context/dashboard";
 import { Webcontext } from "../context/webContext";
@@ -8,7 +9,12 @@ function MyApp({ Component, pageProps }) {
     <Webcontext>
       <AuthWrappercontext>
         <Dashboardcontext>
-          <Component {...pageProps} />
+          <>
+            <Head>
+              <link rel="icon" href="/assets/images/web/greenLogo.svg"></link>
+            </Head>
+            <Component {...pageProps} />
+          </>
         </Dashboardcontext>
       </AuthWrappercontext>
     </Webcontext>

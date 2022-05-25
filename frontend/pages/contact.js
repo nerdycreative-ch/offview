@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import TextError from "../components/web/utils/TextError";
 import Header from "../components/web/utils/Header";
+import Head from "next/head";
 
 const Contact = () => {
   const initialValues = {
@@ -29,6 +30,14 @@ const Contact = () => {
 
   return (
     <ContactStyled>
+      <Head>
+        <title>Contact - Offview</title>
+        <meta
+          name="description"
+          content="If you have any questions we're here to help.Call us +41 (0) 123 4567 89 or offview@gmail.com.Adress : Rüeggisingerstrasse 19 CH-6020 Emmenbrücke"
+        />
+      </Head>
+
       <Header title="Contact" content="Needs help?" />
       <GreenContainer>
         <h1 className="contactInformation">Contact information</h1>

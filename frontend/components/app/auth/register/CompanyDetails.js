@@ -27,7 +27,9 @@ const CompanyDetails = ({ whichType }) => {
                 content="Please tell us some information about your company to accelerate the verification process."
               />
 
-              <Formik>
+              <Formik 
+                
+              >
                 {(formik) => {
                   return (
                     <Form>

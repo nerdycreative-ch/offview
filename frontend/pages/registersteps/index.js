@@ -20,10 +20,7 @@ const Register = () => {
 
   const { singleCategory, singleTypeCategory } = useAuthContext();
 
-  const { stepsActiveLink, setStepsActiveLink, changeStep } =
-    useDashboardContext();
-
-  const { usersData, setUsersData } = useAuthContext();
+  const { setStepsActiveLink, changeStep } = useDashboardContext();
 
   // const changeStep = () => {
   //   setFormStep((prev) => prev + 1);
@@ -46,6 +43,7 @@ const Register = () => {
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
         )}
+
       {page == "userdetails" &&
         singleCategory == "seller" &&
         singleTypeCategory == "owner" && (
@@ -54,6 +52,7 @@ const Register = () => {
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
         )}
+
       {page == "userdetails" &&
         singleCategory == "investor" &&
         singleTypeCategory == "company" && (

@@ -73,6 +73,7 @@ export const AuthWrappercontext = ({ children }) => {
     uid: Yup.string().required("UID is required"),
     website: Yup.string().required("Website is required"),
     position: Yup.string().required("Position is required"),
+    postalcode: Yup.string().required("Postal Code is required"),
   });
 
   const RegisterOnSubmit = (values, onSubmitProps) => {

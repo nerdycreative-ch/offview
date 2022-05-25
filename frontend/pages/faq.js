@@ -6,6 +6,7 @@ import GreenContainer from "../components/web/utils/GreenContainer";
 import Header from "../components/web/utils/Header";
 import Question from "../components/web/utils/Question";
 import Link from "next/link";
+import Head from "next/head";
 import TagItem from "../components/web/utils/TagItem";
 
 const Faq = () => {
@@ -54,6 +55,14 @@ const Faq = () => {
 
   return (
     <FaqStyled>
+      <Head>
+        <title>FAQ / PRICES - Offview</title>
+        <meta
+          name="description"
+          content="Welcome to our support center.Here you can find the most common asked questions.If you cannot find an answer, please contact us at @offview@gmail.com"
+        />
+      </Head>
+
       <Header
         title="FAQ"
         content="Overview of the frequently asked questions."
