@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 const HomeHeader = () => {
   return (
     <HomeHeaderStyled>
-      {/* <Navbar /> */}
+      <Navbar />
       <HomeBanner />
     </HomeHeaderStyled>
   );

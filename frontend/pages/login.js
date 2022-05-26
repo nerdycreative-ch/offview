@@ -96,7 +96,7 @@ const Login = () => {
         </Formik>
         <a className={`subTitle forgotPassword`}>Forgot Password?</a>
         <p className="doesNotHavAccount">
-          Don't have an account yet?
+          Dont have an account yet?
           <Link href="/register">
             <a className="signUpText">Create an account</a>
           </Link>
