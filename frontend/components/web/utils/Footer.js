@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="bothSide">
         <div className="leftSide">
           <div className="imgContainer">
-            <Link href="/home">
+            <Link href="/">
               <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" />
             </Link>
           </div>
