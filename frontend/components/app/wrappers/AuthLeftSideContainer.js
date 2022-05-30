@@ -1,8 +1,17 @@
 import styled from "styled-components";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const AuthLeftSideContainer = ({ login }) => {
+  const Router = useRouter();
+
+  console.log("LOGIN", Router.pathname);
+
+  useEffect(() => {
+
+  },[Router.pathname]);
+
   return (
     <AuthLeftSideContainerStyled>
       <div className="top">
@@ -12,22 +21,31 @@ const AuthLeftSideContainer = ({ login }) => {
           className="logo"
         />
         <h1 className="title">Welcome to offview</h1>
-        <p className="content">
-          The digital off-market platform for real estate. Become a member to
-          gain access to an exclusive network of off-market real estate and
-          international investors.
-        </p>
+        {(Router.pathname == "/register" || Router.pathname == "/login") && (
+          <p className="content">
+            The digital off-market platform for real estate. Become a member to
+            gain access to an exclusive network of off-market real estate and
+            international investors.
+          </p>
+        )}
       </div>
       <div className="bottom">
-        <p className={`text $whiteColor`}>
-          {login ? "Don't have an account yet?" : "Already have an account?"}
-        </p>
-        <button
-          className="btn"
-          onClick={() => Router.push(login ? "/register" : "/login")}
-        >
-          {login ? "Create an account" : "Login"}
-        </button>
+        {(Router.pathname == "/register" || Router.pathname == "/login") && (
+          <>
+            <p className={`text $whiteColor`}>
+              {login
+                ? "Don't have an account yet?"
+                : "Already have an account?"}
+            </p>
+            <button
+              className="btn"
+              onClick={() => Router.push(login ? "/register" : "/login")}
+            >
+              {login ? "Create an account" : "Login"}
+            </button>
+          </>
+        )}
+
         <div className="termsAndService">
           <ul className="links">
             <li className="singleLink">

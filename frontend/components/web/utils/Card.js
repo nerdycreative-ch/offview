@@ -85,6 +85,14 @@ const CardStyled = styled.div`
     line-height: 18px;
     color: var(--Grey-500);
   }
+
+  @media (max-width: 600px) {
+    width: 70%;
+  }
+
+  @media (max-width: 460px) {
+    width: 80%;
+  }
 `;
 
 export default Card;

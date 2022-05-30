@@ -63,7 +63,7 @@ const CardsList = () => {
     {
       id: 8,
       image: "../../../assets/images/web/homephoto.png",
-      title: "Parkdale House", 
+      title: "Parkdale House",
       content: "Preston Rd. Inglewood, Maine",
       price: 820.0,
       type: "for Rent",
@@ -97,17 +97,20 @@ const MainStyled = styled.div`
   padding: 80px 11.25%;
   display: grid;
   align-items: center;
+
+  @media (max-width: 696.98px) {
+    padding: 50px 5%;
+  }
 `;
 
 const CardsListStyled = styled.div`
-  .test {
-  }
-  /* padding: 80px 0; */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(261px, 1fr));
   gap: 1rem;
   align-items: center;
   justify-items: center;
+
+ 
 `;
 
 export default CardsList;

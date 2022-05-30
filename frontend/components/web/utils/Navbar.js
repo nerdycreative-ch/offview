@@ -6,13 +6,14 @@ import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("");
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const router = useRouter();
 
   console.log(router);
 
   return (
-    <NavbarStyled>
+    <NavbarStyled isDropDownOpen={isDropDownOpen}>
       <div className="borderLineNavbar">
         <div className="leftSide">
           <Link href="/">
@@ -22,12 +23,15 @@ const Navbar = () => {
               alt="logo"
             />
           </Link>
-          <ul className="navLinks">
+
+          <ul className={`navLinks ${isDropDownOpen && "showElementTest"} `}>
             <li className="singleNavLink">
               <Link href="/">
                 <a
                   className={`${
-                    ((router.pathname.length == 1) && "/home") ? "activeNavLink" : ""
+                    router.pathname.length == 1 && "/home"
+                      ? "activeNavLink"
+                      : ""
                   }`}
                 >
                   offview
@@ -69,17 +73,38 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="rightSide">
+        <div className="rightSide ">
           <Link href="/login">
             <a>Login</a>
           </Link>
           <Link href="/register">
-            <div className="registerBtnContainer">
-              <Button text="Become a member" green />
+            <div className="showElement">
+              <div className="registerBtnContainer ">
+                <Button text="Become a member" green />
+              </div>
             </div>
           </Link>
+          {!isDropDownOpen && (
+            <img
+              src="../../../assets/images/web/dropdownHamburgerMenu.svg"
+              alt=""
+              className="hamburgerMenu"
+              onClick={() => setIsDropDownOpen(!isDropDownOpen)}
+            />
+          )}
+          {isDropDownOpen && (
+            <img
+              src="../../../assets/images/web/greyXicon.png"
+              alt=""
+              className="closeBtn"
+              onClick={() => setIsDropDownOpen(false)}
+            />
+          )}
         </div>
       </div>
+      {isDropDownOpen && <div className="registerBtnContainer btnOpenDropDownMenu">
+        <Button text="Become a member" green width="72%" />
+      </div>}
     </NavbarStyled>
   );
 };
@@ -99,7 +124,7 @@ const NavbarStyled = styled.nav`
   }
 
   .activeNavLink {
-    border-bottom: 2px solid green;
+    border-bottom: 2px solid var(--greenToBlack);
     padding-bottom: 33.5px;
   }
 
@@ -130,6 +155,87 @@ const NavbarStyled = styled.nav`
   }
   .registerBtnContainer {
     margin-left: 24px;
+  }
+  .hamburgerMenu {
+    display: none;
+  }
+  .closeBtn {
+    display: none;
+  }
+  .btnOpenDropDownMenu {
+    display: none;
+  }
+  @media (max-width: 991.98px) {
+    background: #ffffff;
+    box-shadow: 0px 24px 128px -24px rgba(0, 0, 0, 0.08);
+
+    /* height: ${(props) => (props.isDropDownOpen ? "55vh" : "10vh")}; */
+    padding-bottom: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    .borderLineNavbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0px 7%;
+      border-bottom: 0;
+
+      padding-bottom: 0;
+      padding-top: 40px;
+    }
+
+    .leftSide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .navLinks {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      display: none;
+    }
+    .singleNavLink {
+      margin-top: 40px;
+    }
+    .showElement {
+      display: none;
+    }
+    .showElementTest {
+      display: block;
+    }
+    .registerBtnContainer {
+      display: flex;
+    }
+    .hamburgerMenu {
+      margin-left: 35px;
+      display: block;
+      cursor: pointer;
+      padding: 5px;
+    }
+    .closeBtn {
+      margin-left: 35px;
+      display: block;
+      padding: 5px;
+      cursor: pointer;
+    }
+    .rightSide {
+      display: flex;
+      align-self: flex-start;
+    }
+    .activeNavLink {
+      padding-bottom: 12.5px;
+    }
+    .btnOpenDropDownMenu {
+      width: 100%;
+      margin-left: 0px;
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+
+    }
   }
 `;
 
