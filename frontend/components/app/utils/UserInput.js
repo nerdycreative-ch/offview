@@ -9,8 +9,6 @@ const UserInput = ({
   icon,
   marginTop = 14,
   placeholder,
-  value,
-  onChange,
   name,
 }) => {
   return (

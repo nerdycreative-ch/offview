@@ -32,9 +32,7 @@ const HeaderStyled = styled.div`
   .pageBannerContainer {
     padding: 40px 11.25% 0 11.25%;
   }
-  @media (max-width: 1199.98px) {
-    display: none;
-  }
+ 
 `;
 
 export default Header;

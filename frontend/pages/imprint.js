@@ -18,8 +18,6 @@ const Imprint = () => {
 
   return (
     <ImprintStyled>
-
-
       <Head>
         <title>Imprint - Offview</title>
         <meta
@@ -27,7 +25,6 @@ const Imprint = () => {
           content="If you have any questions we're here to help.Call us +41 (0) 123 4567 89 or offview@gmail.com.Adress : Rüeggisingerstrasse 19 CH-6020 Emmenbrücke"
         />
       </Head>
-
 
       <Header title="Imprint" content="/" />
       <GreenContainer>

@@ -7,6 +7,7 @@ import HowOffviewWorks from "../components/web/utils/HowOffviewWorks";
 import HomeHeader from "../components/web/utils/HomeHeader";
 import HomePageGreenSection from "../components/web/utils/HomePageGreenSection";
 import Head from "next/head";
+import Explore from "../components/web/utils/Explore";
 
 const Home = () => {
   return (
@@ -28,6 +29,10 @@ const Home = () => {
 
       {/* HOW OFFVIEW WORKS */}
       <HowOffviewWorks />
+
+      {/* EXPLORE */}
+      <Explore />
+
 
       {/* EXCLUSIVE INVESTORS AND SELLERS */}
       <Exclusive />

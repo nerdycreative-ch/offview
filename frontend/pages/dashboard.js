@@ -46,6 +46,7 @@ const Dashboard = () => {
           content="Get an overview on what is happening right now."
           plusButtonTitle="Create"
           href=""
+          dropdownMenu
         />
 
         {/* CONTENT */}

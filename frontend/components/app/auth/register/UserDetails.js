@@ -19,6 +19,10 @@ const UserDetails = ({ privateDetails, changeStep }) => {
 
   const onSubmit = (values, onSubmitProps) => {
     console.log("VALUES", values);
+
+    changeStep();
+
+
     setUserData({
       ...userData,
       title: values.title,
@@ -31,7 +35,6 @@ const UserDetails = ({ privateDetails, changeStep }) => {
       country: values.country,
     });
 
-    changeStep();
 
     console.log("A PO A??");
     Router.push("/registersteps?page=atc");
@@ -161,7 +164,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                           </div>
                         </div>
                         <div style={{ marginTop: 30 }}>
-                          <Button type="submit" title="Continue" />
+                          <Button type="submit" title="Continue" onClick={onSubmit} />
                         </div>
                       </Form>
                     );

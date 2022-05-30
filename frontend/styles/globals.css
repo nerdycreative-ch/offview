@@ -64,6 +64,16 @@ a {
   margin-top: 8px;
 }
 
+.customScroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+
+.customScroll::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border-radius: 12px;
+}
+
 @font-face {
   font-family: "Messina Sans";
   src: url("../public/assets/fonts/MessinaSans-Bold.ttf");
