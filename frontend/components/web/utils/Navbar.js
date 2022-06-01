@@ -4,7 +4,7 @@ import Link from "next/link";
 import Button from "./Button";
 import { useRouter } from "next/router";
 
-const Navbar = () => {
+const Navbar = ({propertyDetail}) => {
   const [activeLink, setActiveLink] = useState("");
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -13,7 +13,7 @@ const Navbar = () => {
   console.log(router);
 
   return (
-    <NavbarStyled isDropDownOpen={isDropDownOpen}>
+    <NavbarStyled isDropDownOpen={isDropDownOpen} propertyDetail={propertyDetail}>
       <div className="borderLineNavbar">
         <div className="leftSide">
           <Link href="/">
@@ -102,15 +102,25 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      {isDropDownOpen && <div className="registerBtnContainer btnOpenDropDownMenu">
-        <Button text="Become a member" green width="72%" />
-      </div>}
+      {isDropDownOpen && (
+        <Link href="/register">
+          <div className="registerBtnContainer btnOpenDropDownMenu">
+            <Button text="Become a member" green width="72%" />
+          </div>
+        </Link>
+      )}
     </NavbarStyled>
   );
 };
 
 const NavbarStyled = styled.nav`
   /* margin-bottom: 160px; */
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
 
   .borderLineNavbar {
     display: flex;
@@ -130,6 +140,7 @@ const NavbarStyled = styled.nav`
 
   .leftSide {
     display: flex;
+
   }
   .logo {
     cursor: pointer;
@@ -166,12 +177,9 @@ const NavbarStyled = styled.nav`
     display: none;
   }
   @media (max-width: 991.98px) {
-    background: #ffffff;
-    box-shadow: 0px 24px 128px -24px rgba(0, 0, 0, 0.08);
-
     /* height: ${(props) => (props.isDropDownOpen ? "55vh" : "10vh")}; */
     padding-bottom: 30px;
-
+    background: ${(props) => props.isDropDownOpen && "#ffffff"};
     display: flex;
     flex-direction: column;
 
@@ -234,7 +242,6 @@ const NavbarStyled = styled.nav`
       display: flex;
       justify-content: center;
       margin-top: 32px;
-
     }
   }
 `;

@@ -34,7 +34,7 @@ const RightSideContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 48px 40px;
+  padding: 48px 0px;
   margin-left: 250px;
 }
 

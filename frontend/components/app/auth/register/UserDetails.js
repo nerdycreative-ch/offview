@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import BackButton from "../../utils/BackButton";
-import Button from "../../utils/Button";
+import Button from "../../../web/utils/Button";
 import RegisterTitle from "../../utils/RegisterTitle";
 import StepsNumber from "../../utils/StepsNumber";
 import SubTitle from "../../utils/SubTitle";
 import UserInput from "../../utils/UserInput";
 import styled from "styled-components";
 import AuthContainer from "../../wrappers/AuthContainer";
-import { Form, Formik } from "formik";
+import { Formik, Form } from "formik";
 import { useAuthContext } from "../../../../context/auth";
 import { useRouter } from "next/router";
 
@@ -22,7 +22,6 @@ const UserDetails = ({ privateDetails, changeStep }) => {
 
     changeStep();
 
-
     setUserData({
       ...userData,
       title: values.title,
@@ -34,7 +33,6 @@ const UserDetails = ({ privateDetails, changeStep }) => {
       zipcode: values.zipcode,
       country: values.country,
     });
-
 
     console.log("A PO A??");
     Router.push("/registersteps?page=atc");
@@ -89,6 +87,9 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                     return (
                       <Form>
                         <UserInput labelName="Title" type="text" name="title" />
+
+                        {/* <Field type="text" name="fullName" id="fullName" />
+                <ErrorMessage name="fullName" component={TextError} /> */}
 
                         <div
                           style={{
@@ -164,8 +165,9 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                           </div>
                         </div>
                         <div style={{ marginTop: 30 }}>
-                          <Button type="submit" title="Continue" onClick={onSubmit} />
+                          <Button type="submit" text="Continue" green width="100%"  />
                         </div>
+                        <button type="submit">submit</button>
                       </Form>
                     );
                   }}
