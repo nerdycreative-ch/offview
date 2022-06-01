@@ -9,6 +9,7 @@ import WhiteBackButton from "../utils/WhiteBackButton";
 import ExitButton from "../utils/ExitButton";
 import UserInput from "../utils/UserInput";
 import MapView from "../utils/MapView";
+import { Formik } from "formik";
 
 const FirstArea = ({ changeStep }) => {
   return (
@@ -24,51 +25,82 @@ const FirstArea = ({ changeStep }) => {
             content="We use this data to calculate matches with purchase profiles of potential buyers."
           />
 
-          <UserInput labelName="Title" placeholder="ex. House" />
+          <Formik>
+            {(formik) => {
+              return (
+                <>
+                  <UserInput
+                    labelName="Title"
+                    placeholder="ex. House"
+                    name="title"
+                  />
 
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ width: "48%" }}>
+                      <UserInput
+                        labelName="Street"
+                        type="text"
+                        placeholder="Address"
+                        name="address"
+                      />
+                    </div>
+                    <div style={{ width: "48%" }}>
+                      <UserInput
+                        labelName="No *"
+                        type="text"
+                        placeholder="00"
+                        name="no"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                    className=""
+                  >
+                    <div style={{ width: "26%" }}>
+                      <UserInput
+                        labelName="Postcode *"
+                        type="text"
+                        placeholder="012345"
+                        name="postcode"
+                      />
+                    </div>
+                    <div style={{ width: "71%" }}>
+                      <UserInput
+                        labelName="Town *"
+                        type="text"
+                        placeholder="Select town"
+                        name="town"
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: 40 }}>
+                    <MapView />
+                  </div>
+
+                  {/* BUTTON CONTAINER */}
+                  <div className="buttonContainer">
+                    <WhiteBackButton />
+                    <div style={{ width: 110, marginLeft: 16 }}>
+                      <Button title="Continue" onClick={changeStep} />
+                    </div>
+                  </div>
+                </>
+              );
             }}
-          >
-            <div style={{ width: "48%" }}>
-              <UserInput labelName="Street" type="text" placeholder="Address" />
-            </div>
-            <div style={{ width: "48%" }}>
-              <UserInput labelName="No *" type="text" placeholder="00" />
-            </div>
-          </div>
-
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ width: "25%" }}>
-              <UserInput labelName="Postcode *" type="text" placeholder="012345" />
-            </div>
-            <div style={{ width: "71%" }}>
-              <UserInput labelName="Town *" type="text" placeholder="Select town" />
-            </div>
-          </div>
-
-          <div style={{marginTop: 40}}>
-            <MapView />
-          </div>
-
-          {/* BUTTON CONTAINER */}
-          <div className="buttonContainer">
-            <WhiteBackButton />
-            <div style={{ width: 110, marginLeft: 16 }}>
-              <Link href="/searchsteps" passHref>
-                <Button title="Continue" onClick={changeStep} />
-              </Link>
-            </div>
-          </div>
+          </Formik>
         </div>
       </FirstAreaStyled>
     </AppContainer>
@@ -132,6 +164,17 @@ const FirstAreaStyled = styled.div`
   }
   @media (max-width: 767.98px) {
     padding: 0 5%;
+  }
+  @media (max-width: 767.98px) {
+    padding: 0 5%;
+  }
+  @media (max-width: 575.98px) {
+    padding: 0%;
+
+    .buttonContainer {
+      display: flex;
+      justify-content: center;
+    }
   }
 `;
 

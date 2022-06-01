@@ -45,55 +45,7 @@ const About = () => {
         </div>
       </GreenContainer>
 
-      {/* <div className="aboutTeam">
-        <div className="aboutTitleContainer">
-          <h1 className="aboutTitle">Management Team</h1>
-          <div className="verticalLine"></div>
-        </div>
-
-        <div className="workersContainer">
-          <div className="singleWorker">
-            <img src="../assets/images/web/person1.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Albert Flores</p>
-              <p className="position">CEO Co-founder</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person2.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Dianne Russell</p>
-              <p className="position">CEO Co-founder</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person3.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Robert Fox</p>
-              <p className="position">CFO</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person4.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Courtney Henry</p>
-              <p className="position">Head of Sales</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person5.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Brooklyn Simmons</p>
-              <p className="position">Tech Lead</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
+   
       {/* FOOTER */}
       <Footer />
     </AboutStyled>
@@ -101,7 +53,6 @@ const About = () => {
 };
 
 const AboutStyled = styled.div`
-  color: var(--whiteColor);
 
   .aboutContentContainer {
     margin-top: 80px;

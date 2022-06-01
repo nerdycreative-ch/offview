@@ -6,6 +6,7 @@ import { useWebContext } from "../context/webContext";
 import MakeAnOfferModal from "../components/web/utils/MakeAnOfferModal";
 import Modal from "../components/web/utils/Modal";
 import RegisterSuccessFullModal from "../components/app/auth/register/RegisterSuccessFullModal";
+import Navbar from "../components/web/utils/Navbar";
 
 const PropertyDetails = () => {
   const { modalIsOpen, setIsOpen } = useWebContext();
@@ -14,18 +15,27 @@ const PropertyDetails = () => {
 
   return (
     <PropertyDetailsStyled>
-
       {modalIsOpen && <MakeAnOfferModal />}
 
       {/* HEADER */}
 
-      <Header
-        title="Parkdale House"
-        content="Preston Rd. Inglewood, Maine"
-        price="820.000"
-        category="House"
-        additionalData
-      />
+        <Header
+          title="Parkdale House"
+          content="Preston Rd. Inglewood, Maine"
+          price="820.000"
+          category="House"
+          additionalData
+          propertyDetail
+        />
+
+      {/* <div className="propertyDetail">
+        <div className="leftSide">
+
+        </div>
+        <div className="rightSide">
+
+        </div>
+      </div> */}
 
       {/* IMAGE */}
       <div className="imageContainer">
@@ -78,6 +88,10 @@ const PropertyDetails = () => {
 };
 
 const PropertyDetailsStyled = styled.div`
+
+
+
+
   .imageContainer img {
     height: 540px;
     width: 100%;

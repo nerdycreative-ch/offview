@@ -6,6 +6,8 @@ import Price from "../components/app/searchProfile/price";
 import { useDashboardContext } from "../context/dashboard";
 import ASelectProfile from "../components/app/advertisements/ASelectProfile";
 import FirstArea from "../components/app/advertisements/FirstArea";
+import AIPliving from "../components/app/advertisements/AIPliving";
+import ThirdArea from "../components/app/advertisements/ThirdArea";
 
 const AdvertisementSteps = () => {
   const [formStep, setFormStep] = useState(1);
@@ -19,7 +21,7 @@ const AdvertisementSteps = () => {
         <LeftSideRegister />
       </div> */}
       <div className="rightSideRegister">
-        {stepsActiveLink == 1 && (
+        {/* {stepsActiveLink == 1 && (
           <ASelectProfile
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
@@ -28,9 +30,11 @@ const AdvertisementSteps = () => {
           <FirstArea
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
-        )}
-        {stepsActiveLink == 3 && (
-          <Price changeStep={() => setStepsActiveLink((prev) => prev + 1)} />
+        )} */}
+        {stepsActiveLink == 1 && (
+          <ThirdArea
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
         )}
       </div>
     </SearchStepsStyled>

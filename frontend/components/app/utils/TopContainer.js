@@ -62,7 +62,6 @@ const TopContainerStyled = styled.div`
 
   .dropDownContainer {
     position: relative;
-    background-color: red;
   }
   .dropdownMenu {
     width: 160px;

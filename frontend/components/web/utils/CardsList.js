@@ -109,8 +109,6 @@ const CardsListStyled = styled.div`
   gap: 1rem;
   align-items: center;
   justify-items: center;
-
- 
 `;
 
 export default CardsList;
