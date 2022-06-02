@@ -91,21 +91,15 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                         {/* <Field type="text" name="fullName" id="fullName" />
                 <ErrorMessage name="fullName" component={TextError} /> */}
 
-                        <div
-                          style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <div style={{ width: "46%" }}>
+                        <div className="inLineItems">
+                          <div className="singleItem">
                             <UserInput
                               labelName="First Name"
                               type="text"
                               name="firstname"
                             />
                           </div>
-                          <div style={{ width: "46%" }}>
+                          <div className="singleItem">
                             <UserInput
                               labelName="Last Name"
                               type="text"
@@ -113,6 +107,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                             />
                           </div>
                         </div>
+
                         <UserInput
                           labelName="Phone Number"
                           type="text"
@@ -149,7 +144,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                             justifyContent: "space-between",
                           }}
                         >
-                          <div style={{ width: "23%" }}>
+                          <div style={{ width: "29%" }}>
                             <UserInput
                               labelName="Zip Code"
                               type="text"
@@ -165,9 +160,13 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                           </div>
                         </div>
                         <div style={{ marginTop: 30 }}>
-                          <Button type="submit" text="Continue" green width="100%"  />
+                          <Button
+                            type="submit"
+                            text="Continue"
+                            green
+                            width="100%"
+                          />
                         </div>
-                        <button type="submit">submit</button>
                       </Form>
                     );
                   }}
@@ -201,13 +200,24 @@ const UserDetailsStyled = styled.div`
       display: flex;
       justify-content: center;
       padding: 40px 0;
-      width: 70%;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .inLineItems {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .singleItem {
+      width: 48%;
     }
   }
 
   @media (max-width: 575.98px) {
     .userDetailsContainer {
-      width: 90%;
+      width: 100%;
     }
   }
 `;

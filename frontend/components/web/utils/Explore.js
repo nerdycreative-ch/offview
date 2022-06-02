@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 import Button from "./Button";
 // import img from "../../../public/assets/images/web/greyLeftArrow.png"
@@ -28,7 +29,9 @@ const Explore = () => {
         <div className="propertyInformation">
           <h1>Property locked</h1>
           <p>To view properties you need to login.</p>
-          <Button text="Login to your account" green />
+          <Link href="/login">
+            <Button text="Login to your account" green />
+          </Link>
         </div>
       </div>
     </ExploreStyled>

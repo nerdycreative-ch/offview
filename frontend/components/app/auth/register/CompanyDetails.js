@@ -7,8 +7,40 @@ import UserInput from "../../utils/UserInput";
 import Button from "../../utils/Button";
 import RegisterTitle from "../../utils/RegisterTitle";
 import AuthContainer from "../../wrappers/AuthContainer";
+import { useAuthContext } from "../../../../context/auth";
+import { useRouter } from "next/router";
 
 const CompanyDetails = ({ whichType }) => {
+  const Router = useRouter();
+
+  const {
+    CompanyBasedValidationSchema,
+    CompanyValidationSchema,
+    userData,
+    setUserData,
+    globalValues,
+  } = useAuthContext();
+
+  const onSubmit = (values, onSubmitProps) => {
+    console.log("VALUES", values);
+
+    setUserData({
+      ...userData,
+      title: values.title,
+      ...(whichType && {
+        firstname: values.firstname,
+        lastname: values.lastname,
+      }),
+      companyName: values.companyName,
+      legalForm: values.legalForm,
+      UID: values.UID,
+      Website: values.Website,
+      Position: values.Position,
+    });
+
+    Router.push("/registersteps?page=atc");
+  };
+
   return (
     <CompanyDetailsStyled>
       <AuthContainer>
@@ -27,8 +59,13 @@ const CompanyDetails = ({ whichType }) => {
                 content="Please tell us some information about your company to accelerate the verification process."
               />
 
-              <Formik 
-                
+              <Formik
+                initialValues={globalValues}
+                validationSchema={
+                 CompanyBasedValidationSchema
+                }
+                onSubmit={onSubmit}
+                enableReinitialize
               >
                 {(formik) => {
                   return (
@@ -36,37 +73,37 @@ const CompanyDetails = ({ whichType }) => {
                       <UserInput
                         labelName="Company Name *"
                         type="text"
-                        name="companyname"
+                        name="companyName"
                         placeholder="ex. Real Estate"
                       />
                       <UserInput
                         labelName="Legal Form *"
                         type="text"
-                        name="legalform"
+                        name="legalForm"
                         placeholder="GmbH"
                       />
                       <UserInput
                         labelName="UID *"
                         type="text"
-                        name="uid"
+                        name="UID"
                         placeholder="UID"
                       />
                       <UserInput
                         labelName="Website"
                         type="text"
-                        name="website"
+                        name="Website"
                         placeholder="www.example.com"
                       />
                       <UserInput
                         labelName="Title *"
                         type="text"
-                        name="Select Title"
+                        name="title"
                         placeholder="Select Title"
                       />
                       <UserInput
                         labelName="Position *"
                         type="text"
-                        name="position"
+                        name="Position"
                         placeholder="ex. Manager"
                       />
 

@@ -26,11 +26,11 @@ export const AuthWrappercontext = ({ children }) => {
     no: "",
     zipcode: "",
     country: "",
-    companyname: "",
+    companyName: "",
     legalForm: "",
-    uid: "",
-    website: "",
-    position: "",
+    UID: "",
+    Website: "",
+    Position: "",
     postalcode: "",
   };
 
@@ -68,12 +68,21 @@ export const AuthWrappercontext = ({ children }) => {
     no: Yup.string().required("No is required"),
     zipcode: Yup.string().required("Zip Code is required"),
     country: Yup.string().required("Country is required"),
-    // companyname: Yup.string().required("Company Name is required"),
-    // legalForm: Yup.string().required("Legal Form is required"),
-    // uid: Yup.string().required("UID is required"),
-    // website: Yup.string().required("Website is required"),
-    // position: Yup.string().required("Position is required"),
-    // postalcode: Yup.string().required("Postal Code is required"),
+  });
+
+  const CompanyBasedValidationSchema = Yup.object({
+    companyName: Yup.string().required("Company Name is required"),
+    legalForm: Yup.string().required("Legal Form is required"),
+    UID: Yup.string().required("UID is required"),
+    Website: Yup.string().required("Website is required"),
+    title: Yup.string().required("Title is required"),
+    Position: Yup.string().required("Position  is required"),
+  });
+
+  const CompanyValidationSchema = Yup.object().shape({
+    ...CompanyBasedValidationSchema,
+    firstname: Yup.string().required("First Name is required"),
+    lastname: Yup.string().required("Last Name is required"),
   });
 
   const RegisterOnSubmit = (values, onSubmitProps) => {
@@ -135,6 +144,8 @@ export const AuthWrappercontext = ({ children }) => {
         setSingleCategory,
         singleTypeCategory,
         setSingleTypeCategory,
+        CompanyBasedValidationSchema,
+        CompanyValidationSchema,
       }}
     >
       {children}
