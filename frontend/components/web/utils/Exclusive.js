@@ -33,6 +33,7 @@ const ExclusiveStyled = styled.div`
 
   background: var(--whiteColor);
   position: relative;
+  top: -5px;
 
   .exclusiveLeftSide {
     width: 50%;

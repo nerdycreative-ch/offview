@@ -33,7 +33,6 @@ const Home = () => {
       {/* EXPLORE */}
       <Explore />
 
-
       {/* EXCLUSIVE INVESTORS AND SELLERS */}
       <Exclusive />
 

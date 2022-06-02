@@ -107,7 +107,7 @@ const FooterStyled = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex: 1;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 
   .title {
@@ -166,7 +166,7 @@ const FooterStyled = styled.div`
   }
 
   @media (max-width: 767.98px) {
-    padding: 40px 0%;
+    padding: 40px 10%;
     .bothSide {
       display: flex;
       flex-direction: column;
@@ -174,7 +174,6 @@ const FooterStyled = styled.div`
     .leftSide {
       display: flex;
       align-items: center;
-      justify-content: center;
     }
 
     .information {
@@ -191,7 +190,6 @@ const FooterStyled = styled.div`
     .bottomPart {
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
 
     .footerColumn {

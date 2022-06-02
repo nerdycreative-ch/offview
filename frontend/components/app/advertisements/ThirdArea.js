@@ -191,11 +191,11 @@ const ThirdAreaStyled = styled.div`
     }
 
     .inLineItems {
-        display: flex;
-        flex-direction: column;
+      display: flex;
+      flex-direction: column;
     }
     .singleItem {
-        width: 100%;
+      width: 100%;
     }
   }
 `;
