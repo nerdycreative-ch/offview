@@ -31,7 +31,7 @@ const Register = () => {
     <RegisterStepsStyled>
       {page == "selectprofile" && (
         <SelectProfile
-          changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          changeStep={() => setStepsActiveLink((prev) => page=="selectprofile" && prev + 1)}
         />
       )}
 

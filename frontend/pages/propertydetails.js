@@ -20,23 +20,14 @@ const PropertyDetails = () => {
 
       {/* HEADER */}
 
-        <Header
-          title="Parkdale House"
-          content="Preston Rd. Inglewood, Maine"
-          price="820.000"
-          category="House"
-          additionalData
-          propertyDetail
-        />
-
-      {/* <div className="propertyDetail">
-        <div className="leftSide">
-
-        </div>
-        <div className="rightSide">
-
-        </div>
-      </div> */}
+      <Header
+        title="Parkdale House"
+        content="Preston Rd. Inglewood, Maine"
+        price="820.000"
+        category="House"
+        additionalData
+        propertyDetail
+      />
 
       {/* IMAGE */}
       <div className="imageContainer">
@@ -90,10 +81,6 @@ const PropertyDetails = () => {
 };
 
 const PropertyDetailsStyled = styled.div`
-
-
-
-
   .imageContainer img {
     height: 540px;
     width: 100%;

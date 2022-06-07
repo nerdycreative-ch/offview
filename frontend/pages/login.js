@@ -10,8 +10,11 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "../components/web/utils/TextError";
 import Button from "../components/app/utils/Button";
+import axios from "axios";
 
 const Login = () => {
+  const [erorr, setError] = useState("");
+
   const initialValues = {
     email: "",
     password: "",
@@ -20,32 +23,59 @@ const Login = () => {
   const [errorResult, setErrorResult] = useState(false);
 
   const passwordValidation = {
-    email: "offview@gmail.com",
-    password: "offview123",
+    email: "",
+    password: "",
   };
 
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
-    password: Yup.string().required("Password is required").min(8),
+    password: Yup.string().required("Password is required").min(8,"Password must be at least 8 characters"),
   });
 
-  const onSubmit = (values, onSubmitProps) => {
-    if (
-      values.email == passwordValidation.password ||
-      values.password == passwordValidation.password
-    ) {
-      console.log("Form data", values);
+  const onSubmit = async (values, onSubmitProps) => {
+    try {
+      const url = "http://localhost:3000/users/login";
+
+      const { data: res } = await axios.post(url, {
+        email: values.email,
+        password: values.password,
+      });
+
+      console.log("RES", res);
+
+      localStorage.setItem("token", res.token);
+
       onSubmitProps.resetForm();
-      setErrorResult(false);
       Router.push("/dashboard");
-    } else {
-      setErrorResult(true);
-      setTimeout(() => {
-        setErrorResult(false);
-      }, 6000);
+    } catch (error) {
+      // if (
+      //   error.response &&
+      //   error.reponse.stauts >= 400 &&
+      //   error.response.status <= 500
+      // ) {
+      //   console.log("ERROR" , error);
+      //   setError(error.response.data.message);
+      // }
+      console.log("Erroasasdr", error);
+      setError("Email or password is not correct");
     }
+
+    // if (
+    //   values.email == passwordValidation.password ||
+    //   values.password == passwordValidation.password
+    // ) {
+    //   console.log("Form data", values);
+    //   onSubmitProps.resetForm();
+    //   setErrorResult(false);
+    //   Router.push("/dashboard");
+    // } else {
+    //   setErrorResult(true);
+    //   setTimeout(() => {
+    //     setErrorResult(false);
+    //   }, 6000);
+    // }
   };
 
   const errorMessage = {
@@ -86,6 +116,8 @@ const Login = () => {
                 {errorResult && (
                   <p className="errorMessage">{errorMessage.name}</p>
                 )}
+
+                {erorr && <p className="errorMessage">{erorr}</p>}
 
                 <div className={`btnmTop`}>
                   <Button type="submit" title="Login" green />

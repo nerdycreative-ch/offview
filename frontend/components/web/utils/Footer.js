@@ -8,7 +8,9 @@ const Footer = () => {
         <div className="leftSide">
           <div className="imgContainer">
             <Link href="/">
-              <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" />
+              {/* <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" /> */}
+              <img src="../../../assets/images/web/whiteLogo.svg" alt="logo" />
+
             </Link>
           </div>
           <p className="information">
@@ -69,18 +71,20 @@ const Footer = () => {
         </p>
         <div className="socialMedia">
           <div>Get in touch : </div>
-          <span>
-            <a href="https://www.facebook.com">Fb</a>
-          </span>
-          <span>
-            <a href="https://www.facebook.com">Tw</a>
-          </span>
-          <span>
-            <a href="https://www.facebook.com">In</a>
-          </span>
-          <span>
-            <a href="https://www.facebook.com">Insta</a>
-          </span>
+
+          <a href="https://www.facebook.com">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.twitter.com">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="https://www.youtube.com">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+
         </div>
       </div>
     </FooterStyled>
@@ -88,14 +92,14 @@ const Footer = () => {
 };
 
 const FooterStyled = styled.div`
-  background-color: var(--lightGrey-2);
+  background-color: #124034;
   padding: 96px 11%;
 
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: #717170;
-
+  /* color: #717170; */
+  color: var(--lightGrey-2);
   .bothSide {
     display: flex;
     justify-content: space-between;
@@ -137,9 +141,11 @@ const FooterStyled = styled.div`
 
   .socialMedia {
     display: flex;
+    align-items: center;
   }
-  .socialMedia span {
+  .socialMedia i {
     margin-left: 16px;
+    font-size: 22px;
   }
   .imgContainer img {
     cursor: pointer;

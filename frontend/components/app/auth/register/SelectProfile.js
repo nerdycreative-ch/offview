@@ -39,11 +39,11 @@ const SelectProfile = ({ changeStep }) => {
       name: "Seller",
       key: "seller",
     },
-    {
-      id: 3,
-      name: "Investor & Seller",
-      key: "investorseller",
-    },
+    // {
+    //   id: 3,
+    //   name: "Investor & Seller",
+    //   key: "investorseller",
+    // },
   ]);
 
   const [typeOfCat, setTypeOfCat] = useState([
