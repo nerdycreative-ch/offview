@@ -1,14 +1,26 @@
 const Faq = require("../model/faq");
 
+/**
+ * @description Get all faqs
+ * @type GET
+ * @url /dashboard/faq
+ */
+
 const faqGet = async (req, res) => {
   try {
-    const faq = await Faq.find();
+    const faq = await Faq.find({});
     res.status(200).json({ success: true, data: faq });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ success: false, message: "Faq server Error" });
+    res.status(500).json({ success: false, message: "Faq get Error" });
   }
 };
+
+/**
+ * @description Post all faqs
+ * @type POST
+ * @url /dashboard/faq
+ */
 
 const faqPost = async (req, res) => {
   const { title, content } = req.body;
@@ -17,7 +29,7 @@ const faqPost = async (req, res) => {
     res.status(200).json({ success: true, data: faq });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ success: false, message: "Faq server Error" });
+    res.status(500).json({ success: false, message: "Faq post Error" });
   }
 };
 const faqPatch = async (req, res) => {
@@ -28,7 +40,7 @@ const faqPatch = async (req, res) => {
     faq.save();
   } catch (err) {
     console.log(err);
-    res.status(500).json({ success: false, message: "Faq server Error" });
+    res.status(500).json({ success: false, message: "Faq patch Error" });
   }
 };
 const faqDelete = async (req, res) => {
@@ -37,7 +49,7 @@ const faqDelete = async (req, res) => {
     res.status(200).json({ success: true, data: faq });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ success: false, message: "Faq server Error" });
+    res.status(500).json({ success: false, message: "Faq delete Error" });
   }
 };
 

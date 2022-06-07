@@ -54,10 +54,11 @@ const baseSchema = mongoose.model(
         type: String,
         required: false,
       },
-      // gender: {
-      //   type: String,
-      //   required: true,
-      // },
+      gender: {
+        type: String,
+        enum: ["female", "male", "other"],
+        required: true,
+      },
     },
     baseOptions,
     { timestamps: true }

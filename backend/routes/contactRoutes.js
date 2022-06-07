@@ -1,10 +1,18 @@
 const router = require("express").Router();
 
-const { sendMail } = require("../controller/contactController");
+const {
+  getContact,
+  postContact,
+  editContact,
+  sendContact,
+} = require("../controller/contactController");
 
-router.get("/contact", (req, res) => {
-  res.render("contact");
-});
-router.post("/contact", sendMail);
+//text part
+router.get("/dashboard/getcontact", getContact);
+router.post("/dashboard/postcontact", postContact);
+router.patch("/dashboard/editcontact", editContact);
+
+//send email part
+router.post("/sendcontact", sendContact);
 
 module.exports = router;

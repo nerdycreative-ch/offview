@@ -1,3 +1,4 @@
+const { text } = require("express");
 const mongoose = require("mongoose");
 
 const ProfileSchema = new mongoose.Schema(
@@ -10,37 +11,23 @@ const ProfileSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    gender: {
+    firstName: {
       type: String,
       required: true,
     },
-    name: {
+    lastName: {
       type: String,
       required: true,
     },
-    phone: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      required: true,
-    },
-    category: {
+    fullName: {
       type: String,
       required: true,
     },
   },
   { timestamps: true }
 );
+
+ProfileSchema.index({ name: "text" });
 
 const Profile = mongoose.model("profiles", ProfileSchema);
 
