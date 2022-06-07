@@ -74,6 +74,12 @@ a {
   border-radius: 12px;
 }
 
+.apTitle {
+  font-size: 34px;
+  color: var(--greenPeaBold);
+  margin-bottom: 42px;
+}
+
 @font-face {
   font-family: "Messina Sans";
   src: url("../public/assets/fonts/MessinaSans-Bold.ttf");

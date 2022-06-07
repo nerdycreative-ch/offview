@@ -117,7 +117,7 @@ const signup_post = async (req, res) => {
         mainrole,
         role,
         gender,
-        baseObj,
+
         companyName,
         legalForm,
         UID,

@@ -56,6 +56,7 @@ const AboutStyled = styled.div`
 
   .aboutContentContainer {
     margin-top: 80px;
+  
   }
   .aboutSubTitle {
     font-weight: 700;
@@ -67,6 +68,7 @@ const AboutStyled = styled.div`
     line-height: 24px;
     margin-top: 24px;
   }
+ 
   .aboutTitleContainer {
     margin-top: 120px;
     margin-bottom: 108px;

@@ -103,14 +103,14 @@ export const AuthWrappercontext = ({ children }) => {
           lastName: userData.lastname,
           phoneNumber: userData.phonenumber,
           street: userData.streetaddress,
-          postalCode: userData.postalcode,
           country: userData.country,
           email: userData.email,
           password: userData.password,
           mainrole: userData.singleCategory,
           role: userData.singleTypeCategory,
           website: userData.website,
-          postalcode: userData.postalcode,
+          postalCode: "1234",
+          gender: "male"
         },
         {
           headers: {

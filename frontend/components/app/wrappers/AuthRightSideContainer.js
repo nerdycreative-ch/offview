@@ -14,8 +14,6 @@ const AuthRightSideContainer = ({ children }) => {
 };
 
 const AuthRightSideContainerStyled = styled.div`
-
-
   .subContainer {
     display: flex;
     flex-direction: column;
