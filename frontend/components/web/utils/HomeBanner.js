@@ -41,12 +41,15 @@ const HomeBannerStyled = styled.div`
   padding-left: 210px;
   position: relative;
 
+  margin-top: 105px;
+
   .banner {
-    padding: 200px 0;
+    padding: 100px 0;
+    margin-top: 50px;
     width: 100%;
     background: url("../../../assets/images/web/shapeHomePageBanner.png");
     background-repeat: no-repeat;
-    background-position: left bottom;
+    background-position: left top;
     background-size: contain;
 
     padding-bottom: 400px;
@@ -93,6 +96,20 @@ const HomeBannerStyled = styled.div`
     color: #175041;
     cursor: pointer;
   }
+  @media (max-width: 1399.98px) {
+    padding-left: 140px;
+    .banner {
+      padding: 100px 0;
+      margin-top: 50px;
+      width: 90%;
+      background: url("../../../assets/images/web/shapeHomePageBanner.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+
+      padding-bottom: 400px;
+    }
+  }
+
   @media (max-width: 991.98px) {
     padding: 0 20px;
 
@@ -105,16 +122,25 @@ const HomeBannerStyled = styled.div`
       line-height: 34px;
     }
     .banner {
-      background-position: left;
+      background-position: top left;
       padding: 40px 0;
       padding-bottom: 200px;
+      width: 100%;
     }
   }
   .leftSideContent {
     border-left: 1px solid #e1e1e1;
     padding-left: 20px;
   }
-
+  @media (max-width: 575.98px) {
+    .banner {
+      background-position: top left;
+      padding: 40px 0;
+      padding-bottom: 200px;
+      width: 100%;
+      background-size: contain;
+    }
+  }
 `;
 
 export default HomeBanner;

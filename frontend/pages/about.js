@@ -2,10 +2,19 @@ import styled from "styled-components";
 import Footer from "../components/web/utils/Footer";
 import GreenContainer from "../components/web/utils/GreenContainer";
 import Header from "../components/web/utils/Header";
+import Head from "next/head";
 
 const About = () => {
   return (
     <AboutStyled>
+      <Head>
+        <title>About - Offview</title>
+        <meta
+          name="description"
+          content="Offview is a brokerage platform for real estate.The platform offer is aimed at prospective buyers and sellers of real estate."
+        />
+      </Head>
+
       {/* GREEN CONTAINER BANNER */}
       <Header
         title="About"
@@ -36,55 +45,7 @@ const About = () => {
         </div>
       </GreenContainer>
 
-      <div className="aboutTeam">
-        <div className="aboutTitleContainer">
-          <h1 className="aboutTitle">Management Team</h1>
-          <div className="verticalLine"></div>
-        </div>
-
-        <div className="workersContainer">
-          <div className="singleWorker">
-            <img src="../assets/images/web/person1.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Albert Flores</p>
-              <p className="position">CEO Co-founder</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person2.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Dianne Russell</p>
-              <p className="position">CEO Co-founder</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person3.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Robert Fox</p>
-              <p className="position">CFO</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person4.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Courtney Henry</p>
-              <p className="position">Head of Sales</p>
-            </div>
-          </div>
-
-          <div className="singleWorker">
-            <img src="../assets/images/web/person5.png" alt="person1" />
-            <div className="personalInfoWorker">
-              <p className="name">Brooklyn Simmons</p>
-              <p className="position">Tech Lead</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+   
       {/* FOOTER */}
       <Footer />
     </AboutStyled>
@@ -92,10 +53,10 @@ const About = () => {
 };
 
 const AboutStyled = styled.div`
-  color: var(--whiteColor);
 
   .aboutContentContainer {
     margin-top: 80px;
+  
   }
   .aboutSubTitle {
     font-weight: 700;
@@ -107,6 +68,7 @@ const AboutStyled = styled.div`
     line-height: 24px;
     margin-top: 24px;
   }
+ 
   .aboutTitleContainer {
     margin-top: 120px;
     margin-bottom: 108px;

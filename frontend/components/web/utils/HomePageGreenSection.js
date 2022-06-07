@@ -1,15 +1,29 @@
 import styled from "styled-components";
+import Image from "next/image";
+import DashboardImage from "../../../public/assets/images/web/DashboardImageBanner.png";
+import SelectProfileImageBanner1 from "../../../public/assets/images/web/SelectProfileImageBanner1.png";
+import SelectProfileImageBanner2 from "../../../public/assets/images/web/SelectProfileImageBanner2.png";
+import bottomDashboardImage from "../../../public/assets/images/web/SelectProfileImageBanner2.png";
 
 const HomePageGreenSection = () => {
   return (
     <HomePageGreenSectionStyled>
       <div className="topImagesContainer">
-        <img
+        {/* <img
           src="../../../assets/images/web/DashboardImageBanner.png"
           alt=""
           className="dashboardImage"
-        />
-        <img
+        /> */}
+        <div className="dashboardImage">
+          <Image src={DashboardImage} alt="dashboard image" />
+        </div>
+        <div className="littleImageBanner">
+          <Image src={SelectProfileImageBanner1} alt="select profile image" />
+        </div>
+        <div className="littleImageBanner">
+          <Image src={SelectProfileImageBanner2} alt="select profile image" />
+        </div>
+        {/* <img
           src="../../../assets/images/web/SelectProfileImageBanner1.png"
           alt=""
           className="littleImageBanner"
@@ -18,7 +32,7 @@ const HomePageGreenSection = () => {
           src="../../../assets/images/web/SelectProfileImageBanner2.png"
           alt=""
           className="littleImageBanner"
-        />
+        /> */}
       </div>
 
       <div className="bannerDataSection">
@@ -43,11 +57,14 @@ const HomePageGreenSection = () => {
             <img src="../../../assets/images/web/greenRightArrow.svg" alt="" />
           </div>
 
-          <img
+          {/* <img
             src="../../../assets/images/web/bottomDashboardImage.png"
             alt=""
             className="bottomImageBanner"
-          />
+          /> */}
+          <div className="bottomImageBanner">
+            <Image src={DashboardImage} alt="dashboard image" />
+          </div>
         </div>
         <div className="rightSide bothSide">
           <h1 className="type">Sellers</h1>
@@ -64,11 +81,14 @@ const HomePageGreenSection = () => {
             <h1 className="typeOfActor">Seller</h1>
             <img src="../../../assets/images/web/greenRightArrow.svg" alt="" />
           </div>
-          <img
+          <div className="bottomImageBanner">
+            <Image src={DashboardImage} alt="dashboard image" />
+          </div>
+          {/* <img
             src="../../../assets/images/web/bottomDashboardImage.png"
             alt=""
             className="bottomImageBanner"
-          />{" "}
+          />{" "} */}
         </div>
       </div>
     </HomePageGreenSectionStyled>
@@ -218,8 +238,6 @@ const HomePageGreenSectionStyled = styled.div`
   }
   @media (max-width: 991.98px) {
     margin-top: 50px;
-
-   
   }
 
   @media (max-width: 767.98px) {

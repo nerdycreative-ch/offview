@@ -6,6 +6,8 @@ import { useWebContext } from "../context/webContext";
 import MakeAnOfferModal from "../components/web/utils/MakeAnOfferModal";
 import Modal from "../components/web/utils/Modal";
 import RegisterSuccessFullModal from "../components/app/auth/register/RegisterSuccessFullModal";
+import Navbar from "../components/web/utils/Navbar";
+import Footer from "../components/web/utils/Footer";
 
 const PropertyDetails = () => {
   const { modalIsOpen, setIsOpen } = useWebContext();
@@ -14,7 +16,6 @@ const PropertyDetails = () => {
 
   return (
     <PropertyDetailsStyled>
-
       {modalIsOpen && <MakeAnOfferModal />}
 
       {/* HEADER */}
@@ -25,6 +26,7 @@ const PropertyDetails = () => {
         price="820.000"
         category="House"
         additionalData
+        propertyDetail
       />
 
       {/* IMAGE */}
@@ -35,7 +37,7 @@ const PropertyDetails = () => {
       {/* CONTENT */}
 
       <div className="listDetailsContent">
-        <div className="leftSide">
+        <div className="leftSideProp">
           <p className="content">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictum
@@ -73,6 +75,7 @@ const PropertyDetails = () => {
           <PropertyDetailsSideBar />
         </div>
       </div>
+      <Footer />
     </PropertyDetailsStyled>
   );
 };
@@ -88,7 +91,7 @@ const PropertyDetailsStyled = styled.div`
     display: flex;
     justify-content: space-between;
   }
-  .leftSide {
+  .leftSideProp {
     flex: 2.5;
   }
   .listDetailsContent .rightSide {

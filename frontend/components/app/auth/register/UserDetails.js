@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
 import BackButton from "../../utils/BackButton";
-import Button from "../../utils/Button";
+import Button from "../../../web/utils/Button";
 import RegisterTitle from "../../utils/RegisterTitle";
 import StepsNumber from "../../utils/StepsNumber";
 import SubTitle from "../../utils/SubTitle";
 import UserInput from "../../utils/UserInput";
 import styled from "styled-components";
 import AuthContainer from "../../wrappers/AuthContainer";
-import { Form, Formik } from "formik";
+import { Formik, Form } from "formik";
 import { useAuthContext } from "../../../../context/auth";
 import { useRouter } from "next/router";
 
 const UserDetails = ({ privateDetails, changeStep }) => {
   const Router = useRouter();
 
+  const { globalValues, UserValidationSchema, userData, setUserData } =
+    useAuthContext();
+
   const onSubmit = (values, onSubmitProps) => {
+    console.log("VALUES", values);
+
+    changeStep();
+
     setUserData({
       ...userData,
       title: values.title,
@@ -27,13 +34,9 @@ const UserDetails = ({ privateDetails, changeStep }) => {
       country: values.country,
     });
 
-    changeStep();
-
+    console.log("A PO A??");
     Router.push("/registersteps?page=atc");
   };
-
-  const { globalValues, UserValidationSchema, userData, setUserData } =
-    useAuthContext();
 
   const [heightOfScreen, setHeightOffScreen] = useState(0);
 
@@ -85,21 +88,18 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                       <Form>
                         <UserInput labelName="Title" type="text" name="title" />
 
-                        <div
-                          style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <div style={{ width: "46%" }}>
+                        {/* <Field type="text" name="fullName" id="fullName" />
+                <ErrorMessage name="fullName" component={TextError} /> */}
+
+                        <div className="inLineItems">
+                          <div className="singleItem">
                             <UserInput
                               labelName="First Name"
                               type="text"
                               name="firstname"
                             />
                           </div>
-                          <div style={{ width: "46%" }}>
+                          <div className="singleItem">
                             <UserInput
                               labelName="Last Name"
                               type="text"
@@ -107,6 +107,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                             />
                           </div>
                         </div>
+
                         <UserInput
                           labelName="Phone Number"
                           type="text"
@@ -143,7 +144,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                             justifyContent: "space-between",
                           }}
                         >
-                          <div style={{ width: "23%" }}>
+                          <div style={{ width: "29%" }}>
                             <UserInput
                               labelName="Zip Code"
                               type="text"
@@ -159,7 +160,12 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                           </div>
                         </div>
                         <div style={{ marginTop: 30 }}>
-                          <Button type="submit" title="Continue" />
+                          <Button
+                            type="submit"
+                            text="Continue"
+                            green
+                            width="100%"
+                          />
                         </div>
                       </Form>
                     );
@@ -194,13 +200,24 @@ const UserDetailsStyled = styled.div`
       display: flex;
       justify-content: center;
       padding: 40px 0;
-      width: 70%;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .inLineItems {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .singleItem {
+      width: 48%;
     }
   }
 
   @media (max-width: 575.98px) {
     .userDetailsContainer {
-      width: 90%;
+      width: 100%;
     }
   }
 `;

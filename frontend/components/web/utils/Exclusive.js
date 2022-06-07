@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Link from "next/link";
+import Image from "next/image";
+import test from "../../../public/assets/images/web/homesImage.png";
 
 const Exclusive = () => {
   return (
@@ -16,7 +18,9 @@ const Exclusive = () => {
         </Link>
       </div>
       <div className="exclusiveRightSide">
-        <img src="../../../assets/images/web/homesImage.png" alt="" />
+        {/* <img src="../../../assets/images/web/homesImage.png" alt="" /> */}
+
+        <Image src={test} alt="home exclusive" className="mainImageExlusive" />
       </div>
     </ExclusiveStyled>
   );
@@ -29,6 +33,7 @@ const ExclusiveStyled = styled.div`
 
   background: var(--whiteColor);
   position: relative;
+  top: -5px;
 
   .exclusiveLeftSide {
     width: 50%;
@@ -44,14 +49,15 @@ const ExclusiveStyled = styled.div`
     margin-top: 40px;
   }
   .exclusiveRightSide {
-    width: 60%;
+    width: 55%;
     padding-right: 13.47%;
     position: relative;
 
     position: absolute;
     right: 0;
+    margin-top: 30px;
   }
-  .exclusiveRightSide img {
+  .mainImageExlusive {
     width: 100%;
     height: 264px;
   }
@@ -83,8 +89,6 @@ const ExclusiveStyled = styled.div`
     .btnContainer {
       text-align: center;
     }
-
-
   }
 `;
 

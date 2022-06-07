@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 import test from "../../../public/assets/images/web/home2.svg";
 import Button from "./Button";
@@ -22,7 +23,9 @@ const Card = ({ title, content, image, price, type }) => {
           <h1 className="price">{price} €</h1>
           <p className="type">{type}</p>
         </div>
-        <Button text="Details" green />
+        <Link href="/propertydetails">
+          <Button text="Details" green />
+        </Link>
       </div>
     </CardStyled>
   );
@@ -84,6 +87,14 @@ const CardStyled = styled.div`
     font-size: 12px;
     line-height: 18px;
     color: var(--Grey-500);
+  }
+
+  @media (max-width: 600px) {
+    width: 70%;
+  }
+
+  @media (max-width: 460px) {
+    width: 80%;
   }
 `;
 

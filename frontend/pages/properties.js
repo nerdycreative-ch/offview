@@ -141,12 +141,11 @@ const PropertiesStyled = styled.div`
   .moreFilters img {
     margin-left: 13.44px;
   }
-  @media (max-width: 1399.98px) { 
+  @media (max-width: 1399.98px) {
     .inputs {
       justify-content: center;
-
+    }
   }
-   }
 
   @media (max-width: 1199.98px) {
     .inputs {

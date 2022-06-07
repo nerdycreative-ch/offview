@@ -1,10 +1,17 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Button from "../utils/Button";
 import TagItem from "./TagItem";
 
-const PageBanner = ({ title, content, price, category, additionalData }) => {
+const PageBanner = ({
+  title,
+  content,
+  price,
+  category,
+  additionalData,
+  propertyDetail,
+}) => {
   return (
-    <PageBannerStyled>
+    <PageBannerStyled propertyDetail={propertyDetail}>
       <div>
         {additionalData && (
           <div className="tagContainer">
@@ -20,7 +27,9 @@ const PageBanner = ({ title, content, price, category, additionalData }) => {
       {additionalData && (
         <div className="rightSide">
           <h1 className="price">{price} €</h1>
-          <Button text="Make an offer" green />
+          <div>
+            <Button text="Make an offer" green />
+          </div>
         </div>
       )}
     </PageBannerStyled>
@@ -31,7 +40,8 @@ const PageBannerStyled = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 90px;
+  margin-top: 160px;
+  padding: 0 10%;
 
   .tagContainer {
     margin-left: 34px;
@@ -67,6 +77,46 @@ const PageBannerStyled = styled.section`
     color: var(--greenPeaBold);
     margin-bottom: 16px;
     text-align: end;
+  }
+
+  @media (max-width: 575.98px) {
+    margin-top: 70px;
+    margin-bottom: 20px;
+
+    ${(props) =>
+      props.propertyDetail &&
+      css`
+        padding: 0 4% 0 4%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .rightSide {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          align-items: center;
+        }
+        .tagContainer {
+          top: 40px;
+        }
+      `}
+
+    .pageName {
+      font-size: 30px;
+    }
+
+    .pageInfo,
+    .rightSide {
+      padding-left: 18px;
+    }
+    .rightSide .price {
+      text-align: left;
+      display: flex;
+      align-self: center;
+      justify-self: center;
+      margin-bottom: 0;
+    }
   }
 `;
 

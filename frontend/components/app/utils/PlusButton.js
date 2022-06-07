@@ -3,8 +3,8 @@ import Link from "next/link";
 
 const PlusButton = ({ title, href }) => {
   return (
-    <PlusButtonStyle>
-      <Link href={href} passHref>
+    <Link href={href} passHref>
+      <PlusButtonStyle>
         <div>
           <img
             src="../../../assets/images/app/dashboard/plusButton.svg"
@@ -13,8 +13,8 @@ const PlusButton = ({ title, href }) => {
           />
           <span className="pBtnTitle">{title}</span>
         </div>
-      </Link>
-    </PlusButtonStyle>
+      </PlusButtonStyle>
+    </Link>
   );
 };
 

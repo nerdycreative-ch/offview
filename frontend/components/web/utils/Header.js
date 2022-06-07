@@ -3,10 +3,20 @@ import test from "../../../public/assets/images/web/headerShape.svg";
 import Navbar from "./Navbar";
 import PageBanner from "./PageBanner";
 
-const Header = ({ title, content, price, category, additionalData }) => {
+const Header = ({
+  title,
+  content,
+  price,
+  category,
+  additionalData,
+  propertyDetail,
+}) => {
   return (
-    <HeaderStyled additionalData={additionalData}>
-      <Navbar />
+    <HeaderStyled
+      additionalData={additionalData}
+      propertyDetail={propertyDetail}
+    >
+      <Navbar propertyDetail />
       <div className="pageBannerContainer">
         <PageBanner
           title={title}
@@ -14,6 +24,7 @@ const Header = ({ title, content, price, category, additionalData }) => {
           additionalData={additionalData}
           price={price}
           category={category}
+          propertyDetail={propertyDetail}
         />
       </div>
     </HeaderStyled>
@@ -27,13 +38,15 @@ const HeaderStyled = styled.div`
       background: url("../../../assets/images/web/headerShape.svg");
     `}
 
-  width: 100%;
-
   .pageBannerContainer {
-    padding: 40px 11.25% 0 11.25%;
-  }
-  @media (max-width: 1199.98px) {
-    display: none;
+    padding: 40px 5% 0 5%;
+    
+
+    ${(props) =>
+      props.propertyDetail &&
+      css`
+        padding: 0 4% 0 4%;
+      `}
   }
 `;
 
