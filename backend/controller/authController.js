@@ -114,14 +114,20 @@ const signup_post = async (req, res) => {
       const investorCompany = await icompanySchema.create({
         email,
         password,
+        title,
         mainrole,
         role,
         gender,
-
         companyName,
         legalForm,
         UID,
         website,
+        firstName,
+        lastName,
+        phoneNumber,
+        street,
+        postalCode,
+        country,
         verificationCode: randomBytes(20).toString("hex"),
       });
 

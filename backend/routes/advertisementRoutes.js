@@ -13,6 +13,7 @@ router.get("/dashboard/getOne/:id", advertisement_Get);
 router.get("/dashboard/getAll", advertisement_GetAll);
 // route to post an advertisement
 router.post("/dashboard/createAdvertisement", advertisement_Post);
+
 // route to edit an advertisement
 router.patch("/dashboard/edit/:id", advertisement_Patch);
 // route to delete an advertisement

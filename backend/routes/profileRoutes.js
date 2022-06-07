@@ -1,42 +1,33 @@
 const router = require("express").Router();
+//old method
 const multer = require("multer");
 const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 const upload = multer({ dest: "uploads/" });
+
 const authGuard = require("../middleware/auth-guard");
 const {
-  uploadFile,
-  getFileStream,
-  deleteFileStream,
-  editFile,
-} = require("../functions/awsUploader");
-const {
-  getOneProfile,
-  getAllProfiles,
+  getMyProfile,
+  searchProfiles,
   createProfile,
   editProfile,
-  deleteProfile,
+  editProfilePic,
 } = require("../controller/profileController");
 
-//getOne profile
-router.get("/dashboard/getOne", getOneProfile);
+//get your profile profile
+router.get("/dashboard/myprofile", authGuard, getMyProfile);
 
-//getAll profiles
-router.get("/dashboard/getAll", getAllProfiles);
+//search profiles by name
+router.get("/dashboard/searchProfiles", searchProfiles);
 
 //create profile
-router.post(
-  "/dashboard/createprofile",
-  authGuard,
-  upload.single("avatar"),
-  createProfile
-);
+router.post("/dashboard/createprofile", authGuard, createProfile);
 
 //edit profile
-router.patch("/dashboard/editprofile", editProfile);
+router.patch("/dashboard/editprofile", authGuard, editProfile);
 
-//delete profile
-router.delete("/dashboard/deleteprofile", deleteProfile);
+//edit profile-pic
+router.patch("/dashboard/editprofilepic", authGuard, editProfilePic);
 
 module.exports = router;

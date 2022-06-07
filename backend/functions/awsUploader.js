@@ -1,10 +1,11 @@
-const Advertisement = require("../model/createAdvertisement/Advertisement");
+const Advertisement = require("../model/Advertisement");
 
 //image uploader requires
 const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 const { download } = require("express/lib/response");
 const res = require("express/lib/response");
+require(`dotenv`).config();
 
 //image uploader
 const region = process.env.AWS_REGION;
@@ -19,7 +20,7 @@ const s3 = new S3({
 
 const uploadFile = async (file, type) => {
   const fileStream = await fs.createReadStream(file.path);
-  const bucketi = undefined;
+  let bucketi = undefined;
   if (type === "file") {
     bucketi = process.env.FILE_BUCKET_NAME;
   }
@@ -44,7 +45,6 @@ const getFileStream = (fileKey, bucketName) => {
     Bucket: bucketi,
   };
   return s3.getObject(downloadParams).createReadStr;
-  eam();
 };
 
 const deleteFileStream = async (fileKey, type) => {
@@ -53,6 +53,8 @@ const deleteFileStream = async (fileKey, type) => {
     bucketi = process.env.FILE_BUCKET_NAME;
   } else if (type === "image") {
     bucketi = process.env.IMAGE_BUCKET_NAME;
+  } else if (type === "profile") {
+    bucketi = process.env.PROFILE_BUCKET_NAME;
   } else {
     console.log("Wrong Type of file");
   }
@@ -69,8 +71,6 @@ const deleteFileStream = async (fileKey, type) => {
       console.log("success");
     }
   }).promise();
-
-  Advertisement.deleteOne({ _id: advertisementFile._id });
 };
 
 //aws doesn't support edit files it rewrites them(just a test)
