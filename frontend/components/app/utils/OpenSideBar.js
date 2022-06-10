@@ -11,8 +11,10 @@ const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
             alt="logo"
           />
           <img
-            src="../../../../assets/images/app/dashboard/sidebarArrow.svg"
+            src="../../../../assets/images/app/dashboard/goBackSideBar.svg"
             alt="logo"
+            onClick={() => setIsSideBarOpen(false)}
+            className="closeSideBarMenuIcon"
           />
         </div>
         <div className="links">
@@ -152,6 +154,10 @@ const OpenSideBarStyled = styled.div`
     font-size: 10px;
     line-height: 15px;
     color: var(--lightGrey-0);
+  }
+
+  .closeSideBarMenuIcon {
+    cursor: pointer;
   }
 
   @media (max-width: 991.98px) {

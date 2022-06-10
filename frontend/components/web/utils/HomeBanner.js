@@ -53,7 +53,26 @@ const HomeBannerStyled = styled.div`
     background-size: contain;
 
     padding-bottom: 400px;
+    animation: animatedBackground 2.5s linear alternate;
   }
+
+  @keyframes animatedBackground {
+    from {
+      background-position: -400px 0px;
+    }
+    to {
+      padding: 100px 0;
+      margin-top: 50px;
+      width: 100%;
+      background: url("../../../assets/images/web/shapeHomePageBanner.png");
+      background-repeat: no-repeat;
+      background-position: left top;
+      background-size: contain;
+
+      padding-bottom: 400px;
+    }
+  }
+
   .leftSideContent {
     border-left: 1px solid #e1e1e1;
     padding-left: 40px;

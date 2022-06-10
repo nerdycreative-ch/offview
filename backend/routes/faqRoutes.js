@@ -6,14 +6,10 @@ const {
   faqDelete,
 } = require("../controller/faqController");
 
-//routes
-router.get("/faq", (req, res) => {
-  res.render("faq");
-});
 
-router.get("/dashboard/faq", faqGet);
-router.post("/dashboard/faq", faqPost);
-router.patch("/dashboard/faq/:id", faqPatch);
-router.delete("/dashboard/faq/:id", faqDelete);
+router.get("/dashboard/get", faqGet);
+router.post("/dashboard/post", faqPost);
+router.patch("/dashboard/patch/:id", faqPatch);
+router.delete("/dashboard/delete/:id", faqDelete);
 
 module.exports = router;

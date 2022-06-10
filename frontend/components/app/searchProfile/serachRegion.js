@@ -8,8 +8,34 @@ import Link from "next/link";
 import WhiteBackButton from "../utils/WhiteBackButton";
 import ExitButton from "../utils/ExitButton";
 import MapView from "../utils/MapView";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import UserInput from "../utils/UserInput";
+import TextError from "../../web/utils/TextError";
+import * as Yup from "yup";
+import { useSearchProfileContext } from "../../../context/searchprofile";
+import { useRouter } from "next/router";
 
 const SearchRegion = ({ changeStep }) => {
+  const Router = useRouter();
+
+  const { searchRegion, setSearchRegion } = useSearchProfileContext();
+
+  const globalValues = {
+    searchregion: "",
+  };
+
+  const SearchRegionValidationSchema = Yup.object({
+    searchregion: Yup.string().required("Region field is required"),
+  });
+
+  const onSubmit = (values, onSubmitProps) => {
+    console.log("VLERAT", values);
+    setSearchRegion(values.searchregion);
+
+    changeStep();
+    Router.push("/searchsteps?page=price");
+  };
+
   return (
     <AppContainer>
       <SearchRegionStyled>
@@ -19,32 +45,42 @@ const SearchRegion = ({ changeStep }) => {
           <RegisterTitle title="Search region" fontSize={20} />
           <SubTitle
             marginTop={4}
-            // marginBottom={heig < 900 ? 14 : 40}
             content="Please create one or more search areas for your investment profile."
           />
 
-          <div className="searchInputZone">
-            <p className="region">Region</p>
+          <Formik
+            initialValues={globalValues}
+            validationSchema={SearchRegionValidationSchema}
+            onSubmit={onSubmit}
+            enableReinitialize
+          >
+            {(formik) => {
+              return (
+                <Form>
+                  <div className="searchInputZone">
+                    <p className="region">Region</p>
 
-            <input
-              type="text"
-              // value={value}
-              // onChange={onChange}
-              className="regionInput"
-              placeholder="Location of your search region ..."
-            />
-          </div>
+                    <Field
+                      type="text"
+                      className="regionInput"
+                      placeholder="Location of your search region ..."
+                      name="searchregion"
+                    />
+                    <ErrorMessage name="searchregion" component={TextError} />
+                  </div>
 
-          <MapView />
+                  <MapView />
 
-          <div className="buttonContainer">
-            <WhiteBackButton />
-            <div style={{ width: 110, marginLeft: 16 }}>
-              <Link href="/searchsteps" passHref>
-                <Button title="Continue" onClick={changeStep} />
-              </Link>
-            </div>
-          </div>
+                  <div className="buttonContainer">
+                    <WhiteBackButton />
+                    <div style={{ width: 110, marginLeft: 16 }}>
+                      <Button title="Continue" type="submit" />
+                    </div>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
         </div>
       </SearchRegionStyled>
     </AppContainer>
@@ -82,7 +118,7 @@ const SearchRegionStyled = styled.div`
     border-radius: 4px;
     outline: none;
   }
- 
+
   .buttonContainer {
     display: flex;
     padding-bottom: 32px;

@@ -119,7 +119,7 @@ const imprintInfoGet = async (req, res) => {
  * @url imprint/dashboard/information/post
  */
 const imprintInfoPost = async (req, res) => {
-  const { address, phoneNumber, email } = req.body;
+  const { data, phoneNumber, email } = req.body;
   try {
     const imprintinfo = await ImprintInfo.create({
       data,
@@ -138,13 +138,13 @@ const imprintInfoPost = async (req, res) => {
 /**
  * @description Edit imprintinfo
  * @type PATCH
- * @url imprint/dashboard/information/patch
+ * @url imprint/dashboard/information/patch/:id
  */
 
 const imprintInfoPatch = async (req, res) => {
   const body = req.body;
   try {
-    const imprintinfo = await ImprintInfo.find({});
+    const imprintinfo = await ImprintInfo.findOne({_id:req.params.id});
     await Object.assign(imprintinfo, body);
     await imprintinfo.save();
     return res.status(200).json({ success: true, data: imprintinfo });
@@ -159,12 +159,12 @@ const imprintInfoPatch = async (req, res) => {
 /**
  * @description Delete imprintinfo
  * @type DELETE
- * @url imprint/dashboard/delete/:id
+ * @url imprint/dashboard/information/delete/:id
  */
 
 const imprintInfoDelete = async (req, res) => {
   try {
-    await Imprint.deleteOne({ _id: req.params.id });
+    await ImprintInfo.deleteOne({ _id: req.params.id });
     return res.status(200).json("Succesfully deleted imprintinfo");
   } catch (error) {
     console.log(error);

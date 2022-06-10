@@ -121,21 +121,6 @@ const SelectProfile = ({ changeStep }) => {
             >
               <p className={`smallText`}>How are you going to use offview?</p>
               <div className="radioButtonGroup">
-                {/* {typeOfCat.map((item, index) => {
-                  return (
-                    <BigRadioButton
-                      onClick={() => setSingleTypeCategory(item.key)}
-                      key={index}
-                      width={45}
-                      type={item.name}
-                      height={116}
-                      PCactiveLink={singleTypeCategory}
-                      id={item.id}
-                      nameOfCat="PC"
-                    />
-                  );
-                })} */}
-
                 {singleCategory == "investor" ? (
                   <BigRadioButton
                     onClick={() => setSingleTypeCategory("private")}

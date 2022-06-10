@@ -16,6 +16,7 @@ const privacyPolicyroutes = require("./routes/privacyPolicyRoutes");
 const imprintRoutes = require("./routes/imprintRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const socialmediaRoutes = require("./routes/socialmediaRoutes");
+const faqRoutes = require("./routes/faqRoutes");
 
 //cors
 app.use(cors());
@@ -67,3 +68,5 @@ app.use("/privacypolicy", privacyPolicyroutes);
 app.use("/imprint", imprintRoutes);
 app.use("/contact", contactRoutes);
 app.use("/socialmedia", socialmediaRoutes);
+app.use("/faq", faqRoutes);
+

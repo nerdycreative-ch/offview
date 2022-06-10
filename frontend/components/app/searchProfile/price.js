@@ -103,9 +103,7 @@ const Price = ({ changeStep }) => {
             <div className="buttonContainer">
               <WhiteBackButton />
               <div style={{ width: 110, marginLeft: 16 }}>
-                <Link href="/searchsteps" passHref>
-                  <Button title="Continue" onClick={changeStep} />
-                </Link>
+                <Button title="Continue" onClick={changeStep} />
               </div>
             </div>
           </div>

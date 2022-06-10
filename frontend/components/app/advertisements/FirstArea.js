@@ -10,14 +10,22 @@ import ExitButton from "../utils/ExitButton";
 import UserInput from "../utils/UserInput";
 import MapView from "../utils/MapView";
 import { Formik } from "formik";
+import { useRouter } from "next/router";
 
 const FirstArea = ({ changeStep }) => {
+  const Router = useRouter();
+
+  const onSubmit = (values, onSubmitProps) => {
+    changeStep();
+    Router.push("/advertisementsteps?page=aipliving");
+  };
+
   return (
     <AppContainer>
       <FirstAreaStyled>
         <div>
           <ExitButton content="Exit Search profile" />
-          <StepsNumber stepsLength={3} />
+          <StepsNumber stepsLength={4} />
           <RegisterTitle title="First area" fontSize={20} />
           <SubTitle
             marginTop={4}
@@ -94,7 +102,7 @@ const FirstArea = ({ changeStep }) => {
                   <div className="buttonContainer">
                     <WhiteBackButton />
                     <div style={{ width: 110, marginLeft: 16 }}>
-                      <Button title="Continue" onClick={changeStep} />
+                      <Button type="submit" title="Continue" onClick={onSubmit} />
                     </div>
                   </div>
                 </>

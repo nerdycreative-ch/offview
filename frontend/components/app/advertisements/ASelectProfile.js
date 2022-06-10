@@ -7,8 +7,11 @@ import BigRadioButton from "../utils/BigRadioButton";
 import Button from "../utils/Button";
 import RegisterTitle from "../utils/RegisterTitle";
 import ExitButton from "../utils/ExitButton";
+import { useRouter } from "next/router";
 
 const ASelectProfile = ({ changeStep }) => {
+  const Router = useRouter();
+
   const [heightOfScreen, setHeightOffScreen] = useState(0);
   const [widthOffScreen, setWidthOfScreen] = useState(0);
 
@@ -16,6 +19,16 @@ const ASelectProfile = ({ changeStep }) => {
     setHeightOffScreen(screen.height);
     setWidthOfScreen(screen.width);
   }, []);
+
+  const onClick = () => {
+    changeStep();
+    // setUserData({
+    //   ...userData,
+    //   singleCategory: singleCategory,
+    //   singleTypeCategory: singleTypeCategory,
+    // });
+    Router.push("/advertisementsteps?page=firstarea");
+  };
 
   const [categories, setCategories] = useState([
     {
@@ -63,7 +76,7 @@ const ASelectProfile = ({ changeStep }) => {
       >
         <AppContainer>
           <ExitButton content="Exit Advertisement" />
-          <StepsNumber stepsLength={3} />
+          <StepsNumber stepsLength={4} />
           <div className="registerStepContainer">
             <div>
               <RegisterTitle title="Select Profile" />
@@ -72,7 +85,7 @@ const ASelectProfile = ({ changeStep }) => {
                 marginBottom={heightOfScreen < 900 ? 14 : 40}
                 content="Please choose the type of property your are looking for."
               />
-              <div style={{marginTop: 40}}>
+              <div style={{ marginTop: 40 }}>
                 <p className="smallText">What would you like to advertise?</p>
                 <div className="radioButtonGroup">
                   {categories.map((item, index) => {
@@ -123,7 +136,7 @@ const ASelectProfile = ({ changeStep }) => {
             <Button
               title="Continue"
               disabled={activeLink && PCactiveLink ? false : true}
-              onClick={changeStep}
+              onClick={onClick}
             />
           </div>
         </AppContainer>

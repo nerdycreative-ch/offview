@@ -31,7 +31,9 @@ const Login = () => {
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
-    password: Yup.string().required("Password is required").min(8,"Password must be at least 8 characters"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters"),
   });
 
   const onSubmit = async (values, onSubmitProps) => {
@@ -58,7 +60,6 @@ const Login = () => {
       //   console.log("ERROR" , error);
       //   setError(error.response.data.message);
       // }
-      console.log("Erroasasdr", error);
       setError("Email or password is not correct");
     }
 

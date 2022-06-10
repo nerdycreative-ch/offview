@@ -6,8 +6,16 @@ import SubTitle from "../utils/SubTitle";
 import BigRadioButton from "../utils/BigRadioButton";
 import Button from "../utils/Button";
 import RegisterTitle from "../utils/RegisterTitle";
+import { useSearchProfileContext } from "../../../context/searchprofile";
+import { useRouter } from "next/router";
+
 
 const SelectProfile = ({ changeStep }) => {
+
+  const Router = useRouter();
+
+  const { advertismentType, propertyType } = useSearchProfileContext();
+
   const [heightOfScreen, setHeightOffScreen] = useState(0);
   const [widthOffScreen, setWidthOfScreen] = useState(0);
 
@@ -16,38 +24,48 @@ const SelectProfile = ({ changeStep }) => {
     setWidthOfScreen(screen.width);
   }, []);
 
-  const [categories, setCategories] = useState([
-    {
-      id: 1,
-      name: "Investment properties",
-    },
-    {
-      id: 2,
-      name: "Land",
-    },
-    {
-      id: 3,
-      name: "New building projects",
-    },
-  ]);
+  // const [categories, setCategories] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Investment properties",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Land",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "New building projects",
+  //   },
+  // ]);
 
-  const [typeOfCat, setTypeOfCat] = useState([
-    {
-      id: 5,
-      name: "Living",
-    },
-    {
-      id: 6,
-      name: "Commercial",
-    },
-    {
-      id: 7,
-      name: "Residential and commercial",
-    },
-  ]);
+  // const [typeOfCat, setTypeOfCat] = useState([
+  //   {
+  //     id: 5,
+  //     name: "Living",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Commercial",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Residential and commercial",
+  //   },
+  // ]);
 
   const [activeLink, setActiveLink] = useState(0);
   const [PCactiveLink, setPcActiveLink] = useState(0);
+
+  const onClick = () => {
+    changeStep();
+    // setUserData({
+    //   ...userData,
+    //   singleCategory: singleCategory,
+    //   singleTypeCategory: singleTypeCategory,
+    // });
+    Router.push("/searchsteps?page=searchregion");
+  };
 
   return (
     <SelectProfileStyled>
@@ -64,7 +82,7 @@ const SelectProfile = ({ changeStep }) => {
           {/* <ExitButton content="Exit Search profile" /> */}
           <StepsNumber stepsLength={3} />
           <div className="registerStepContainer">
-            <div style={{marginTop: 40}}>
+            <div style={{ marginTop: 40 }}>
               <RegisterTitle title="Select Profile" />
               <SubTitle
                 marginTop={4}
@@ -74,7 +92,7 @@ const SelectProfile = ({ changeStep }) => {
               <div>
                 <p className="smallText">Are you an Investor or a Seller?</p>
                 <div className="radioButtonGroup">
-                  {categories.map((item, index) => {
+                  {advertismentType.map((item, index) => {
                     return (
                       <BigRadioButton
                         onClick={() => setActiveLink(item.id)}
@@ -98,7 +116,7 @@ const SelectProfile = ({ changeStep }) => {
               >
                 <p className={`smallText`}>How are you going to use offview?</p>
                 <div className="radioButtonGroup">
-                  {typeOfCat.map((item, index) => {
+                  {propertyType.map((item, index) => {
                     return (
                       <BigRadioButton
                         onClick={() => setPcActiveLink(item.id)}
@@ -122,7 +140,7 @@ const SelectProfile = ({ changeStep }) => {
             <Button
               title="Continue"
               disabled={activeLink && PCactiveLink ? false : true}
-              onClick={changeStep}
+              onClick={onClick}
             />
           </div>
         </AppContainer>
@@ -158,7 +176,6 @@ const SelectProfileStyled = styled.div`
   @media (max-width: 575.98px) {
     padding: 0 2%;
     padding-bottom: 30px;
-    
   }
 `;
 

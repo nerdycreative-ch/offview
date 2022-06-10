@@ -123,6 +123,7 @@ const Dashboard = () => {
             <DashboardLabel
               labelName="Profile"
               labelImage="../../../../assets/images/app/dashboard/blackProfileIcon.svg"
+              navigateTo="/profile"
             />
             <div className="profileSection">
               <div className="topProfileSection">

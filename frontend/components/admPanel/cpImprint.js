@@ -4,21 +4,21 @@ import UserInput from "../app/utils/UserInput";
 import Button from "../web/utils/Button";
 import * as Yup from "yup";
 import Table from "./Table";
-import { useState } from "react";
-import Head from "next/head";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CPImprint = () => {
   const [imPrint, setImPrint] = useState([
-    {
-      id: 1,
-      title: "fa-brands fa-facebook",
-      content: "https://www.facebook.com",
-    },
-    {
-      id: 2,
-      title: "fa-brands fa-instagram",
-      content: "https://www.instagram.com",
-    },
+    // {
+    //   id: 1,
+    //   title: "fa-brands fa-facebook",
+    //   content: "https://www.facebook.com",
+    // },
+    // {
+    //   id: 2,
+    //   title: "fa-brands fa-instagram",
+    //   content: "https://www.instagram.com",
+    // },
     // {
     //   id: 3,
     //   icon: "fa-brands fa-twitter",
@@ -36,16 +36,64 @@ const CPImprint = () => {
     content: Yup.string().required("Content is required"),
   });
 
-  const onSubmit = (values, onSubmitProps) => {
-    setImPrint([
-      ...imPrint,
-      {
-        id: Math.random(),
+  const getImPrint = async () => {
+    try {
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`
+      ).then((response) => setImPrint(response.data.imprinti));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getImPrint();
+  }, []);
+
+  const onSubmit = async (values, onSubmitProps) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/post`;
+
+      const { data: res } = await axios.post(url, {
         title: values.title,
         content: values.content,
-      },
-    ]);
+      });
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`
+      ).then((response) => setImPrint(response.data.imprinti));
+      onSubmitProps.resetForm();
+    } catch (error) {
+      console.log(error);
+    }
+
     onSubmitProps.resetForm();
+  };
+
+  const editItem = async (id) => {
+    await axios
+      .put(`${process.env.NEXT_PUBLIC_URL}imprint/dashboard/patch/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        console.log("Student successfully updated");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const deleteItem = async (id) => {
+    await axios
+      .delete(`${process.env.NEXT_PUBLIC_URL}imprint/dashboard/delete/${id}`)
+      .then((res) => {
+        console.log("Item successfully deleted!");
+
+        axios(`${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`).then(
+          (response) => setImPrint(response.data.imprinti)
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -69,7 +117,12 @@ const CPImprint = () => {
           );
         }}
       </Formik>
-      <Table tableHead={["Title", "Conent"]} tableBody={imPrint} />
+      <Table
+        tableHead={["Title", "Conent"]}
+        tableBody={imPrint}
+        editItem={editItem}
+        deleteItem={deleteItem}
+      />
     </CPImprintStyled>
   );
 };

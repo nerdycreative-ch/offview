@@ -9,7 +9,7 @@ const Socialmedia = require("../model/socialmedia");
 const socialmediaGet = async (req, res) => {
   try {
     const socialmedia = await Socialmedia.find({});
-    return res.status(200).json({ success: true, imprinti: socialmedia });
+    return res.status(200).json({ success: true, socialmedia: socialmedia });
   } catch (err) {
     console.log(err);
     return res
@@ -27,7 +27,7 @@ const socialmediaGet = async (req, res) => {
 const socialmediaGetOne = async (req, res) => {
   try {
     const socialmedia = await Socialmedia.findOne({ _id: req.params.id });
-    return res.status(200).json({ success: true, imprinti: socialmedia });
+    return res.status(200).json({ success: true, socialmedia: socialmedia });
   } catch (err) {
     console.log(err);
     return res

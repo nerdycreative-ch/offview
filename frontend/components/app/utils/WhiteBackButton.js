@@ -1,7 +1,16 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const WhiteBackButton = () => {
-  return <WhiteBackButtonStyled>Back</WhiteBackButtonStyled>;
+const WhiteBackButton = ({goTo}) => {
+
+  const router = useRouter();
+
+
+  return (
+    <div onClick={() => router.back()}>
+      <WhiteBackButtonStyled>Back</WhiteBackButtonStyled>
+    </div>
+  );
 };
 
 const WhiteBackButtonStyled = styled.div`
