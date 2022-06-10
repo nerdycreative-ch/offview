@@ -36,6 +36,9 @@ const PrivacyPolicy = () => {
     },
   ];
 
+
+  
+
   return (
     <PrivacyPolicyStyled>
       <Head>

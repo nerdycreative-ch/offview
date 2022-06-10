@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { AuthWrappercontext } from "../context/auth";
 import { Dashboardcontext } from "../context/dashboard";
+import { Searchprofilecontext } from "../context/searchprofile";
 import { Webcontext } from "../context/webContext";
 import "../styles/globals.css";
 
@@ -18,9 +19,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <AuthWrappercontext>
         <Dashboardcontext>
-          <>
-            <Component {...pageProps} />
-          </>
+          <Searchprofilecontext>
+            <>
+              <Component {...pageProps} />
+            </>
+          </Searchprofilecontext>
         </Dashboardcontext>
       </AuthWrappercontext>
     </Webcontext>

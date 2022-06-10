@@ -15,8 +15,8 @@ const {
 
 router.get("/dashboard/information/get", imprintInfoGet);
 router.post("/dashboard/information/post", imprintInfoPost);
-router.patch("/dashboard/information/patch", imprintInfoPatch);
-router.delete("/dashboard/information/delete", imprintInfoDelete);
+router.patch("/dashboard/information/patch/:id", imprintInfoPatch);
+router.delete("/dashboard/information/delete/:id", imprintInfoDelete);
 
 //normal routes
 

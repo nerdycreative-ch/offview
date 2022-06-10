@@ -18,7 +18,7 @@ const Advertisement = () => {
         fontSize={24}
         content="Add a advertisement to identify potential buyers."
         plusButtonTitle="Create advertisement"
-        href=""
+        href="advertisementsteps?page=selectprofile"
       />
       {/* ALL DRAFT */}
       <OffersStyled>

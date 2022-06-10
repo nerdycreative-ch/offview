@@ -4,16 +4,17 @@ import UserInput from "../app/utils/UserInput";
 import Button from "../web/utils/Button";
 import * as Yup from "yup";
 import Table from "./Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CPInformation = () => {
   const [information, setInformation] = useState([
-    {
-      id: 1,
-      data: "offview AG Rüeggisingerstrasse 19 CH-6020 Emmenbrücke VAT-ID: CH123456789",
-      phone: "+41 (0) 123 4567 89",
-      email: "contact@offview.ch",
-    },
+    // {
+    //   id: 1,
+    //   data: "offview AG Rüeggisingerstrasse 19 CH-6020 Emmenbrücke VAT-ID: CH123456789",
+    //   phone: "+41 (0) 123 4567 89",
+    //   email: "contact@offview.ch",
+    // },
   ]);
 
   const globalValues = {
@@ -28,17 +29,68 @@ const CPInformation = () => {
     email: Yup.string().required("Email is required"),
   });
 
-  const onSubmit = (values, onSubmitProps) => {
-    setInformation([
-      ...information,
-      {
-        id: Math.random(),
+  const getInformation = async () => {
+    try {
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+      ).then((response) => setInformation(response.data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getInformation();
+  }, []);
+
+  const onSubmit = async (values, onSubmitProps) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/post`;
+
+      const { data: res } = await axios.post(url, {
         data: values.data,
-        phone: values.phone,
+        phoneNumber: values.phone,
         email: values.email,
-      },
-    ]);
+      });
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+      ).then((response) => setInformation(response.data.data));
+      onSubmitProps.resetForm();
+    } catch (error) {
+      console.log(error);
+    }
     onSubmitProps.resetForm();
+  };
+
+  const editItem = async (id) => {
+    await axios
+      .put(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/patch/${id}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        console.log("Student successfully updated");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const deleteItem = async (id) => {
+    await axios
+      .delete(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/delete/${id}`
+      )
+      .then((res) => {
+        console.log("Item successfully deletedasdas!");
+
+        axios(
+          `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+        ).then((response) => setInformation(response.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -70,6 +122,8 @@ const CPInformation = () => {
         informations
         tableHead={["Data", "Phone", "Email"]}
         tableBody={information}
+        editItem={editItem}
+        deleteItem={deleteItem}
       />
     </CPInformationStyled>
   );

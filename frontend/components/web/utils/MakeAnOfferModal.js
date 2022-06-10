@@ -29,10 +29,10 @@ const MakeAnOfferModal = () => {
                 placeholder="Enter your offer"
               />
               <select>
-                <option value="euro">&euro;</option>
-                <option value="dollar">&#36;</option>
+                {/* <option value="euro">&euro;</option>
+                <option value="dollar">&#36;</option> */}
                 <option value="franc">&#8355;</option>
-                <option value="pound">&#163;</option>
+                {/* <option value="pound">&#163;</option> */}
               </select>
             </div>
           </div>

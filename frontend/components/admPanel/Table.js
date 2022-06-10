@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const Table = ({ tableHead, tableBody, socialMedia, informations }) => {
+const Table = ({ tableHead, tableBody, socialMedia, informations,editItem,deleteItem }) => {
+
+
+  
   return (
     <TableStyled>
       <table>
@@ -14,12 +17,13 @@ const Table = ({ tableHead, tableBody, socialMedia, informations }) => {
         </thead>
         <tbody>
           {tableBody.map((item, index) => {
+             console.log("itteems" , item._id);
             return (
               <tr key={index}>
                 {socialMedia && (
                   <>
                     <td>{item.icon}</td>
-                    <td>{item.href}</td>
+                    <td>{item.url}</td>
                   </>
                 )}
 
@@ -38,8 +42,8 @@ const Table = ({ tableHead, tableBody, socialMedia, informations }) => {
                   </>
                 )}
 
-                <td className="editBtn">Edit</td>
-                <td className="deleteBtn">Delete</td>
+                <td className="editBtn" onClick={() => editItem(item._id)} >Edit</td>
+                <td className="deleteBtn" onClick={() => deleteItem(item._id)}>Delete</td>
               </tr>
             );
           })}
@@ -76,10 +80,12 @@ const TableStyled = styled.div`
   .editBtn {
     background-color: #0000ff;
     color: #ffffff;
+    cursor: pointer;
   }
   .deleteBtn {
     background-color: red;
     color: #ffffff;
+    cursor: pointer;
   }
 `;
 

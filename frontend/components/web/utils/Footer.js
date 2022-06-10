@@ -1,7 +1,27 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Footer = () => {
+  const [socialMedia, setSocialMedia] = useState([]);
+
+  console.log(socialMedia);
+
+  const getSocialMediaItem = async () => {
+    try {
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/getall`
+      ).then((response) => setSocialMedia(response.data.socialmedia));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getSocialMediaItem();
+  }, []);
+
   return (
     <FooterStyled>
       <div className="bothSide">
@@ -10,7 +30,6 @@ const Footer = () => {
             <Link href="/">
               {/* <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" /> */}
               <img src="../../../assets/images/web/whiteLogo.svg" alt="logo" />
-
             </Link>
           </div>
           <p className="information">
@@ -72,7 +91,7 @@ const Footer = () => {
         <div className="socialMedia">
           <div>Get in touch : </div>
 
-          <a href="https://www.facebook.com">
+          {/* <a href="https://www.facebook.com">
             <i class="fa-brands fa-facebook"></i>
           </a>
           <a href="https://www.instagram.com">
@@ -83,8 +102,15 @@ const Footer = () => {
           </a>
           <a href="https://www.youtube.com">
             <i class="fa-brands fa-youtube"></i>
-          </a>
+          </a> */}
 
+          {socialMedia.map((item, index) => {
+            return (
+              <a key={index} href={item.url}>
+                <i className={item.icon}></i>
+              </a>
+            );
+          })}
         </div>
       </div>
     </FooterStyled>

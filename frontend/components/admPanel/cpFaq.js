@@ -3,22 +3,22 @@ import styled from "styled-components";
 import UserInput from "../app/utils/UserInput";
 import Button from "../web/utils/Button";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "./Table";
+import axios from "axios";
 
 const CPFAQ = () => {
-
   const [faq, setFaq] = useState([
-    {
-      id: 1,
-      title: "fa-brands fa-facebook",
-      content: "https://www.facebook.com",
-    },
-    {
-      id: 2,
-      title: "fa-brands fa-instagram",
-      content: "https://www.instagram.com",
-    },
+    // {
+    //   id: 1,
+    //   title: "fa-brands fa-facebook",
+    //   content: "https://www.facebook.com",
+    // },
+    // {
+    //   id: 2,
+    //   title: "fa-brands fa-instagram",
+    //   content: "https://www.instagram.com",
+    // },
     // {
     //   id: 3,
     //   icon: "fa-brands fa-twitter",
@@ -36,17 +36,66 @@ const CPFAQ = () => {
     content: Yup.string().required("Content is required"),
   });
 
-  const onSubmit = (values, onSubmitProps) => {
-    setFaq([
-      ...faq,
-      {
-        id: Math.random(),
+  useEffect(() => {
+    getFaq();
+  }, []);
+
+  const getFaq = async () => {
+    try {
+      await axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
+        (response) => setFaq(response.data.data)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onSubmit = async (values, onSubmitProps) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_URL}faq/dashboard/post`;
+
+      const { data: res } = await axios.post(url, {
         title: values.title,
         content: values.content,
-      },
-    ]);
+      });
+      await axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
+        (response) => setFaq(response.data.data)
+      );
+      onSubmitProps.resetForm();
+    } catch (error) {
+      console.log(error);
+    }
+
     onSubmitProps.resetForm();
   };
+
+  const editItem = async (id) => {
+    await axios
+      .put(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/patch/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        console.log("Student successfully updated");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const deleteItem = async (id) => {
+    await axios
+      .delete(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/delete/${id}`)
+      .then((res) => {
+        console.log("Item successfully deleted!");
+
+        axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
+          (response) => setFaq(response.data.data)
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <CpFaqStyled>
       <h1 className="apTitle">FAQ</h1>
@@ -70,8 +119,12 @@ const CPFAQ = () => {
         }}
       </Formik>
 
-      <Table tableHead={["Title", "Conent"]} tableBody={faq} />
-
+      <Table
+        tableHead={["Title", "Conent"]}
+        editItem={editItem}
+        deleteItem={deleteItem}
+        tableBody={faq}
+      />
     </CpFaqStyled>
   );
 };

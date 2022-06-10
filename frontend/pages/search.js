@@ -32,7 +32,7 @@ const Search = () => {
           fontSize={24}
           content="Add a search profile to identify potential buyers."
           plusButtonTitle="Create search profile"
-          href="searchsteps"
+          href="searchsteps?page=selectprofile"
         />
         {/* ALL DRAFT */}
         <div className="allDraft">

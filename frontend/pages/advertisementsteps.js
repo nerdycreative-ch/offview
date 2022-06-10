@@ -8,8 +8,12 @@ import ASelectProfile from "../components/app/advertisements/ASelectProfile";
 import FirstArea from "../components/app/advertisements/FirstArea";
 import AIPliving from "../components/app/advertisements/AIPliving";
 import ThirdArea from "../components/app/advertisements/ThirdArea";
+import { useRouter } from "next/router";
 
 const AdvertisementSteps = () => {
+  const router = useRouter();
+  const { page } = router.query;
+
   const [formStep, setFormStep] = useState(1);
 
   const { stepsActiveLink, setStepsActiveLink, changeStep } =
@@ -21,21 +25,52 @@ const AdvertisementSteps = () => {
         <LeftSideRegister />
       </div> */}
       <div className="rightSideRegister">
+        {page == "selectprofile" && (
+          <ASelectProfile
+            changeStep={() =>
+              setStepsActiveLink((prev) => page == "selectprofile" && prev + 1)
+            }
+          />
+        )}
+
+        {page == "firstarea" && (
+          <FirstArea
+            changeStep={() =>
+              setStepsActiveLink((prev) => page == "firstarea" && prev + 1)
+            }
+          />
+        )}
+
+        {page == "aipliving" && (
+          <AIPliving
+            changeStep={() =>
+              setStepsActiveLink((prev) => page == "aipliving" && prev + 1)
+            }
+          />
+        )}
+
+        {page == "thirdarea" && (
+          <ThirdArea
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
+        )}
+
         {/* {stepsActiveLink == 1 && (
           <ASelectProfile
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
-        )}
+        )} */}
+        {/* 
         {stepsActiveLink == 2 && (
           <FirstArea
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
         )} */}
-        {stepsActiveLink == 1 && (
+        {/* {stepsActiveLink == 3 && (
           <ThirdArea
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
-        )}
+        )} */}
       </div>
     </SearchStepsStyled>
   );

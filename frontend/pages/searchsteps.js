@@ -4,12 +4,16 @@ import SelectProfile from "../components/app/searchProfile/selectProfile";
 import SearchRegion from "../components/app/searchProfile/serachRegion";
 import Price from "../components/app/searchProfile/price";
 import { useDashboardContext } from "../context/dashboard";
+import { useRouter } from "next/router";
 
 const SearchSteps = () => {
-  const [formStep, setFormStep] = useState(1);
+  const router = useRouter();
+  const { page } = router.query;
 
   const { stepsActiveLink, setStepsActiveLink, changeStep } =
     useDashboardContext();
+
+  console.log(page);
 
   return (
     <SearchStepsStyled>
@@ -17,19 +21,43 @@ const SearchSteps = () => {
         <LeftSideRegister />
       </div> */}
       <div className="rightSideRegister">
-        {stepsActiveLink == 1 && (
+        {page == "selectprofile" && (
+          <SelectProfile
+            changeStep={() =>
+              setStepsActiveLink((prev) => page == "selectprofile" && prev + 1)
+            }
+          />
+        )}
+
+        {page == "searchregion" && (
+          <SearchRegion
+            changeStep={() =>
+              setStepsActiveLink((prev) => page == "searchregion" && prev + 1)
+            }
+          />
+        )}
+
+        {page == "price" && (
+          <Price
+            changeStep={() =>
+              setStepsActiveLink((prev) => page == "price" && prev + 1)
+            }
+          />
+        )}
+
+        {/* {stepsActiveLink == 1 && (
           <SelectProfile
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
-        )}
-        {stepsActiveLink == 2 && (
+        )} */}
+        {/* {stepsActiveLink == 2 && (
           <SearchRegion
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}
           />
-        )}
-        {stepsActiveLink == 3 && (
+        )} */}
+        {/* {stepsActiveLink == 3 && (
           <Price changeStep={() => setStepsActiveLink((prev) => prev + 1)} />
-        )}
+        )} */}
       </div>
     </SearchStepsStyled>
   );

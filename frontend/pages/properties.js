@@ -64,10 +64,10 @@ const Properties = () => {
             <SelectInput selectList={types} inputName="Type" />
           </div>
 
-          <div className="singleInput moreFilters">
+          {/* <div className="singleInput moreFilters">
             <span>More filters</span>
             <img src="../assets/images/web/dropdownArrowWhite.svg" alt="" />
-          </div>
+          </div> */}
 
           {/* search btn */}
           <button className="searchBtn">Search</button>

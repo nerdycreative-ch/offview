@@ -110,7 +110,7 @@ export const AuthWrappercontext = ({ children }) => {
           role: userData.singleTypeCategory,
           website: userData.website,
           postalCode: "1234",
-          gender: "male"
+          gender: "male",
         },
         {
           headers: {
@@ -127,7 +127,6 @@ export const AuthWrappercontext = ({ children }) => {
       });
   };
 
-  console.log(userData);
 
   return (
     <AuthContext.Provider

@@ -1,4 +1,5 @@
 import { Formik } from "formik";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Button from "../utils/Button";
 import CheckBox from "../utils/CheckBox";
@@ -10,7 +11,18 @@ import UserInput from "../utils/UserInput";
 import WhiteBackButton from "../utils/WhiteBackButton";
 import AppContainer from "../wrappers/AppContainer";
 
-const AIPliving = () => {
+const AIPliving = ({changeStep}) => {
+
+  const router = useRouter();
+
+
+
+  const onSubmit = (values, onSubmitProps) => {
+  
+    changeStep();
+    router.push("/advertisementsteps?page=thirdarea");
+  };
+
   return (
     <AppContainer>
       <AIPlivingStyled>
@@ -151,7 +163,7 @@ const AIPliving = () => {
                 <div className="buttonContainer">
                   <WhiteBackButton />
                   <div style={{ width: 110, marginLeft: 16 }}>
-                    <Button title="Continue" />
+                    <Button title="Continue" type="submit" onClick={onSubmit} />
                   </div>
                 </div>
               </>

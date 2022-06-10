@@ -22,16 +22,13 @@ const Register = () => {
 
   const { setStepsActiveLink, changeStep } = useDashboardContext();
 
-  // const changeStep = () => {
-  //   setFormStep((prev) => prev + 1);
-  //   console.log(formStep);
-  // };
-
   return (
     <RegisterStepsStyled>
       {page == "selectprofile" && (
         <SelectProfile
-          changeStep={() => setStepsActiveLink((prev) => page=="selectprofile" && prev + 1)}
+          changeStep={() =>
+            setStepsActiveLink((prev) => page == "selectprofile" && prev + 1)
+          }
         />
       )}
 
