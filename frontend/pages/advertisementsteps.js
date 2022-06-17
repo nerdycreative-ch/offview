@@ -9,6 +9,8 @@ import FirstArea from "../components/app/advertisements/FirstArea";
 import AIPliving from "../components/app/advertisements/AIPliving";
 import ThirdArea from "../components/app/advertisements/ThirdArea";
 import { useRouter } from "next/router";
+import { useAdvertisementContext } from "../context/advertisement";
+import LandPage from "../components/app/advertisements/LandPage";
 
 const AdvertisementSteps = () => {
   const router = useRouter();
@@ -18,6 +20,14 @@ const AdvertisementSteps = () => {
 
   const { stepsActiveLink, setStepsActiveLink, changeStep } =
     useDashboardContext();
+
+  const {
+    AdvertisementLivingValidation,
+    AdvertisementCommercialValidation,
+    AdvertisementResedentialCommercialValidation,
+    AdvertisementLandValidation,
+    AdvadvertisementActiveLink,
+  } = useAdvertisementContext();
 
   return (
     <SearchStepsStyled>
@@ -41,13 +51,20 @@ const AdvertisementSteps = () => {
           />
         )}
 
-        {page == "aipliving" && (
-          <AIPliving
-            changeStep={() =>
-              setStepsActiveLink((prev) => page == "aipliving" && prev + 1)
-            }
-          />
-        )}
+        {page == "aipliving" &&
+          (AdvadvertisementActiveLink == "investmentproperties" ? (
+            <AIPliving
+              changeStep={() =>
+                setStepsActiveLink((prev) => page == "aipliving" && prev + 1)
+              }
+            />
+          ) : AdvadvertisementActiveLink == "land" ? (
+            <LandPage />
+          ) : AdvadvertisementActiveLink == "newbuildingprojects" ? (
+            <h1>Soon</h1>
+          ) : (
+            ""
+          ))}
 
         {page == "thirdarea" && (
           <ThirdArea

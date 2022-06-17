@@ -9,13 +9,30 @@ import WhiteBackButton from "../utils/WhiteBackButton";
 import ExitButton from "../utils/ExitButton";
 import UserInput from "../utils/UserInput";
 import MapView from "../utils/MapView";
-import { Formik } from "formik";
+import { Formik, Form, validateYupSchema } from "formik";
 import { useRouter } from "next/router";
+import { useAdvertisementContext } from "../../../context/advertisement";
 
 const FirstArea = ({ changeStep }) => {
+  const {
+    globalValuesAdv,
+    AdvertisementFirstArea,
+    finalAdvertisement,
+    setFinalAdvertisement,
+  } = useAdvertisementContext();
+
   const Router = useRouter();
 
   const onSubmit = (values, onSubmitProps) => {
+    setFinalAdvertisement({
+      ...finalAdvertisement,
+      title: values.title,
+      street: values.street,
+      No: values.no,
+      postcode: values.postCode,
+      town: values.town,
+    });
+    console.log(values);
     changeStep();
     Router.push("/advertisementsteps?page=aipliving");
   };
@@ -33,32 +50,31 @@ const FirstArea = ({ changeStep }) => {
             content="We use this data to calculate matches with purchase profiles of potential buyers."
           />
 
-          <Formik>
+          <Formik
+            initialValues={globalValuesAdv}
+            validationSchema={AdvertisementFirstArea}
+            onSubmit={onSubmit}
+            enableReinitialize
+          >
             {(formik) => {
               return (
-                <>
+                <Form>
                   <UserInput
                     labelName="Title"
                     placeholder="ex. House"
                     name="title"
                   />
 
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div style={{ width: "48%" }}>
+                  <div className="inLineItems">
+                    <div className="singleItem">
                       <UserInput
                         labelName="Street"
                         type="text"
                         placeholder="Address"
-                        name="address"
+                        name="street"
                       />
                     </div>
-                    <div style={{ width: "48%" }}>
+                    <div className="singleItem">
                       <UserInput
                         labelName="No *"
                         type="text"
@@ -68,20 +84,13 @@ const FirstArea = ({ changeStep }) => {
                     </div>
                   </div>
 
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                    className=""
-                  >
+                  <div className="inLineItems">
                     <div style={{ width: "26%" }}>
                       <UserInput
                         labelName="Postcode *"
                         type="text"
                         placeholder="012345"
-                        name="postcode"
+                        name="postCode"
                       />
                     </div>
                     <div style={{ width: "71%" }}>
@@ -102,10 +111,14 @@ const FirstArea = ({ changeStep }) => {
                   <div className="buttonContainer">
                     <WhiteBackButton />
                     <div style={{ width: 110, marginLeft: 16 }}>
-                      <Button type="submit" title="Continue" onClick={onSubmit} />
+                      <Button
+                        type="submit"
+                        title="Continue"
+                        // onClick={onSubmit}
+                      />
                     </div>
                   </div>
-                </>
+                </Form>
               );
             }}
           </Formik>
@@ -167,6 +180,16 @@ const FirstAreaStyled = styled.div`
     display: flex;
     padding-bottom: 32px;
   }
+
+  .inLineItems {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .singleItem {
+    width: 48%;
+  }
+
   @media (max-width: 991.98px) {
     padding: 0 10%;
   }
@@ -175,6 +198,13 @@ const FirstAreaStyled = styled.div`
   }
   @media (max-width: 767.98px) {
     padding: 0 5%;
+
+    .inLineItems {
+      flex-wrap: wrap;
+    }
+    .singleItem {
+      width: 100%;
+    }
   }
   @media (max-width: 575.98px) {
     padding: 0%;

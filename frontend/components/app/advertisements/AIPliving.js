@@ -1,6 +1,7 @@
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useAdvertisementContext } from "../../../context/advertisement";
 import Button from "../utils/Button";
 import CheckBox from "../utils/CheckBox";
 import ExitButton from "../utils/ExitButton";
@@ -11,14 +12,22 @@ import UserInput from "../utils/UserInput";
 import WhiteBackButton from "../utils/WhiteBackButton";
 import AppContainer from "../wrappers/AppContainer";
 
-const AIPliving = ({changeStep}) => {
-
+const AIPliving = ({ changeStep }) => {
   const router = useRouter();
 
-
+  const {
+    AdvertisementLivingValidation,
+    AdvertisementCommercialValidation,
+    AdvertisementResedentialCommercialValidation,
+    AdvertisementLandValidation,
+    AdvadvertisementActiveLink,
+    AdvpropertyActiveLink,
+    AdvertisementBasedValidation,
+    globalValuesAdv,
+  } = useAdvertisementContext();
 
   const onSubmit = (values, onSubmitProps) => {
-  
+    console.log("TESTA AA");
     changeStep();
     router.push("/advertisementsteps?page=thirdarea");
   };
@@ -37,40 +46,83 @@ const AIPliving = ({changeStep}) => {
           content="We use this data to calculate matches with purchase profiles of potential buyers."
         />
 
-        <Formik>
+        <Formik
+          initialValues={globalValuesAdv}
+          validationSchema={
+            AdvpropertyActiveLink == "living"
+              ? AdvertisementLivingValidation
+              : AdvpropertyActiveLink == "commercial"
+              ? AdvertisementCommercialValidation
+              : AdvpropertyActiveLink == "residentialandcommercial"
+              ? AdvertisementResedentialCommercialValidation
+              : ""
+            // AdvertisementLivingValidation
+          }
+          onSubmit={onSubmit}
+          enableReinitialize
+        >
           {(formik) => {
             return (
-              <>
+              <Form>
                 <div className="inLineItems">
                   <div className="singleItem">
                     <UserInput
                       labelName="Sales Price *"
                       placeholder="€"
-                      name="price"
+                      name="salesPrice"
                     />
                   </div>
                   <div className="singleItem">
                     <UserInput
                       labelName="Net Rental Income per Year *"
                       placeholder="%"
-                      name="nripy"
+                      name="netRentalIncomePYear"
                     />
                   </div>
                 </div>
+
+                {AdvpropertyActiveLink == "residentialandcommercial" && (
+                  <div className="inLineItems">
+                    <div className="singleItem">
+                      <UserInput
+                        labelName="Proportion Commercial"
+                        placeholder="%"
+                        name="proportionCommercial"
+                      />
+                    </div>
+                    <div className="singleItem">
+                      <UserInput
+                        labelName="Proportion Residential"
+                        placeholder="%"
+                        name="proportionResidential"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* {
+                   
+                    AdvpropertyActiveLink == "living"
+                    ? <h1>living</h1>
+                    : AdvpropertyActiveLink == "commercial"
+                    ? <h2>commercial</h2>
+                    : <h1>Residential</h1>
+                
+                } */}
 
                 <div className="inLineItems">
                   <div className="singleItem">
                     <UserInput
                       labelName="Plot Area *"
                       placeholder="m2"
-                      name="plotarea"
+                      name="plotArea"
                     />
                   </div>
                   <div className="singleItem">
                     <UserInput
                       labelName="Destination Zone Type"
                       placeholder="Select zone type"
-                      name="destinationzone"
+                      name="destinationZoneType"
                     />
                   </div>
                 </div>
@@ -80,7 +132,7 @@ const AIPliving = ({changeStep}) => {
                     <UserInput
                       labelName="Year of Construction *"
                       placeholder="0000"
-                      name="yearconstruction"
+                      name="yearConstruction"
                     />
                   </div>
                   <div className="singleItem">
@@ -101,35 +153,83 @@ const AIPliving = ({changeStep}) => {
                     />
                   </div>
                   <div className="singleItem">
-                    <UserInput
-                      labelName="Residential Units *"
-                      placeholder="0"
-                      name="residentialunits"
-                    />
+                    {AdvpropertyActiveLink == "living" ||
+                    AdvpropertyActiveLink == "residentialandcommercial" ? (
+                      <UserInput
+                        labelName="Residential Units *"
+                        placeholder="0"
+                        name="resedentialUnits"
+                      />
+                    ) : (
+                      <>
+                        <UserInput
+                          labelName="Commercial Units *"
+                          placeholder="0"
+                          name="commercialUnits"
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
 
                 <div className="singleItem">
-                  <UserInput
-                    labelName="Living Space"
-                    placeholder="m2"
-                    name="livingspace"
-                  />
+                  {AdvpropertyActiveLink == "living" ||
+                  AdvpropertyActiveLink == "residentialandcommercial" ? (
+                     ""
+                  ) : (
+                    <>
+                      <UserInput
+                        labelName="Commercial Space"
+                        placeholder="m2"
+                        name="commercialSpace"
+                      />
+                    </>
+                  )}
                 </div>
+
+                <div className="singleItem">
+                  {(AdvpropertyActiveLink == "living" ||
+                    AdvpropertyActiveLink == "residentialandcommercial") && (
+                    <UserInput
+                      labelName="Living Space"
+                      placeholder="m2"
+                      name="livingSpace"
+                    />
+                  )}
+                </div>
+
+                {AdvpropertyActiveLink == "residentialandcommercial" && (
+                  <div className="inLineItems">
+                    <div className="singleItem">
+                      <UserInput
+                        labelName="Commercial Units *"
+                        placeholder="0"
+                        name="commercialUnits"
+                      />
+                    </div>
+                    <div className="singleItem">
+                      <UserInput
+                        labelName="Commercial Space"
+                        placeholder="0"
+                        name="commercialSpace"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <div className="inLineItems">
                   <div className="singleItem">
                     <UserInput
                       labelName="Number of Garage *"
                       placeholder="0"
-                      name="numberofgarage"
+                      name="numberOfGarage"
                     />
                   </div>
                   <div className="singleItem">
                     <UserInput
                       labelName="Number of Underground Parking Space *"
                       placeholder="0"
-                      name="parkingspace"
+                      name="numerOfUndergroundParking"
                     />
                   </div>
                 </div>
@@ -138,24 +238,48 @@ const AIPliving = ({changeStep}) => {
                   <UserInput
                     labelName="Number of Outdoor Parking Space *"
                     placeholder="0"
-                    name="outdoorparkingspace"
+                    name="numberOfOutDoorParkingSpace"
                   />
                 </div>
 
                 <div className="checkBoxConainer">
-                  <CheckBox
+                  {/* <CheckBox
                     name="minergieStandard"
                     content="Minergie Standard"
-                  />
+                  /> */}
                   <CheckBox name="passengerLift" content="Passenger Lift" />
-                  <CheckBox
-                    name="glassFibreConnection"
-                    content="Glass Fibre Connection"
-                  />
+
+                  {AdvpropertyActiveLink == "living" && (
+                    <CheckBox
+                      name="glassFibreConnection"
+                      content="Glass Fibre Connection"
+                    />
+                  )}
+
+                  {(AdvpropertyActiveLink == "living" ||
+                    AdvpropertyActiveLink == "residentialandcommercial") && (
+                    <CheckBox
+                      name="minegieStandard"
+                      content="Minergie Standard"
+                    />
+                  )}
+
+                  {(AdvpropertyActiveLink == "commercial" ||
+                    AdvpropertyActiveLink == "residentialandcommercial") && (
+                    <>
+                      <CheckBox name="goodsLift" content="Goods Lift" />
+                      <CheckBox
+                        name="fibreOpticConnection"
+                        content="Fibre Optic Connection"
+                      />
+                    </>
+                  )}
+
                   <CheckBox
                     name="electricCarChargingStation"
                     content="Electric Car Charging Station"
                   />
+
                   <CheckBox name="buildingLease" content="Building Lease" />
                 </div>
 
@@ -163,10 +287,10 @@ const AIPliving = ({changeStep}) => {
                 <div className="buttonContainer">
                   <WhiteBackButton />
                   <div style={{ width: 110, marginLeft: 16 }}>
-                    <Button title="Continue" type="submit" onClick={onSubmit} />
+                    <Button title="Continue" type="submit" />
                   </div>
                 </div>
-              </>
+              </Form>
             );
           }}
         </Formik>

@@ -9,12 +9,11 @@ import RegisterTitle from "../utils/RegisterTitle";
 import { useSearchProfileContext } from "../../../context/searchprofile";
 import { useRouter } from "next/router";
 
-
 const SelectProfile = ({ changeStep }) => {
-
   const Router = useRouter();
 
-  const { advertismentType, propertyType } = useSearchProfileContext();
+  const { advertismentType, propertyType, setFinalSubmit, finalSubmit } =
+    useSearchProfileContext();
 
   const [heightOfScreen, setHeightOffScreen] = useState(0);
   const [widthOffScreen, setWidthOfScreen] = useState(0);
@@ -24,46 +23,21 @@ const SelectProfile = ({ changeStep }) => {
     setWidthOfScreen(screen.width);
   }, []);
 
-  // const [categories, setCategories] = useState([
-  //   {
-  //     id: 1,
-  //     name: "Investment properties",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Land",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "New building projects",
-  //   },
-  // ]);
-
-  // const [typeOfCat, setTypeOfCat] = useState([
-  //   {
-  //     id: 5,
-  //     name: "Living",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Commercial",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Residential and commercial",
-  //   },
-  // ]);
-
-  const [activeLink, setActiveLink] = useState(0);
-  const [PCactiveLink, setPcActiveLink] = useState(0);
+  const {
+    advertisementActiveLink,
+    setAdvertisementActiveLink,
+    propertyActiveLink,
+    setPropertyActiveLink,
+  } = useSearchProfileContext();
 
   const onClick = () => {
+    setFinalSubmit({
+      ...finalSubmit,
+      advertisementType: advertisementActiveLink,
+      propertyType: propertyActiveLink,
+    });
     changeStep();
-    // setUserData({
-    //   ...userData,
-    //   singleCategory: singleCategory,
-    //   singleTypeCategory: singleTypeCategory,
-    // });
+
     Router.push("/searchsteps?page=searchregion");
   };
 
@@ -95,12 +69,12 @@ const SelectProfile = ({ changeStep }) => {
                   {advertismentType.map((item, index) => {
                     return (
                       <BigRadioButton
-                        onClick={() => setActiveLink(item.id)}
+                        onClick={() => setAdvertisementActiveLink(item.id)}
                         key={index}
                         width={45}
                         type={item.name}
-                        height={116}
-                        activeLink={activeLink}
+                        height={136}
+                        activeLink={advertisementActiveLink}
                         id={item.id}
                         nameOfCat="IS"
                       />
@@ -119,12 +93,12 @@ const SelectProfile = ({ changeStep }) => {
                   {propertyType.map((item, index) => {
                     return (
                       <BigRadioButton
-                        onClick={() => setPcActiveLink(item.id)}
+                        onClick={() => setPropertyActiveLink(item.id)}
                         key={index}
                         width={45}
-                        height={116}
+                        height={136}
                         type={item.name}
-                        PCactiveLink={PCactiveLink}
+                        PCactiveLink={propertyActiveLink}
                         id={item.id}
                         nameOfCat="PC"
                         paddingVertical={20}
@@ -139,7 +113,9 @@ const SelectProfile = ({ changeStep }) => {
           <div style={{ marginTop: 30, paddingBottom: 30 }}>
             <Button
               title="Continue"
-              disabled={activeLink && PCactiveLink ? false : true}
+              disabled={
+                advertisementActiveLink && propertyActiveLink ? false : true
+              }
               onClick={onClick}
             />
           </div>

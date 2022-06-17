@@ -8,10 +8,14 @@ import WhiteBackButton from "../utils/WhiteBackButton";
 import Button from "../utils/Button";
 import Link from "next/link";
 import ExitButton from "../utils/ExitButton";
+import { useSearchProfileContext } from "../../../context/searchprofile";
 
 var thumbsize = 14;
 
 const Price = ({ changeStep }) => {
+  const { finalSubmit, setFinalSubmit, submitDataToBackEnd } =
+    useSearchProfileContext();
+
   let min = 0;
   let max = 199;
 
@@ -40,6 +44,15 @@ const Price = ({ changeStep }) => {
   useEffect(() => {
     setAvg((maxVal + minVal) / 2);
   }, [minVal, maxVal]);
+
+  const onClick = () => {
+    setFinalSubmit({
+      ...finalSubmit,
+      minPrice: minVal,
+      maxPrice: maxVal,
+    });
+    submitDataToBackEnd();
+  };
 
   return (
     <PriceStyled>
@@ -103,7 +116,7 @@ const Price = ({ changeStep }) => {
             <div className="buttonContainer">
               <WhiteBackButton />
               <div style={{ width: 110, marginLeft: 16 }}>
-                <Button title="Continue" onClick={changeStep} />
+                <Button title="Continue" onClick={onClick} />
               </div>
             </div>
           </div>

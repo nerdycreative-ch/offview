@@ -1,10 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import axios from "axios";
 
 const SearchProfileContext = createContext();
 
 export const Searchprofilecontext = ({ children }) => {
   const router = useRouter();
+
+  const [finalSubmit, setFinalSubmit] = useState();
+  const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
+  const [propertyActiveLink, setPropertyActiveLink] = useState(0);
 
   const [searchRegion, setSearchRegion] = useState("");
   const [advertismentType, setAdvertismetType] = useState([
@@ -36,13 +43,49 @@ export const Searchprofilecontext = ({ children }) => {
     },
   ]);
 
+  console.log("FINAL SUBMIT", finalSubmit);
+
   const submitDataToBackEnd = () => {
-    
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_URL}searchprofile`,
+        {
+          advertisementType: finalSubmit.companyname,
+          propertyType: finalSubmit.legalForm,
+          region: finalSubmit.uid,
+          minPrice: finalSubmit.title,
+          maxPrice: finalSubmit.firstname,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <SearchProfileContext.Provider
-      value={{ advertismentType, propertyType, searchRegion, setSearchRegion }}
+      value={{
+        advertismentType,
+        propertyType,
+        searchRegion,
+        setSearchRegion,
+        advertisementActiveLink,
+        setAdvertisementActiveLink,
+        propertyActiveLink,
+        setPropertyActiveLink,
+        finalSubmit,
+        setFinalSubmit,
+        submitDataToBackEnd,
+      }}
     >
       {children}
     </SearchProfileContext.Provider>
