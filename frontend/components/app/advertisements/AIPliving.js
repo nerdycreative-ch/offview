@@ -24,9 +24,43 @@ const AIPliving = ({ changeStep }) => {
     AdvpropertyActiveLink,
     AdvertisementBasedValidation,
     globalValuesAdv,
+    finalAdvertisement,
+    setFinalAdvertisement,
   } = useAdvertisementContext();
 
   const onSubmit = (values, onSubmitProps) => {
+    setFinalAdvertisement({
+      ...finalAdvertisement,
+      salesPrice: values.salesPrice,
+      netRentalIncomePYear: values.netRentalIncomePYear,
+      plotArea: values.plotArea,
+      destinationZoneType: values.destinationZoneType,
+      yearConstruction: values.yearConstruction,
+      floors: values.floors,
+      cubature: values.cubature,
+      resedentialUnits: values.resedentialUnits,
+      livingSpace: values.livingSpace,
+      numberOfGarage: values.numberOfGarage,
+      numerOfUndergroundParking: values.numerOfUndergroundParking,
+      numberOfOutDoorParkingSpace: values.numberOfOutDoorParkingSpace,
+      commercialUnits: values.commercialUnits,
+      commercialSpace: values.commercialSpace,
+      passengerLift: values.passengerLift,
+      builidingLease: values.builidingLease,
+      electricCarChargingStation: values.electricCarChargingStation,
+      minegieStandard: values.minegieStandard,
+      glassFibreConnection: values.glassFibreConnection,
+      goodsLift: values.goodsLift,
+      fibreCarChargingStation: values.fibreCarChargingStation,
+      fibreOpticConnection: values.fibreOpticConnection,
+
+      //LAND
+      buildingLandDeveloped: values.buildingLandDeveloped,
+      water: values.water,
+      fibreOpticConnection: values.fibreOpticConnection,
+      electricSupply: values.electricSupply,
+    });
+
     console.log("TESTA AA");
     changeStep();
     router.push("/advertisementsteps?page=thirdarea");
@@ -175,7 +209,7 @@ const AIPliving = ({ changeStep }) => {
                 <div className="singleItem">
                   {AdvpropertyActiveLink == "living" ||
                   AdvpropertyActiveLink == "residentialandcommercial" ? (
-                     ""
+                    ""
                   ) : (
                     <>
                       <UserInput

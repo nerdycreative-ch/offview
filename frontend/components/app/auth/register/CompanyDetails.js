@@ -61,9 +61,7 @@ const CompanyDetails = ({ whichType }) => {
 
               <Formik
                 initialValues={globalValues}
-                validationSchema={
-                 CompanyBasedValidationSchema
-                }
+                validationSchema={CompanyBasedValidationSchema}
                 onSubmit={onSubmit}
                 enableReinitialize
               >
@@ -108,9 +106,7 @@ const CompanyDetails = ({ whichType }) => {
                       />
 
                       {whichType && (
-                        <div
-                          className="inLineItems"
-                        >
+                        <div className="inLineItems">
                           <div className="singleItem">
                             <UserInput
                               labelName="First Name *"
