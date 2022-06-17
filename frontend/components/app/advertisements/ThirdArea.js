@@ -13,9 +13,19 @@ import AppContainer from "../wrappers/AppContainer";
 // import img from "../../../public/assets/images/app/dashboard/uploadBrowse.svg";
 
 const ThirdArea = () => {
-  const { AdvertisementThirdArea, globalValuesAdv } = useAdvertisementContext();
+  const {
+    AdvertisementThirdArea,
+    globalValuesAdv,
+    finalAdvertisement,
+    setFinalAdvertisement,
+  } = useAdvertisementContext();
 
   const onSubmit = (values, onSubmitProps) => {
+    setFinalAdvertisement({
+      ...finalAdvertisement,
+      totalActualRental: values.totalActualRental,
+      returnOnInvestment: values.returnOnInvestment,
+    });
     console.log(values);
   };
 
