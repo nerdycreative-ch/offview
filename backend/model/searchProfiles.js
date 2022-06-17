@@ -4,37 +4,56 @@ const mongoose = require("mongoose");
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=16.66667,101.18333&key=YOUR_API_KEY
 
 const searchProfilesSchema = new mongoose.Schema({
-  typeOfProfile: {
+  advertisementType: {
     type: String,
-    enum: ["invesmentProperty", "land", "NewBuildingProjects"],
+    enum: ["InvesmentProperties", "Land", "NewBuildingProject"],
   },
   propertyType: {
     type: String,
-    enum: ["living", "commerce", "residential", "commercial"],
+    enum: ["Living", "Commercial", "Residential&Commercial"],
+  },
+  region: {
+    type: String,
+  },
+  minPrice: {
+    type: Number,
+  },
+  maxPrice: {
+    type: Number,
   },
 
   //geolocations
-  adress: {
-    type: String,
-    required: [true, "Please add an adress"],
-  },
-  location: {
-    type: {
-      type: String, // Don't do `{ location: { type: String } }`
-      enum: ["Point"], // 'location.type' must be 'Point'
-    },
-    coordinates: {
-      type: [Number],
-      index: "2dsphere",
-    },
-    formatedAdress: String,
-    country: String,
-    state: String,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  // address: {
+  //   type: String,
+  //   required: [true, "Please add an adress"],
+  // },
+  // location: {
+  //   type: {
+  //     type: String, // Don't do `{ location: { type: String } }`
+  //     enum: ["Point"], // 'location.type' must be 'Point'
+  //   },
+  //   coordinates: {
+  //     type: [Number],
+  //     index: "2dsphere",
+  //   },
+  //   formatedAdress: String,
+  //   country: String,
+  //   state: String,
+  // },
+  // createdAt: {
+  //   type: Date,
+  //   default: Date.now,
+  // },
 });
+
+// searchProfilesSchema.pre("save", async function (next) {
+//   const locat = await geocoder.geocode(this.address);
+//   this.location = {
+//     type: "Point",
+//     coordinates: [locat[0].longitude, locat[0].latitude],
+//     formattedAddress: locat[0].formattedAddress,
+//   };
+//   next();
+// });
 
 module.exports = mongoose.model("searchProfiles", searchProfilesSchema);

@@ -144,7 +144,7 @@ const imprintInfoPost = async (req, res) => {
 const imprintInfoPatch = async (req, res) => {
   const body = req.body;
   try {
-    const imprintinfo = await ImprintInfo.findOne({_id:req.params.id});
+    const imprintinfo = await ImprintInfo.findOne({ _id: req.params.id });
     await Object.assign(imprintinfo, body);
     await imprintinfo.save();
     return res.status(200).json({ success: true, data: imprintinfo });
