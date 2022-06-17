@@ -5,6 +5,7 @@ const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 const { download } = require("express/lib/response");
 const res = require("express/lib/response");
+const path = require("path");
 require(`dotenv`).config();
 
 //image uploader
@@ -36,19 +37,33 @@ const uploadFile = async (file, type) => {
     Body: fileStream,
     Key: file.filename,
   };
-  await s3.upload(uploadParams).promise();
+  return await s3.upload(uploadParams).promise();
 };
 
-const getFileStream = (fileKey, bucketName) => {
+const getFileStream = async (fileKey, type) => {
+  let bucketi = undefined;
+  if (type === "file") {
+    bucketi = process.env.FILE_BUCKET_NAME;
+  }
+  if (type === "image") {
+    bucketi = process.env.IMAGE_BUCKET_NAME;
+  }
+  if (type === "profile") {
+    bucketi = process.env.PROFILE_BUCKET_NAME;
+  }
   const downloadParams = {
-    Key: fileKey,
     Bucket: bucketi,
+    Key: fileKey,
   };
-  return s3.getObject(downloadParams).createReadStr;
+  //let file = fs.createWriteStream("C:");
+  //return await s3.getObject(downloadParams)
+  const rs = s3.getObject(downloadParams).createReadStream();
+  const ws = fs.createWriteStream();
+  return rs.pipe(ws);
 };
 
 const deleteFileStream = async (fileKey, type) => {
-  const bucketi = undefined;
+  let bucketi = undefined;
   if (type === "file") {
     bucketi = process.env.FILE_BUCKET_NAME;
   } else if (type === "image") {
@@ -59,7 +74,7 @@ const deleteFileStream = async (fileKey, type) => {
     console.log("Wrong Type of file");
   }
   const url = `https://${bucketi}.s3.eu-central-1.amazonaws.com/${fileKey}`;
-  const advertisementFile = await Advertisement.findOne({ file: url });
+
   const deleteParams = {
     Bucket: bucketi,
     Key: fileKey,
@@ -74,20 +89,30 @@ const deleteFileStream = async (fileKey, type) => {
 };
 
 //aws doesn't support edit files it rewrites them(just a test)
-const editFile = async (file, fileKey) => {
-  try {
-    await deleteFileStream(fileKey);
-    await uploadFile(file);
-    res.status(200).json("file has been edited");
-  } catch (err) {
-    console.log(err);
-    res.status(404).json("file has failed editing");
+const putFile = async (file, fileKey, type) => {
+  const fileStream = await fs.createReadStream(file.path);
+  let bucketi = undefined;
+  if (type === "file") {
+    bucketi = process.env.FILE_BUCKET_NAME;
   }
+  if (type === "image") {
+    bucketi = process.env.IMAGE_BUCKET_NAME;
+  }
+  if (type === "profile") {
+    bucketi = process.env.PROFILE_BUCKET_NAME;
+  }
+
+  const uploadParams = {
+    Bucket: bucketi,
+    Body: fileStream,
+    Key: fileKey,
+  };
+  return await s3.upload(uploadParams).promise();
 };
 
 module.exports = {
   uploadFile,
   getFileStream,
   deleteFileStream,
-  editFile,
+  putFile,
 };

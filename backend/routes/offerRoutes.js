@@ -1,20 +1,17 @@
-import { Router } from "express";
-import uploader from "../middleware/uploaderMiddleware";
-import { requireAuth, checkUser } from "../middleware/authMiddleware";
-const router = Router;
+const router = require("express").Router();
+const {
+  getOffer,
+  createOffer,
+  rejectOffer,
+  approveOffer,
+  getAllOffers,
+} = require("../controller/offerController");
+const authGuard = require("../middleware/auth-guard");
 
-router.post(
-  "/offers",
-  requireAuth,
-  checkUser,
-  uploader.single("offers-image"),
-  async (req, res) => {
-    console.log(req.body);
-    console.log(req.file);
-    return res.status(201).json({
-      message:"testing";
-    });
-  }
-);
+router.get("/getoffer", authGuard, getOffer);
+router.get("/getalloffers", authGuard, getAllOffers);
+router.post("/createoffer", authGuard, createOffer);
+router.delete("/rejectoffer", authGuard, rejectOffer);
+router.post("/approveoffer", authGuard, approveOffer);
 
-export default router;
+module.exports = router;

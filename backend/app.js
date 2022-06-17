@@ -17,6 +17,8 @@ const imprintRoutes = require("./routes/imprintRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const socialmediaRoutes = require("./routes/socialmediaRoutes");
 const faqRoutes = require("./routes/faqRoutes");
+const searchRoutes = require("./routes/searchProfileRoutes");
+const offerRoutes = require("./routes/offerRoutes");
 
 //cors
 app.use(cors());
@@ -69,4 +71,5 @@ app.use("/imprint", imprintRoutes);
 app.use("/contact", contactRoutes);
 app.use("/socialmedia", socialmediaRoutes);
 app.use("/faq", faqRoutes);
-
+app.use("/searchprofiles", searchRoutes);
+app.use("/offers", offerRoutes);

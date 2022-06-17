@@ -152,10 +152,6 @@ advertisementBaseSchema.schema.pre("save", async function (next) {
     coordinates: [locat[0].longitude, locat[0].latitude],
     formattedAddress: locat[0].formattedAddress,
   };
-
-  //address is not needed
-  this.address = undefined;
-
   next();
 });
 
@@ -186,6 +182,10 @@ const invesmentLivingSchema = advertisementBaseSchema.discriminator(
       type: Number,
     },
     glassFibreConnection: {
+      type: Boolean,
+      required: false,
+    },
+    minergieStandard: {
       type: Boolean,
       required: false,
     },

@@ -46,15 +46,15 @@
 
 // //user role premission
 
-// // const checkRole = (role, subrole) => {
-// //   return (req, res, next) => {
-// //     if (req.user.role !== role || req.user.subrole !== subrole) {
-// //       res.status(401);
-// //       return res.send("Not allowed");
-// //     }
-// //     next();
-// //   };
-// // };
+// const checkRole = (role, subrole) => {
+//   return (req, res, next) => {
+//     if (req.user.role !== role || req.user.subrole !== subrole) {
+//       res.status(401);
+//       return res.send("Not allowed");
+//     }
+//     next();
+//   };
+// };
 
 // module.exports = {
 //   requireAuth,
