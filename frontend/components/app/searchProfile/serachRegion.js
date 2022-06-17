@@ -18,7 +18,8 @@ import { useRouter } from "next/router";
 const SearchRegion = ({ changeStep }) => {
   const Router = useRouter();
 
-  const { searchRegion, setSearchRegion } = useSearchProfileContext();
+  const { searchRegion, setSearchRegion, finalSubmit, setFinalSubmit } =
+    useSearchProfileContext();
 
   const globalValues = {
     searchregion: "",
@@ -30,7 +31,10 @@ const SearchRegion = ({ changeStep }) => {
 
   const onSubmit = (values, onSubmitProps) => {
     console.log("VLERAT", values);
-    setSearchRegion(values.searchregion);
+    setFinalSubmit({
+      ...finalSubmit,
+      region: values.searchregion,
+    });
 
     changeStep();
     Router.push("/searchsteps?page=price");

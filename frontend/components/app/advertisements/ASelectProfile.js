@@ -8,9 +8,19 @@ import Button from "../utils/Button";
 import RegisterTitle from "../utils/RegisterTitle";
 import ExitButton from "../utils/ExitButton";
 import { useRouter } from "next/router";
+import { useAdvertisementContext } from "../../../context/advertisement";
 
 const ASelectProfile = ({ changeStep }) => {
   const Router = useRouter();
+
+  const {
+    AdvadvertisementActiveLink,
+    AdvsetAdvertisementActiveLink,
+    AdvpropertyActiveLink,
+    AdvsetPropertyActiveLink,
+    finalAdvertisement,
+    setFinalAdvertisement,
+  } = useAdvertisementContext();
 
   const [heightOfScreen, setHeightOffScreen] = useState(0);
   const [widthOffScreen, setWidthOfScreen] = useState(0);
@@ -21,47 +31,47 @@ const ASelectProfile = ({ changeStep }) => {
   }, []);
 
   const onClick = () => {
+    setFinalAdvertisement({
+      ...finalAdvertisement,
+      advertisementType: AdvadvertisementActiveLink,
+      propertyType: AdvpropertyActiveLink,
+    });
     changeStep();
-    // setUserData({
-    //   ...userData,
-    //   singleCategory: singleCategory,
-    //   singleTypeCategory: singleTypeCategory,
-    // });
+
     Router.push("/advertisementsteps?page=firstarea");
   };
 
-  const [categories, setCategories] = useState([
+  const [advertismentType, setAdvertismetType] = useState([
     {
-      id: 1,
+      id: "investmentproperties",
       name: "Investment properties",
     },
     {
-      id: 2,
+      id: "land",
       name: "Land",
     },
     {
-      id: 3,
+      id: "newbuildingprojects",
       name: "New building projects",
     },
   ]);
-
-  const [typeOfCat, setTypeOfCat] = useState([
+  const [propertyType, setPropertyType] = useState([
     {
-      id: 5,
+      id: "living",
       name: "Living",
     },
     {
-      id: 6,
+      id: "commercial",
       name: "Commercial",
     },
     {
-      id: 7,
+      id: "residentialandcommercial",
       name: "Residential and commercial",
     },
   ]);
 
-  const [activeLink, setActiveLink] = useState(0);
-  const [PCactiveLink, setPcActiveLink] = useState(0);
+  // const [activeLink, setActiveLink] = useState(0);
+  // const [PCactiveLink, setPcActiveLink] = useState(0);
 
   return (
     <SelectProfileStyled>
@@ -88,15 +98,15 @@ const ASelectProfile = ({ changeStep }) => {
               <div style={{ marginTop: 40 }}>
                 <p className="smallText">What would you like to advertise?</p>
                 <div className="radioButtonGroup">
-                  {categories.map((item, index) => {
+                  {advertismentType.map((item, index) => {
                     return (
                       <BigRadioButton
-                        onClick={() => setActiveLink(item.id)}
+                        onClick={() => AdvsetAdvertisementActiveLink(item.id)}
                         key={index}
                         width={45}
                         type={item.name}
-                        height={116}
-                        activeLink={activeLink}
+                        height={136}
+                        activeLink={AdvadvertisementActiveLink}
                         id={item.id}
                         nameOfCat="IS"
                       />
@@ -112,15 +122,15 @@ const ASelectProfile = ({ changeStep }) => {
               >
                 <p className={`smallText`}>How are you going to use offview?</p>
                 <div className="radioButtonGroup">
-                  {typeOfCat.map((item, index) => {
+                  {propertyType.map((item, index) => {
                     return (
                       <BigRadioButton
-                        onClick={() => setPcActiveLink(item.id)}
+                        onClick={() => AdvsetPropertyActiveLink(item.id)}
                         key={index}
                         width={45}
-                        height={116}
+                        height={136}
                         type={item.name}
-                        PCactiveLink={PCactiveLink}
+                        PCactiveLink={AdvpropertyActiveLink}
                         id={item.id}
                         nameOfCat="PC"
                         paddingVertical={20}
@@ -135,7 +145,11 @@ const ASelectProfile = ({ changeStep }) => {
           <div style={{ marginTop: 30, paddingBottom: 30 }}>
             <Button
               title="Continue"
-              disabled={activeLink && PCactiveLink ? false : true}
+              disabled={
+                AdvadvertisementActiveLink && AdvpropertyActiveLink
+                  ? false
+                  : true
+              }
               onClick={onClick}
             />
           </div>

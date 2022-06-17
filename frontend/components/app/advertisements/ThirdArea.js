@@ -1,5 +1,6 @@
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import styled from "styled-components";
+import { useAdvertisementContext } from "../../../context/advertisement";
 import Button from "../utils/Button";
 import ExitButton from "../utils/ExitButton";
 import RegisterTitle from "../utils/RegisterTitle";
@@ -12,6 +13,12 @@ import AppContainer from "../wrappers/AppContainer";
 // import img from "../../../public/assets/images/app/dashboard/uploadBrowse.svg";
 
 const ThirdArea = () => {
+  const { AdvertisementThirdArea, globalValuesAdv } = useAdvertisementContext();
+
+  const onSubmit = (values, onSubmitProps) => {
+    console.log(values);
+  };
+
   return (
     <AppContainer>
       <ThirdAreaStyled>
@@ -25,23 +32,28 @@ const ThirdArea = () => {
           content="We use this data to calculate matches with purchase profiles of potential buyers."
         />
 
-        <Formik>
+        <Formik
+          initialValues={globalValuesAdv}
+          validationSchema={AdvertisementThirdArea}
+          onSubmit={onSubmit}
+          enableReinitialize
+        >
           {(formik) => {
             return (
-              <>
+              <Form>
                 <div className="inLineItems">
                   <div className="singleItem">
                     <UserInput
                       labelName="Total Actual Rental Income *"
                       placeholder="€"
-                      name="totalRentalIncome"
+                      name="totalActualRental"
                     />
                   </div>
                   <div className="singleItem">
                     <UserInput
                       labelName="Return on Investment *"
                       placeholder="€"
-                      name="returnInvesment"
+                      name="returnOnInvestment"
                     />
                   </div>
                 </div>
@@ -104,10 +116,10 @@ const ThirdArea = () => {
                 <div className="buttonContainer">
                   <WhiteBackButton />
                   <div style={{ width: 110, marginLeft: 16 }}>
-                    <Button title="Continue" />
+                    <Button title="Continue" type="submit" />
                   </div>
                 </div>
-              </>
+              </Form>
             );
           }}
         </Formik>

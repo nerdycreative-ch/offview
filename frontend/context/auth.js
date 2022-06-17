@@ -127,7 +127,6 @@ export const AuthWrappercontext = ({ children }) => {
       });
   };
 
-
   return (
     <AuthContext.Provider
       value={{

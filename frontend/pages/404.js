@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
+import LandPage from "../components/app/advertisements/LandPage";
 import Button from "../components/web/utils/Button";
 
 const Error = () => {

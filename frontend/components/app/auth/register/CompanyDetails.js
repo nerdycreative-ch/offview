@@ -109,13 +109,9 @@ const CompanyDetails = ({ whichType }) => {
 
                       {whichType && (
                         <div
-                          style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
+                          className="inLineItems"
                         >
-                          <div style={{ width: "46%" }}>
+                          <div className="singleItem">
                             <UserInput
                               labelName="First Name *"
                               type="text"
@@ -123,7 +119,7 @@ const CompanyDetails = ({ whichType }) => {
                               placeholder="John"
                             />
                           </div>
-                          <div style={{ width: "46%" }}>
+                          <div className="singleItem">
                             <UserInput
                               labelName="Last Name *"
                               type="text"
@@ -162,6 +158,23 @@ const CompanyDetailsStyled = styled.div`
     height: 100%;
     width: 100%;
     padding: 40px 0;
+  }
+  .inLineItems {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .singleItem {
+    width: 48%;
+  }
+
+  @media (max-width: 767.98px) {
+    .inLineItems {
+      flex-wrap: wrap;
+    }
+    .singleItem {
+      width: 100%;
+    }
   }
 `;
 
