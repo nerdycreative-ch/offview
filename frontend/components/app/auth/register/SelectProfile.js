@@ -59,7 +59,9 @@ const SelectProfile = ({ changeStep }) => {
     },
     {
       id: 6,
-      name: "Company",
+      ["name"]: singleCategory == "seller" ? "broker" : "acomapny",
+
+      // name: "Company",
       key: "company",
     },
   ]);
@@ -146,10 +148,14 @@ const SelectProfile = ({ changeStep }) => {
                 )}
 
                 <BigRadioButton
-                  onClick={() => setSingleTypeCategory("company")}
+                  onClick={() =>
+                    setSingleTypeCategory(
+                      singleCategory == "seller" ? "broker" : "company"
+                    )
+                  }
                   // key={index}
                   width={45}
-                  type="Company"
+                  type={singleCategory == "seller" ? "Broker" : "Company"}
                   height={116}
                   PCactiveLink={singleTypeCategory}
                   // id={item.id}

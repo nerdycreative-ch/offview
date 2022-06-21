@@ -87,6 +87,10 @@ export const Advertisementcontext = ({ children }) => {
     //third area
     totalActualRental: "",
     returnOnInvestment: "",
+
+    // thirdarea
+    image: "",
+    file: "",
   };
 
   const AdvertisementBasedValidation = Yup.object().shape({
@@ -175,7 +179,73 @@ export const Advertisementcontext = ({ children }) => {
   const AdvertisementThirdArea = Yup.object({
     totalActualRental: Yup.string().required("Total Actual Rental is required"),
     returnOnInvestment: Yup.string().required("Return Investment is required"),
+    image: Yup.string(),
+    file: Yup.string(),
   });
+
+
+  const submitAdvDataToBackend = () => {
+      console.log(finalAdvertisement);
+  
+    axios.post(
+      "http://localhost:3000/advertisements/dashboard/createAdvertisement",
+      {
+        title: finalAdvertisement.title,
+      
+        street: finalAdvertisement.street,
+        no: finalAdvertisement.no,
+        postCode: finalAdvertisement.postCode,
+        town: finalAdvertisement.town,
+        salesPrice:finalAdvertisement.salesPrice,
+        netRentalIncomePYear: finalAdvertisement.netRentalIncomePYear,
+        plotArea: finalAdvertisement.plotArea,
+        destinationZoneType: finalAdvertisement.destinationZoneType,
+        yearConstruction: finalAdvertisement.yearConstruction,
+        floors: finalAdvertisement.floors,
+        cubature: finalAdvertisement.cubature,
+        resedentialUnits: finalAdvertisement.resedentialUnits,
+        livingSpace: finalAdvertisement.livingSpace,
+        numberOfGarage: finalAdvertisement.numberOfGarage,
+        numerOfUndergroundParking: finalAdvertisement.numerOfUndergroundParking,
+        numberOfOutDoorParkingSpace: finalAdvertisement.numberOfOutDoorParkingSpace,
+        commercialUnits: finalAdvertisement.commercialUnits,
+        commercialSpace: finalAdvertisement.commercialSpace,
+        proportionCommercial: finalAdvertisement.proportionCommercial,
+        proportionResidential: finalAdvertisement.proportionResidential,
+
+        //checkboxs
+        passengerLift: finalAdvertisement.passengerLift,
+        builidingLease: finalAdvertisement.builidingLease,
+        electricCarChargingStation: finalAdvertisement.electricCarChargingStation,
+        minegieStandard: finalAdvertisement.minegieStandard,
+        glassFibreConnection: finalAdvertisement.glassFibreConnection,
+        goodsLift:finalAdvertisement.goodsLift,
+        fibreCarChargingStation: finalAdvertisement.fibreCarChargingStation,
+        fibreOpticConnection: finalAdvertisement.fibreOpticConnection,
+
+        //land
+        buildingLandDeveloped: finalAdvertisement.buildingLandDeveloped,
+        water: finalAdvertisement.water,
+        fibreOpticConnection: finalAdvertisement.fibreOpticConnection,
+        electricSupply: finalAdvertisement.electricSupply,
+
+        //third area
+        totalActualRental: finalAdvertisement.totalActualRental,
+        returnOnInvestment: finalAdvertisement.returnOnInvestment,
+
+        // thirdarea
+        image: finalAdvertisement.image,
+        file: finalAdvertisement.file,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+
+  };
 
   return (
     <AdvertisementContext.Provider
@@ -195,6 +265,7 @@ export const Advertisementcontext = ({ children }) => {
         AdvsetPropertyActiveLink,
         finalAdvertisement,
         setFinalAdvertisement,
+        submitAdvDataToBackend
       }}
     >
       {children}

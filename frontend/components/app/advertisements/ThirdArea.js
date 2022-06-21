@@ -1,6 +1,8 @@
 import { Formik, Form } from "formik";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAdvertisementContext } from "../../../context/advertisement";
+import { useWebContext } from "../../../context/webContext";
 import Button from "../utils/Button";
 import ExitButton from "../utils/ExitButton";
 import RegisterTitle from "../utils/RegisterTitle";
@@ -9,6 +11,7 @@ import SubTitle from "../utils/SubTitle";
 import UserInput from "../utils/UserInput";
 import WhiteBackButton from "../utils/WhiteBackButton";
 import AppContainer from "../wrappers/AppContainer";
+import AdvertisementSubModal from "./AdvertisementSubModal";
 
 // import img from "../../../public/assets/images/app/dashboard/uploadBrowse.svg";
 
@@ -18,20 +21,66 @@ const ThirdArea = () => {
     globalValuesAdv,
     finalAdvertisement,
     setFinalAdvertisement,
+    submitAdvDataToBackend
   } = useAdvertisementContext();
 
-  const onSubmit = (values, onSubmitProps) => {
-    setFinalAdvertisement({
+  const { modalIsOpen, setIsOpen } = useWebContext();
+
+  const [imgsSrc, setImgsSrc] = useState([]);
+
+  const onChange = (changeEvent) => {
+    for (let file of changeEvent.target.files) {
+      setTimeout(() => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          setImgsSrc([...imgsSrc, reader.result]);
+        };
+        reader.onerror = () => {
+          console.log(reader.error);
+        };
+      }, 1000);
+    }
+  };
+
+  console.log("IMG SRC" + imgsSrc);
+
+  const onSubmit = async (values, onSubmitProps) => {
+    await setFinalAdvertisement({
       ...finalAdvertisement,
       totalActualRental: values.totalActualRental,
       returnOnInvestment: values.returnOnInvestment,
+      image: imgsSrc[0],
+      file: imgsSrc[0],
     });
-    console.log(values);
+
+    await submitAdvDataToBackend();
+
+    onSubmitProps.resetForm();
+    // setImgsSrc([]);
+    // const reader = new FileReader();
+    // reader.readAsDataURL();
+    // reader.onload = () => {
+    //   setImgsSrc([]);
+    // };
+
+    console.log("third area " + values);
+
+    // console.log("IMG SRC" + imgsSrc);
   };
 
   return (
     <AppContainer>
       <ThirdAreaStyled>
+        {modalIsOpen && <AdvertisementSubModal />}
+
+        <input  onChange={onChange} type="file" name="image" multiple />
+        <input  onChange={onChange} type="file" name="file" multiple />
+
+        {imgsSrc.map((link) => (
+          <img src={link} />
+        ))}
+
         <ExitButton content="Exit Advertisement" />
         <StepsNumber stepsLength={4} />
 
@@ -126,7 +175,14 @@ const ThirdArea = () => {
                 <div className="buttonContainer">
                   <WhiteBackButton />
                   <div style={{ width: 110, marginLeft: 16 }}>
-                    <Button title="Continue" type="submit" />
+                    <Button
+                      title="Continue"
+                      type="submit"
+                      // onClick={() => {
+                      //   // submitDataToBackend();
+                      //   setIsOpen(true);
+                      // }}
+                    />
                   </div>
                 </div>
               </Form>

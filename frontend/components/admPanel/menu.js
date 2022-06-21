@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
-const Menu = ({ links, activeLink, setActiveLink }) => {
-
- 
+const Menu = ({ links, activeLink, setActiveLink, dashboardClick,setDashboardClick }) => {
   return (
     <MenuStyled>
-      {links.map((item, index) => {
-        return (
-          <h1 key={index} onClick={() => setActiveLink(item.id)}>
-            {item.name}
-          </h1>
-        );
-      })}
+      <h1 onClick={() => setDashboardClick(!dashboardClick)}>DASHBOARD</h1>
+      {dashboardClick &&
+        links.map((item, index) => {
+          return (
+            <h1 className="subTitleDashboard" key={index} onClick={() => setActiveLink(item.id)}>
+              {item.name}
+            </h1>
+          );
+        })}
     </MenuStyled>
   );
 };
@@ -32,6 +32,9 @@ const MenuStyled = styled.div`
     color: #e1e1e1;
     margin-top: 30px;
     cursor: pointer;
+  }
+  .subTitleDashboard {
+    margin-left: 12px;
   }
 `;
 

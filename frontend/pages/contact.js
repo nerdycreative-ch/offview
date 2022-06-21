@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import TextError from "../components/web/utils/TextError";
 import Header from "../components/web/utils/Header";
 import Head from "next/head";
+import axios from "axios";
 
 const Contact = () => {
   const initialValues = {
@@ -24,6 +25,12 @@ const Contact = () => {
   });
 
   const onSubmit = (values, onSubmitProps) => {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}contact/sendcontact`, {
+      fullName: values.fullName,
+      email: values.email,
+      message: values.message,
+    });
+
     console.log("Form data", values);
     onSubmitProps.resetForm();
   };
