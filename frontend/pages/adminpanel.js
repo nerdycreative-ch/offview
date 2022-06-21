@@ -9,6 +9,7 @@ import Menu from "../components/admPanel/menu";
 
 const AdminPanel = () => {
   const [activeLink, setActiveLink] = useState("information");
+  const [dashboardClick, setDashboardClick] = useState(false);
 
   const [links, setLinks] = useState([
     {
@@ -40,6 +41,8 @@ const AdminPanel = () => {
           links={links}
           activeLink={activeLink}
           setActiveLink={setActiveLink}
+          dashboardClick={dashboardClick}
+          setDashboardClick={setDashboardClick}
         />
       </div>
       <div className="rightSide">

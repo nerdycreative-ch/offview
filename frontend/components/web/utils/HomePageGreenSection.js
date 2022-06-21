@@ -4,35 +4,52 @@ import DashboardImage from "../../../public/assets/images/web/DashboardImageBann
 import SelectProfileImageBanner1 from "../../../public/assets/images/web/SelectProfileImageBanner1.png";
 import SelectProfileImageBanner2 from "../../../public/assets/images/web/SelectProfileImageBanner2.png";
 import bottomDashboardImage from "../../../public/assets/images/web/SelectProfileImageBanner2.png";
+import selectProfileScreen from "../../../public/assets/images/web/selectProfileScreen.png";
+import bigDashboardImage from "../../../public/assets/images/web/dashboardMobile.png";
+
+import { useState } from "react";
 
 const HomePageGreenSection = () => {
+  // const [listOfImages, setListOfImages] = useState([
+  //   {
+  //     id: 1,
+  //     img: SelectProfileImageBanner1,
+  //   },
+  // ]);
+
+  const [activeImage, setActiveImage] = useState("dashboard");
+
   return (
     <HomePageGreenSectionStyled>
       <div className="topImagesContainer">
-        {/* <img
-          src="../../../assets/images/web/DashboardImageBanner.png"
-          alt=""
-          className="dashboardImage"
-        /> */}
-        <div className="dashboardImage">
-          <Image src={DashboardImage} alt="dashboard image" />
+        {activeImage == "dashboard" ? (
+          <div className="dashboardImage">
+            <Image src={DashboardImage} alt="dashboard image" />
+          </div>
+        ) : (
+          <div className="dashboardImage">
+            <Image src={selectProfileScreen} alt="dashboard image" />
+          </div>
+        )}
+
+        <div className="littleImageBanner">
+          <Image
+            src={SelectProfileImageBanner1}
+            alt="select profile image"
+            onClick={() => setActiveImage("selectprofile")}
+            className="littleImage"
+          />
         </div>
         <div className="littleImageBanner">
-          <Image src={SelectProfileImageBanner1} alt="select profile image" />
+          <Image
+            src={bigDashboardImage}
+            alt="select profile image"
+            onClick={() => setActiveImage("dashboard")}
+            width={166}
+            height={461}
+            className="littleImage"
+          />
         </div>
-        <div className="littleImageBanner">
-          <Image src={SelectProfileImageBanner2} alt="select profile image" />
-        </div>
-        {/* <img
-          src="../../../assets/images/web/SelectProfileImageBanner1.png"
-          alt=""
-          className="littleImageBanner"
-        />
-        <img
-          src="../../../assets/images/web/SelectProfileImageBanner2.png"
-          alt=""
-          className="littleImageBanner"
-        /> */}
       </div>
 
       <div className="bannerDataSection">
@@ -106,6 +123,7 @@ const HomePageGreenSectionStyled = styled.div`
     position: relative;
     bottom: 170px;
     padding: 0 11.25%;
+    height: 100%;
   }
 
   .bannerDataSection {
@@ -179,6 +197,16 @@ const HomePageGreenSectionStyled = styled.div`
   }
   .bottomImageBanner {
     margin-top: 41px;
+  }
+  .littleImageBanner {
+    width: 166px;
+    height: 100%;
+  }
+  .littleImage {
+    cursor: pointer;
+    width: 166px;
+    height: 100%;
+    border-radius: 10px;
   }
 
   @media (max-width: 1439px) {

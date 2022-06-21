@@ -2,6 +2,7 @@ const Advertisement = require("../model/Advertisement");
 
 //image uploader requires
 const fs = require("fs");
+const AWS = require('aws-sdk');
 const S3 = require("aws-sdk/clients/s3");
 const { download } = require("express/lib/response");
 const res = require("express/lib/response");
@@ -110,9 +111,60 @@ const putFile = async (file, fileKey, type) => {
   return await s3.upload(uploadParams).promise();
 };
 
+const imageUpload = async (base64,typeOfImage) => {
+
+  console.log(base64)
+
+  let bucketi = undefined;
+  if (typeOfImage === "file") {
+    bucketi = process.env.FILE_BUCKET_NAME;
+  }
+  if (typeOfImage === "image") {
+    bucketi = process.env.IMAGE_BUCKET_NAME;
+  }
+  if (typeOfImage === "profile") {
+    bucketi = process.env.PROFILE_BUCKET_NAME;
+  }
+
+  AWS.config.setPromisesDependency(require("bluebird"));
+
+
+  const base64Data = new Buffer.from(
+    base64.replace(/^data:image\/\w+;base64,/, ""),
+    "base64"
+  );
+
+  const type = base64.split(";")[0].split("/")[1];
+
+  const userId = 1;
+
+  const params = {
+    Bucket: bucketi,
+    Key: `${userId}.${type}`, // type is not required
+    Body: base64Data,
+    ContentEncoding: "base64", // required
+    ContentType: `image/${type}`, // required. Notice the back ticks
+  };
+
+  let location = "";
+  let key = "";
+  try {
+    const { Location, Key } = await s3.upload(params).promise();
+    location = Location;
+    key = Key;
+  } catch (error) {
+    console.log(error)
+  }
+
+  console.log(location, key);
+
+  return location;
+};
+
 module.exports = {
   uploadFile,
   getFileStream,
   deleteFileStream,
   putFile,
+  imageUpload
 };

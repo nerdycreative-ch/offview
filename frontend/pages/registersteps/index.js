@@ -68,6 +68,15 @@ const Register = () => {
           />
         )}
 
+      {page == "userdetails" &&
+        singleCategory == "seller" &&
+        singleTypeCategory == "broker" && (
+          <CompanyDetails
+            whichType={singleCategory == "seller" && false}
+            changeStep={() => setStepsActiveLink((prev) => prev + 1)}
+          />
+        )}
+
       {page == "atc" && <Atc changeStep={changeStep} />}
     </RegisterStepsStyled>
   );

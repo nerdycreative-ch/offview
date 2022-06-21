@@ -32,11 +32,11 @@ const Header = ({
 };
 
 const HeaderStyled = styled.div`
-  ${(props) =>
+  /* ${(props) =>
     !props.additionalData &&
     css`
       background: url("../../../assets/images/web/headerShape.svg");
-    `}
+    `} */
 
   .pageBannerContainer {
     padding: 40px 5% 0 5%;

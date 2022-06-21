@@ -39,6 +39,7 @@ const ModalComp = ({ children }) => {
             onClick={closeModal}
             src="../../../assets/images/web/greyXicon.png"
             alt="x Icon"
+            className="clickModal"
           />
         </div>
         {children}
@@ -53,7 +54,9 @@ const ModalStyled = styled.div`
      justify-content: flex-end;
      padding: 5px;
   }
-
+  .clickModal {
+    cursor: pointer;
+  }
  
 `;
 

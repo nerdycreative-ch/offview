@@ -67,7 +67,7 @@ const Atc = () => {
               </div>
               <p className="acText" onClick={() => setIsAccepted(!isAccepted)}>
                 I accept Confidentiality Agreement and
-                <span className="tcSpan"> Terms & Conditions *</span>
+                <span className="tcSpan">Terms & Conditions *</span>
               </p>
             </div>
           </div>
