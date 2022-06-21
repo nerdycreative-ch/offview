@@ -10,6 +10,10 @@ const advertisementBaseSchema = mongoose.model(
   "advertisement",
   new mongoose.Schema(
     {
+      account: {
+        ref: "users",
+        type: mongoose.Schema.Types.ObjectId,
+      },
       advertisementType: {
         type: String,
         enum: ["InvesmentProperties", "Land", "NewBuildingProject"],
@@ -18,6 +22,7 @@ const advertisementBaseSchema = mongoose.model(
         type: String,
         enum: ["Living", "Commercial", "Residential&Commercial"],
       },
+      offers: [{ type: mongoose.Schema.Types.ObjectId, ref: "offers" }],
 
       //first part
       title: {

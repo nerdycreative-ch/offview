@@ -70,6 +70,7 @@ const advertisement_GetAll = async (req, res) => {
 
 const advertisement_Post = async (req, res) => {
   try {
+    const user = req.user;
     const {
       advertisementType,
       propertyType,
@@ -149,7 +150,7 @@ const advertisement_Post = async (req, res) => {
 
     if (propertyType === "Living") {
       const living = await invesmentLivingSchema.create({
-        advertisementType,
+        account: user._id,
         propertyType,
         title,
         street,
@@ -182,6 +183,7 @@ const advertisement_Post = async (req, res) => {
       });
     } else if (propertyType === "Commercial") {
       const coomercial = await invesmentCommercialSchema.create({
+        account: user._id,
         advertisementType,
         propertyType,
         title,
@@ -215,6 +217,7 @@ const advertisement_Post = async (req, res) => {
       });
     } else if (propertyType === "Residential&Commercial") {
       const resandcom = await invesmentResidencialAndCommercialSchema.create({
+        account: user._id,
         advertisementType,
         propertyType,
         title,
@@ -339,10 +342,10 @@ const advertisement_Delete = async (req, res) => {
   }
 };
 
-//
+//after for image
 
 /**
- * @description Upload after creating advertisement
+ * @description Upload image after creating advertisement
  * @type POST
  * @url /advertisements/dashboard/image/uploadafter/:id
  */
@@ -422,6 +425,7 @@ const deleteAfter = async (req, res) => {
       imageKey.push(imageurlsplited[i][4]);
       if (imageKey[i] === key) {
         await deleteFileStream(key, "file");
+        //deletes one from array
         await advertisement.image.splice(i, 1);
         advertisement.save();
         return res.status(200).json({
@@ -441,6 +445,8 @@ const deleteAfter = async (req, res) => {
   }
 };
 
+//after for file
+
 /**
  * @description Download file after creating advertisement
  * @type GET
@@ -456,6 +462,9 @@ const downloadFile = async (req, res) => {
       .json({ success: false, message: "error downloading file" });
   }
 };
+const uploadFileAfter = (req, res) => {};
+const patchFileAfter = (req, res) => {};
+const deleteFileAfter = (req, res) => {};
 
 module.exports = {
   advertisement_Get,
@@ -465,7 +474,12 @@ module.exports = {
   advertisement_Delete,
 
   downloadFile,
+
   uploadAfter,
   patchAfter,
   deleteAfter,
+
+  uploadFileAfter,
+  patchFileAfter,
+  deleteFileAfter,
 };
