@@ -7,54 +7,78 @@ const {
   advertisement_Delete,
 
   downloadFile,
+
   uploadAfter,
   patchAfter,
   deleteAfter,
+
+  uploadFileAfter,
+  patchFileAfter,
+  deleteFileAfter,
 } = require("../controller/advertisementController");
+const {
+  getOffer,
+  createOffer,
+  rejectOffer,
+  approveOffer,
+  getAllOffers,
+} = require("../controller/offerController");
+const authGuard = require("../middleware/auth-guard");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-// route to get one advertisement
 router.get("/dashboard/getOne/:id", advertisement_Get);
-// route to get all advertisements
 router.get("/dashboard/getAll", advertisement_GetAll);
-
-// route to post an advertisement
 router.post(
   "/dashboard/createAdvertisement",
   upload.fields([
     { name: "file", maxCount: 3 },
     { name: "image", maxCount: 3 },
   ]),
+  authGuard,
   advertisement_Post
 );
-
-// route to edit an advertisement
 router.patch("/dashboard/edit/:id", advertisement_Patch);
-
-// route to delete an advertisement
 router.delete("/dashboard/delete/:id", advertisement_Delete);
 
 ///
 
-//upload image
+//upload image after creation if u need
 router.post(
   "/dashboard/image/uploadafter/:id",
   upload.array("image", 3),
   uploadAfter
 );
-
-//put
+//edits image after creation if u need
 router.put(
   "/dashboard/image/patchafter/:id",
   upload.single("image"),
   patchAfter
 );
-
-//delete
 router.delete("/dashboard/image/deleteafter/:id/:key", deleteAfter);
+
+//upload, edit and delete file after creation
+router.post(
+  "/dashboard/file/uploadafter/:id",
+  upload.array("file", 3),
+  uploadFileAfter
+);
+router.put(
+  "/dashboard/file/patchafter/:id",
+  upload.single("file"),
+  patchFileAfter
+);
+router.delete("/dashboard/file/deleteafter/:id/:key", deleteFileAfter);
 
 //download file
 router.get("/dashboard/image/downloadfile/:key", downloadFile);
+
+//offers
+
+router.get("/:id/getoffer", authGuard, getOffer);
+router.get("/:id/getalloffers", authGuard, getAllOffers);
+router.post("/:id/createoffer", authGuard, createOffer);
+router.delete("/:id/rejectoffer", authGuard, rejectOffer);
+router.post("/:id/approveoffer", authGuard, approveOffer);
 
 module.exports = router;

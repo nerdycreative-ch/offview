@@ -70,20 +70,30 @@ const editContact = async (req, res) => {
  */
 
 const sendContact = async (req, res) => {
-  const { fullName, email, message } = req.body;
-  const options = {
-    subject: "Email response",
-    text: fullName + "..." + email + "..." + message,
-    html: `<h1>FullName:${fullName}</h1>
-    <p>Email:${email}</p>
-    <p>message:${message}</p>`,
-  };
-  sendVerification(
-    process.env.EMAIL,
-    options.subject,
-    options.text,
-    options.html
-  );
+  try {
+    const { fullName, email, message } = req.body;
+    const options = {
+      subject: "Email contact response",
+      text: fullName + "..." + email + "..." + message,
+      html: `<h1>FullName: ${fullName}</h1>
+    <p>Email: ${email}</p>
+    <p>message: ${message}</p>`,
+    };
+    await sendVerification(
+      process.env.EMAIL,
+      options.subject,
+      options.text,
+      options.html
+    );
+    return res
+      .status(200)
+      .json({ success: true, message: "mail has been sent" });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error sending mail" });
+  }
 };
 module.exports = {
   getContact,
