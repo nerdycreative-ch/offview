@@ -28,8 +28,8 @@ const FirstArea = ({ changeStep }) => {
       ...finalAdvertisement,
       title: values.title,
       street: values.street,
-      No: values.no,
-      postcode: values.postCode,
+      No: values.No,
+      postCode: values.postCode,
       town: values.town,
     });
     console.log(values);
@@ -79,7 +79,7 @@ const FirstArea = ({ changeStep }) => {
                         labelName="No *"
                         type="text"
                         placeholder="00"
-                        name="no"
+                        name="No"
                       />
                     </div>
                   </div>

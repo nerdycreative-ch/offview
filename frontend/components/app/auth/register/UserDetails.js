@@ -27,8 +27,8 @@ const UserDetails = ({ privateDetails, changeStep }) => {
       title: values.title,
       firstname: values.firstname,
       lastname: values.lastname,
-      phonenumber: values.phonenumber,
-      streetaddress: values.streetaddress,
+      phoneNumber: values.phoneNumber,
+      street: values.street,
       no: values.streetaddress,
       zipcode: values.zipcode,
       country: values.country,
@@ -111,7 +111,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                         <UserInput
                           labelName="Phone Number"
                           type="text"
-                          name="phonenumber"
+                          name="phoneNumber"
                         />
 
                         <div
@@ -125,7 +125,7 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                             <UserInput
                               labelName="Street Address"
                               type="text"
-                              name="streetaddress"
+                              name="street"
                             />
                           </div>
                           <div style={{ width: "23%" }}>

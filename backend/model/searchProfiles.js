@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
-
 //reverse geocoding api
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=16.66667,101.18333&key=YOUR_API_KEY
-
 const searchProfilesSchema = new mongoose.Schema({
+  account: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
   advertisementType: {
     type: String,
-    enum: ["InvesmentProperties", "Land", "NewBuildingProject"],
+    enum: ["investmentproperties", "land", "newbuildingprojects"],
   },
   propertyType: {
     type: String,
-    enum: ["Living", "Commercial", "Residential&Commercial"],
+    enum: ["living", "commercial", "residentialandcommercial"],
   },
   region: {
     type: String,
@@ -21,7 +23,6 @@ const searchProfilesSchema = new mongoose.Schema({
   maxPrice: {
     type: Number,
   },
-
   //geolocations
   // address: {
   //   type: String,
@@ -45,7 +46,6 @@ const searchProfilesSchema = new mongoose.Schema({
   //   default: Date.now,
   // },
 });
-
 // searchProfilesSchema.pre("save", async function (next) {
 //   const locat = await geocoder.geocode(this.address);
 //   this.location = {
@@ -55,5 +55,4 @@ const searchProfilesSchema = new mongoose.Schema({
 //   };
 //   next();
 // });
-
 module.exports = mongoose.model("searchProfiles", searchProfilesSchema);

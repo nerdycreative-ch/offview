@@ -16,8 +16,10 @@ const {
 } = require("../functions/awsUploader");
 const fs = require("fs-extra");
 const util = require("util");
+const { unlinkSync } = require("fs-extra");
 //removes files from folder
 const unlinkFile = util.promisify(fs.unlink);
+const path = require('path');
 
 /*
 advertisement_Get,
@@ -26,6 +28,16 @@ advertisement_Post,
 advertisement_Put,
 advertisement_Delete,
 */
+const deletefilesmethod = (req)=>{
+
+  req.files["image"].forEach(file=>{
+    unlinkFile(file.path)
+  })
+  
+  req.files["file"].forEach(file =>{
+    unlinkFile(file.path)
+  })
+}
 
 /**
  * @description Gets one advertisement
@@ -71,7 +83,7 @@ const advertisement_GetAll = async (req, res) => {
 
 const advertisement_Post = async (req, res) => {
   try {
-    const user = req.user;
+   // const user = req.user;
     const {
       advertisementType,
       propertyType,
@@ -110,167 +122,164 @@ const advertisement_Post = async (req, res) => {
       minergieStandard,
       glassFibreConnection,
 
-      image
-    } = req.body;
-    // console.log(req);
-    // console.log(image);
-    // console.log(typeof(image));
-    await imageUpload(image,"image")
+      // image
+    } = JSON.parse(req.body.data);
 
-    //upload file
-    // let filess = [];
-    // const promises = [];
-    // for (let i = 0; i < req.files["file"].length; ) {
-    //   let fileSingle = req.files["file"][i];
-    //   await promises.push(uploadFile(fileSingle, "file"));
-    //   i++;
-    //   unlinkFile(fileSingle.path);
-    // }
-    // await Promise.all(promises)
-    //   .then((data) => {
-    //     for (let i = 0; i < data.length; i++) {
-    //       filess.push(data[i].Location);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    // upload file
+    let filess = [];
+    let promises = [];
+    for (let i = 0; i < req.files["file"].length; ) {
+      let fileSingle = req.files["file"][i];
+       promises.push(uploadFile(fileSingle, "file"));
+      i++;
+      }
+    await Promise.all(promises)
+      .then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          filess.push(data[i].Location);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    // //upload image
-    // let imagess = [];
-    // const promisesImg = [];
-    // for (let i = 0; i < req.files["image"].length; ) {
-    //   let fileSingleImg = req.files["image"][i];
-    //   await promisesImg.push(uploadFile(fileSingleImg, "image"));
-    //   i++;
-    //   await unlinkFile(fileSingleImg.path);
-    // }
-    // await Promise.all(promisesImg)
-    //   .then((data) => {
-    //     for (let i = 0; i < data.length; i++) {
-    //       imagess.push(data[i].Location);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    //upload image
+    let imagess = [];
+    let promisesImg = [];
+    for (let i = 0; i < req.files["image"].length; ) {
+      let fileSingleImg = req.files["image"][i];
+     promisesImg.push(uploadFile(fileSingleImg, "image"));
+      i++;
+      }
+    
+    await Promise.all(promisesImg)
+      .then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          imagess.push(data[i].Location);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      deletefilesmethod(req);
 
-    // if (propertyType === "Living") {
-    //   const living = await invesmentLivingSchema.create({
-    //     advertisementType,
-    //     propertyType,
-    //     title,
-    //     street,
-    //     No,
-    //     postcode,
-    //     town,
-    //     address,
-    //     salesPrice,
-    //     netRentalIncomePerYear,
-    //     plotArea,
-    //     destinationZoneType,
-    //     yearOfConstruction,
-    //     floors,
-    //     cubature,
-    //     numberOfGarage,
-    //     numberOfUndergroundParkingSpace,
-    //     numberOfOutdoorParkingSpace,
-    //     passengerLift,
-    //     electricCarChargingStation,
-    //     buildingLease,
-    //     totalActualRentalIncome,
-    //     returnOnInvestment,
-    //     typeOfFile,
-    //     file: filess,
-    //     image: imagess,
-    //     residentialUnits,
-    //     livingSpace,
-    //     minergieStandard,
-    //     glassFibreConnection,
-    //   });
-    // } else if (propertyType === "Commercial") {
-    //   const coomercial = await invesmentCommercialSchema.create({
-    //     advertisementType,
-    //     propertyType,
-    //     title,
-    //     street,
-    //     No,
-    //     postcode,
-    //     town,
-    //     address,
-    //     salesPrice,
-    //     netRentalIncomePerYear,
-    //     plotArea,
-    //     destinationZoneType,
-    //     yearOfConstruction,
-    //     floors,
-    //     cubature,
-    //     numberOfGarage,
-    //     numberOfUndergroundParkingSpace,
-    //     numberOfOutdoorParkingSpace,
-    //     passengerLift,
-    //     electricCarChargingStation,
-    //     buildingLease,
-    //     totalActualRentalIncome,
-    //     returnOnInvestment,
-    //     typeOfFile,
-    //     file: filess,
-    //     image: imagess,
-    //     commercialUnits,
-    //     commercialSpace,
-    //     goodsLift,
-    //     fibreOpticConnection,
-    //   });
-    // } else if (propertyType === "Residential&Commercial") {
-    //   const resandcom = await invesmentResidencialAndCommercialSchema.create({
-    //     advertisementType,
-    //     propertyType,
-    //     title,
-    //     street,
-    //     No,
-    //     postcode,
-    //     town,
-    //     address,
-    //     salesPrice,
-    //     netRentalIncomePerYear,
-    //     plotArea,
-    //     destinationZoneType,
-    //     yearOfConstruction,
-    //     floors,
-    //     cubature,
-    //     numberOfGarage,
-    //     numberOfUndergroundParkingSpace,
-    //     numberOfOutdoorParkingSpace,
-    //     passengerLift,
-    //     electricCarChargingStation,
-    //     buildingLease,
-    //     totalActualRentalIncome,
-    //     returnOnInvestment,
-    //     typeOfFile,
-    //     file: filess,
-    //     image: imagess,
-    //     residentialUnits,
-    //     livingSpace,
-    //     commercialUnits,
-    //     commercialSpace,
-    //     numberOfGarage,
-    //     numberOfUndergroundParkingSpace,
-    //     numberOfOutdoorParkingSpace,
-    //     minergieStandard,
-    //     goodsLift,
-    //     fibreOpticConnection,
-    //   });
-    // } else {
-    //   return res
-    //     .status(404)
-    //     .json({ success: false, message: "Wrong property type" });
-    // }
-    // res.status(200).json({
-    //   success: true,
-    //   message: "Advertisement has been created",
-    //   files: filess,
-    //   images: imagess,
-    // });
+    if (propertyType === "living") {
+      const living = await invesmentLivingSchema.create({
+        advertisementType,
+        propertyType,
+        title,
+        street,
+        No,
+        postcode,
+        town,
+        address,
+        salesPrice,
+        netRentalIncomePerYear,
+        plotArea,
+        destinationZoneType,
+        yearOfConstruction,
+        floors,
+        cubature,
+        numberOfGarage,
+        numberOfUndergroundParkingSpace,
+        numberOfOutdoorParkingSpace,
+        passengerLift,
+        electricCarChargingStation,
+        buildingLease,
+        totalActualRentalIncome,
+        returnOnInvestment,
+        typeOfFile,
+        file: filess,
+        image: imagess,
+        residentialUnits,
+        livingSpace,
+        minergieStandard,
+        glassFibreConnection,
+      });
+    } else if (propertyType === "commercial") {
+      const coomercial = await invesmentCommercialSchema.create({
+        advertisementType,
+        propertyType,
+        title,
+        street,
+        No,
+        postcode,
+        town,
+        address,
+        salesPrice,
+        netRentalIncomePerYear,
+        plotArea,
+        destinationZoneType,
+        yearOfConstruction,
+        floors,
+        cubature,
+        numberOfGarage,
+        numberOfUndergroundParkingSpace,
+        numberOfOutdoorParkingSpace,
+        passengerLift,
+        electricCarChargingStation,
+        buildingLease,
+        totalActualRentalIncome,
+        returnOnInvestment,
+        typeOfFile,
+        file: filess,
+        image: imagess,
+        commercialUnits,
+        commercialSpace,
+        goodsLift,
+        fibreOpticConnection,
+      });
+    } else if (propertyType === "residentialandcommercial") {
+      const resandcom = await invesmentResidencialAndCommercialSchema.create({
+        advertisementType,
+        propertyType,
+        title,
+        street,
+        No,
+        postcode,
+        town,
+        address,
+        salesPrice,
+        netRentalIncomePerYear,
+        plotArea,
+        destinationZoneType,
+        yearOfConstruction,
+        floors,
+        cubature,
+        numberOfGarage,
+        numberOfUndergroundParkingSpace,
+        numberOfOutdoorParkingSpace,
+        passengerLift,
+        electricCarChargingStation,
+        buildingLease,
+        totalActualRentalIncome,
+        returnOnInvestment,
+        typeOfFile,
+        file: filess,
+        image: imagess,
+        residentialUnits,
+        livingSpace,
+        commercialUnits,
+        commercialSpace,
+        numberOfGarage,
+        numberOfUndergroundParkingSpace,
+        numberOfOutdoorParkingSpace,
+        minergieStandard,
+        goodsLift,
+        fibreOpticConnection,
+      });
+    } else {
+      return res
+        .status(404)
+        .json({ success: false, message: "Wrong property type" });
+    }
+    console.log("uploaded");
+    return res.status(200).json({
+      success: true,
+      message: "Advertisement has been created",
+      files: filess,
+      images: imagess,
+    });
   } catch (error) {
     console.log(error);
     return res

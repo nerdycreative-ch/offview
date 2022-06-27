@@ -11,7 +11,7 @@ import axios from "axios";
 const CPPrivacyPolicy = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState([
     // {
-    //   id: 1,
+  //   id: 1,
     //   title: "fa-brands fa-facebook",
     //   content: "https://www.facebook.com",
     // },
@@ -47,7 +47,7 @@ const CPPrivacyPolicy = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {1
     getPrivacyPolicy();
   }, []);
 

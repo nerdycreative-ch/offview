@@ -37,12 +37,12 @@ const Table = ({ tableHead, tableBody, socialMedia, informations,editItem,delete
                 {informations && (
                   <>
                     <td>{item.data}</td>
-                    <td>{item.phone}</td>
+                    <td>{item.phoneNumber}</td>
                     <td>{item.email}</td>
                   </>
                 )}
 
-                <td className="editBtn" onClick={() => editItem(item._id)} >Edit</td>
+                {/* <td className="editBtn" onClick={() => editItem(item._id)} >Edit</td> */}
                 <td className="deleteBtn" onClick={() => deleteItem(item._id)}>Delete</td>
               </tr>
             );
