@@ -28,9 +28,10 @@ require("./middleware/passport");
 
 //application middlewares
 
-app.set("views", path.join(__dirname, "views"));
+// app.set("views", path.join(__dirname, "views"));
 // app.use(express.static(path.join(__dirname, "./frontend/build")));
 app.use(express.static(path.join(__dirname, "public")));
+server.use('/_next', express.static(path.join(__dirname, './frontend/.next')))
 
 app.use(express.json());
 app.use(cookieParser());
@@ -48,7 +49,9 @@ app.use(function (req, res, next) {
 });
 
 //view-engine
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
+
+
 
 //database connect
 mongoose
@@ -57,7 +60,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 3000,"0.0.0.0");
     console.log(`You are connected to mongoDB!`);
     console.log(`You are listening in port ${process.env.APP_PORT}.`);
   })
