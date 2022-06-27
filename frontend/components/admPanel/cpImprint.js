@@ -48,7 +48,10 @@ const CPImprint = () => {
 
   useEffect(() => {
     getImPrint();
+    
   }, []);
+
+  
 
   const onSubmit = async (values, onSubmitProps) => {
     try {

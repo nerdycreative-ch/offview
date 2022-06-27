@@ -1,18 +1,29 @@
 import styled from "styled-components";
 
-const SingleProperty = ({ title, place, image, realEstate, searchItem }) => {
+const SingleProperty = ({
+  title,
+  place,
+  image,
+  realEstate,
+  searchItem,
+  street,
+  town,
+}) => {
+
+  console.log(image[0]);
   return (
     <SinglePropertyStyled>
       <div className="singleSearchItem">
         <div style={{ display: "flex", alignItems: "center" }}>
           {realEstate ? (
-            <img src={image} className="imageRealEstateOffers" />
+            <img src={image[0]} className="imageRealEstateOffers" />
           ) : (
             <div className="searchIconContainer">
-              <img
+              {/* <img
                 src="../../../../assets/images/app/dashboard/greySearchIcon.svg"
                 alt="search icon"
-              />
+              /> */}
+              <img src={image[0]} alt="single item image" />
             </div>
           )}
         </div>
@@ -27,7 +38,9 @@ const SingleProperty = ({ title, place, image, realEstate, searchItem }) => {
         >
           <div className="searchItemContent">
             <p className="typeOf">{title}</p>
-            <p className="sPlace">{place}</p>
+            <p className="sPlace">
+              {street},{town}
+            </p>
           </div>
           {searchItem && (
             <div className="rightSideItemContainer">

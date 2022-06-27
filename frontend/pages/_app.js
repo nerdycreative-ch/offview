@@ -8,7 +8,7 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Webcontext>
+    <>
       <Head>
         <link
           rel="stylesheet"
@@ -18,18 +18,19 @@ function MyApp({ Component, pageProps }) {
           referrerpolicy="no-referrer"
         />{" "}
       </Head>
+
       <AuthWrappercontext>
         <Dashboardcontext>
           <Advertisementcontext>
             <Searchprofilecontext>
-              <>
+              <Webcontext>
                 <Component {...pageProps} />
-              </>
+              </Webcontext>
             </Searchprofilecontext>
           </Advertisementcontext>
         </Dashboardcontext>
       </AuthWrappercontext>
-    </Webcontext>
+    </>
   );
 }
 

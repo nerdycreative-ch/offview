@@ -155,7 +155,7 @@ const DashboardStlyed = styled.div`
     justify-content: space-between;
   }
   .labelWidth {
-    width: 46%;    
+    width: 46%;
   }
 
   .noItemsInArray {

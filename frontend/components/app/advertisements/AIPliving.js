@@ -52,7 +52,7 @@ const AIPliving = ({ changeStep }) => {
       glassFibreConnection: values.glassFibreConnection,
       goodsLift: values.goodsLift,
       fibreCarChargingStation: values.fibreCarChargingStation,
-      fibreOpticConnection: values.fibreOpticConnection,
+      // fibreOpticConnection: values.fibreOpticConnection,
 
       //LAND
       buildingLandDeveloped: values.buildingLandDeveloped,

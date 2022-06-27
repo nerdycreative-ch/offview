@@ -45,23 +45,23 @@ export const Searchprofilecontext = ({ children }) => {
 
   console.log("FINAL SUBMIT", finalSubmit);
 
-  const submitDataToBackEnd = () => {
-    axios
+  const submitDataToBackEnd =  () => {
+     axios
       .post(
-        `${process.env.NEXT_PUBLIC_URL}searchprofile`,
+        `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
         {
-          advertisementType: finalSubmit.companyname,
-          propertyType: finalSubmit.legalForm,
-          region: finalSubmit.uid,
-          minPrice: finalSubmit.title,
-          maxPrice: finalSubmit.firstname,
+          advertisementType: finalSubmit.advertisementType,
+          propertyType: finalSubmit.propertyType,
+          region: finalSubmit.region,
+          minPrice: finalSubmit.minPrice,
+          maxPrice: finalSubmit.maxPrice,
         },
         {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        }
+        } 
       )
       .then((res) => {
         console.log(res);

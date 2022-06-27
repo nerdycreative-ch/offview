@@ -1,12 +1,10 @@
 const Searchprofile = require("../model/searchProfiles");
-
 const {
   advertisementBaseSchema,
   invesmentCommercialSchema,
   invesmentLivingSchema,
   invesmentResidencialAndCommercialSchema,
 } = require("../model/Advertisement");
-
 const getSearchedAdvertisement = (req, res) => {
   try {
   } catch (err) {
@@ -17,16 +15,17 @@ const getSearchedAdvertisement = (req, res) => {
     });
   }
 };
-
 /**
  * @description get all search profiles
  * @type GET
- * @url /searchprofile/getall
+ * @url /searchprofile/getall/:id
  */
-
 const getAllSearchProfiles = async (req, res) => {
   try {
-    const searchprofile = await Searchprofile.find({});
+    const id = req.user._id;
+    const searchprofile = await Searchprofile.find({
+      account: id,
+    });
     return res.status(200).json({ success: true, data: searchprofile });
   } catch (err) {
     console.log(err);
@@ -36,28 +35,28 @@ const getAllSearchProfiles = async (req, res) => {
     });
   }
 };
-
 /**
  * @description get one search profiles
  * @type GET
  * @url /searchprofile/getone/:id
  */
-
 const getOneSearchProfile = async (req, res) => {
   try {
     const id = req.params.id;
     const searchprofile = await Searchprofile.findOne({ _id: id });
-    const advertisement = await advertisementBaseSchema.find().and([
-      { advertisementType: searchprofile.advertisementType },
-      { propertyType: searchprofile.propertyType },
-      { town: searchprofile.region },
-      {
-        salesPrice: {
-          $gte: searchprofile.minPrice,
-          $lte: searchprofile.maxPrice,
+    const advertisement = await advertisementBaseSchema.aggregate().match({
+      $and: [
+        { advertisementType: searchprofile.advertisementType },
+        { town: searchprofile.region },
+        { propertyType: searchprofile.propertyType },
+        {
+          salesPrice: {
+            $gte: searchprofile.minPrice,
+            $lte: searchprofile.maxPrice,
+          },
         },
-      },
-    ]);
+      ],
+    });
     if (advertisement == []) {
       return res
         .status(404)
@@ -76,34 +75,32 @@ const getOneSearchProfile = async (req, res) => {
     });
   }
 };
-
 /**
  * @description create search profiles
  * @type POST
  * @url /searchprofile/create
  */
-
 const createSearchProfile = async (req, res) => {
   try {
+    const user = req.user;
     const { advertisementType, propertyType, region, minPrice, maxPrice } =
       req.body;
-
     const searchprofile = await Searchprofile.create({
+      // account: user._id,
       advertisementType,
       propertyType,
       region,
       minPrice,
       maxPrice,
     });
-
-    const advertisement = await advertisementBaseSchema
-      .find()
-      .and([
+    const advertisement = await advertisementBaseSchema.aggregate().match({
+      $and: [
         { advertisementType: advertisementType },
         { propertyType: propertyType },
         { town: region },
         { salesPrice: { $gte: minPrice, $lte: maxPrice } },
-      ]);
+      ],
+    });
     if (advertisement == []) {
       return res
         .status(404)
@@ -127,7 +124,6 @@ const createSearchProfile = async (req, res) => {
  * @type DELETE
  * @url /searchprofile/delete/:id
  */
-
 const deleteSearchProfile = async (req, res) => {
   try {
     const id = req.params.id;
@@ -142,7 +138,6 @@ const deleteSearchProfile = async (req, res) => {
       .json({ success: false, message: "error on deleting search profile" });
   }
 };
-
 /**
  * @description edit one search profiles
  * @type DELETE
@@ -164,7 +159,6 @@ const editSearchProfile = async (req, res) => {
       .json({ success: false, message: "error on deleting search profile" });
   }
 };
-
 module.exports = {
   getAllSearchProfiles,
   getOneSearchProfile,

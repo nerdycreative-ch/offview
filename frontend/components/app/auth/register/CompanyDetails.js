@@ -21,21 +21,26 @@ const CompanyDetails = ({ whichType }) => {
     globalValues,
   } = useAuthContext();
 
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = async (values, onSubmitProps) => {
     console.log("VALUES", values);
 
-    setUserData({
+    await setUserData({
       ...userData,
       title: values.title,
-      ...(whichType && {
-        firstname: values.firstname,
-        lastname: values.lastname,
-      }),
+      // ...(whichType && {
+      //   firstname: values.firstname,
+      //   lastname: values.lastname,
+      // }),
+      firstname: values.firstname,
+      lastname: values.lastname,
       companyName: values.companyName,
       legalForm: values.legalForm,
       UID: values.UID,
-      Website: values.Website,
-      Position: values.Position,
+      website: values.Website,
+      street: values.street,
+      country: values.country,
+      phoneNumber: values.phoneNumber,
+      // Position: values.Position,
     });
 
     Router.push("/registersteps?page=atc");
@@ -98,14 +103,14 @@ const CompanyDetails = ({ whichType }) => {
                         name="title"
                         placeholder="Select Title"
                       />
-                      <UserInput
+                      {/* <UserInput
                         labelName="Position *"
                         type="text"
                         name="Position"
                         placeholder="ex. Manager"
-                      />
-
-                      {whichType && (
+                      /> */}
+{/* 
+                      {whichType && ( */}
                         <div className="inLineItems">
                           <div className="singleItem">
                             <UserInput
@@ -124,7 +129,27 @@ const CompanyDetails = ({ whichType }) => {
                             />
                           </div>
                         </div>
-                      )}
+                      {/* )} */}
+                      <UserInput
+                        labelName="Phone Number *"
+                        type="text"
+                        name="phoneNumber"
+                        placeholder="Phone Number"
+                      />
+
+                      <UserInput
+                        labelName="Country"
+                        type="text"
+                        name="country"
+                        placeholder="Select Country"
+                      />
+
+                      <UserInput
+                        labelName="Street Address *"
+                        type="text"
+                        name="street"
+                        placeholder="Adress"
+                      />
 
                       <div style={{ marginTop: 30 }}>
                         <Button type="submit" title="Continue" />
