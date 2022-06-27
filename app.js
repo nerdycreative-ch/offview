@@ -30,7 +30,7 @@ require("./middleware/passport");
 
 // app.set("views", path.join(__dirname, "views"));
 // app.use(express.static(path.join(__dirname, "./frontend/build")));
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 app.use('/_next', express.static(path.join(__dirname, './frontend/.next')))
 
 app.use(express.json());
