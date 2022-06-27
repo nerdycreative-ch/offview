@@ -46,7 +46,7 @@ const CPSocialMedia = () => {
   const getSocialMediaItem = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/getall`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/getall`
       ).then((response) => setSocialMedia(response.data.socialmedia));
     } catch (error) {
       console.log(error);
@@ -59,14 +59,14 @@ const CPSocialMedia = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/post`;
+      const url = `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/post`;
 
       const { data: res } = await axios.post(url, {
         icon: values.icon,
         url: values.url,
       });
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/getall`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/getall`
       ).then((response) => setSocialMedia(response.data.socialmedia));
       onSubmitProps.resetForm();
     } catch (error) {
@@ -78,7 +78,7 @@ const CPSocialMedia = () => {
 
   const editItem = async (id) => {
     await axios
-      .put(`${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/patch/${id}`)
+      .put(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/patch/${id}`)
       .then((res) => {
         console.log(res.data);
         console.log("Student successfully updated");
@@ -91,13 +91,13 @@ const CPSocialMedia = () => {
   const deleteItem = async (id) => {
     await axios
       .delete(
-        `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/delete/${id}`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/delete/${id}`
       )
       .then((res) => {
         console.log("Item successfully deleted!");
 
         axios(
-          `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/getall`
+          `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/getall`
         ).then((response) => setSocialMedia(response.data.socialmedia));
       })
       .catch((error) => {

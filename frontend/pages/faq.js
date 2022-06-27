@@ -17,7 +17,7 @@ const Faq = () => {
 
   const getFaq = async () => {
     try {
-      await axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
+      await axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/get`).then(
         (response) => setFaq(response.data.data)
       );
     } catch (error) {

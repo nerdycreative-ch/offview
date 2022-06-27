@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   const getPrivacyPolicy = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/get`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/get`
       ).then((response) => setPrivacyPolicy(response.data.privacy));
     } catch (error) {
       console.log(error);

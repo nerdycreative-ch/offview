@@ -40,7 +40,7 @@ const CPPrivacyPolicy = () => {
   const getPrivacyPolicy = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/get`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/get`
       ).then((response) => setPrivacyPolicy(response.data.privacy));
     } catch (error) {
       console.log(error);
@@ -53,14 +53,14 @@ const CPPrivacyPolicy = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/post`;
+      const url = `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/post`;
 
       const { data: res } = await axios.post(url, {
         title: values.title,
         content: values.content,
       });
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/get`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/get`
       ).then((response) => setPrivacyPolicy(response.data.privacy));
       onSubmitProps.resetForm();
     } catch (error) {
@@ -72,7 +72,7 @@ const CPPrivacyPolicy = () => {
 
   const editItem = async (id) => {
     await axios
-      .put(`${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/patch/${id}`)
+      .put(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/patch/${id}`)
       .then((res) => {
         console.log(res.data);
         console.log("Student successfully updated");
@@ -85,12 +85,12 @@ const CPPrivacyPolicy = () => {
   const deleteItem = async (id) => {
     await axios
       .delete(
-        `${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/delete/${id}`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/delete/${id}`
       )
       .then((res) => {
         console.log("Item successfully deleted!");
 
-        axios(`${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/get`).then(
+        axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/privacypolicy/dashboard/get`).then(
           (response) => setPrivacyPolicy(response.data.privacy)
         );
       })

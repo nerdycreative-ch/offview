@@ -48,7 +48,7 @@ export const Searchprofilecontext = ({ children }) => {
   const submitDataToBackEnd =  () => {
      axios
       .post(
-        `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/searchprofiles/create`,
         {
           advertisementType: finalSubmit.advertisementType,
           propertyType: finalSubmit.propertyType,

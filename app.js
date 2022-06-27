@@ -55,7 +55,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(process.env.APP_PORT);
+    app.listen(process.env.PORT);
     console.log(`You are connected to mongoDB!`);
     console.log(`You are listening in port ${process.env.APP_PORT}.`);
   })

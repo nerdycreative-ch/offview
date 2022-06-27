@@ -32,7 +32,7 @@ const CPInformation = () => {
   const getInformation = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/get`
       ).then((response) => setInformation(response.data.data));
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ const CPInformation = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/post`;
+      const url = `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/post`;
 
       const { data: res } = await axios.post(url, {
         data: values.data,
@@ -53,7 +53,7 @@ const CPInformation = () => {
         email: values.email,
       });
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/get`
       ).then((response) => setInformation(response.data.data));
       onSubmitProps.resetForm();
     } catch (error) {
@@ -65,7 +65,7 @@ const CPInformation = () => {
   const editItem = async (id) => {
     await axios
       .put(
-        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/patch/${id}`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/patch/${id}`
       )
       .then((res) => {
         console.log(res.data);
@@ -79,13 +79,13 @@ const CPInformation = () => {
   const deleteItem = async (id) => {
     await axios
       .delete(
-        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/delete/${id}`
+        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/delete/${id}`
       )
       .then((res) => {
         console.log("Item successfully deletedasdas!");
 
         axios(
-          `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+          `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/get`
         ).then((response) => setInformation(response.data.data));
       })
       .catch((error) => {
