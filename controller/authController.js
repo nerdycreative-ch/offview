@@ -99,7 +99,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "${process.env.APP_DOMAIN}users/verify/${owner.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${owner.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         owner.email,
@@ -134,7 +134,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "${process.env.APP_DOMAIN}users/verify/${investorCompany.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorCompany.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         investorCompany.email,
@@ -164,7 +164,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "${process.env.APP_DOMAIN}users/verify/${investorPrivate.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         investorPrivate.email,
@@ -198,7 +198,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "${process.env.APP_DOMAIN}users/verify/${broker.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${broker.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         broker.email,
@@ -282,7 +282,7 @@ const resetPasswordInit = async (req, res) => {
     let html = `
     <h1>Hello,/h1>
     <p>Please click the following link to reset your password</p>
-    <a href = "${process.env.APP_DOMAIN}users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
+    <a href = "http://localhost:${process.env.PORT}/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
     sendVerification(
       user.email,
       "Reset your password",
