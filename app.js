@@ -29,7 +29,7 @@ require("./middleware/passport");
 //application middlewares
 
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
