@@ -76,7 +76,7 @@ const PrivacyPolicy = () => {
       <div className="privacyPolicy">
         {privacyPolicy.map((privacy, key) => {
           return (
-            <div className="singleItem">
+            <div key={key} className="singleItem">
               <div className="number">{key + 1}.</div>
               <div className="singleItemData">
                 <p className="title">

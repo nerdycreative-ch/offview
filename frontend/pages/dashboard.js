@@ -7,8 +7,11 @@ import Alert from "../components/app/utils/Alert";
 import DSingleSection from "../components/app/utils/DSingleSection";
 import DashboardLabel from "../components/app/utils/DashboardLabel";
 import styled from "styled-components";
+import { useAdvertisementContext } from "../context/advertisement";
 
 const Dashboard = () => {
+  const { listOfAdvertisement } = useAdvertisementContext();
+
   const [serachResult, setSearchResults] = useState([
     {
       id: 1,
@@ -74,8 +77,10 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div style={{ marginTop: 21 }}>
-                  {serachResult.map((item, index) => {
-                    return <SingleProperty key={index} {...item} />;
+                  {listOfAdvertisement.map((estate, index) => {
+                    return (
+                      <SingleProperty key={index} realEstate {...estate} />
+                    );
                   })}
                 </div>
               )}
@@ -96,8 +101,10 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div style={{ marginTop: 21 }}>
-                  {estateItem.map((item, index) => {
-                    return <SingleProperty key={index} realEstate {...item} />;
+                  {listOfAdvertisement.map((estate, index) => {
+                    return (
+                      <SingleProperty key={index} realEstate {...estate} />
+                    );
                   })}
                 </div>
               )}
@@ -205,3 +212,10 @@ const DashboardStlyed = styled.div`
 `;
 
 export default Dashboard;
+
+// const Dashboard = () => {
+//   return (
+//     <div>Dashboard</div>
+//   )
+// }
+// export default Dashboard

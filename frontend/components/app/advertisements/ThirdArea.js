@@ -73,8 +73,8 @@ const ThirdArea = () => {
           content="We use this data to calculate matches with purchase profiles of potential buyers."
         />
 
-        {imgsSrc.map((link) => (
-          <img src={link} />
+        {imgsSrc.map((link,index) => (
+          <img key={index} src={link} />
         ))}
 
         <Formik

@@ -5,7 +5,6 @@ import Header from "../components/web/utils/Header";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
-import imprint from "../../backend/model/imprint/imprint";
 
 const Imprint = () => {
   const [imPrint, setImPrint] = useState([]);
