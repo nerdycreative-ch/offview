@@ -3,6 +3,7 @@ import AppContainer from "../components/app/wrappers/AppContainer";
 import TopContainer from "../components/app/utils/TopContainer";
 import SubTitle from "../components/app/utils/SubTitle";
 import SingleProperty from "../components/app/utils/SingleProperty";
+import SinglePropertyTest from "../components/app/utils/SinglePropertyTest";
 import Alert from "../components/app/utils/Alert";
 import DSingleSection from "../components/app/utils/DSingleSection";
 import DashboardLabel from "../components/app/utils/DashboardLabel";
@@ -77,10 +78,8 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div style={{ marginTop: 21 }}>
-                  {listOfAdvertisement.map((estate, index) => {
-                    return (
-                      <SingleProperty key={index} realEstate {...estate} />
-                    );
+                  {serachResult.map((item, index) => {
+                    return <SinglePropertyTest key={index} {...item} />;
                   })}
                 </div>
               )}
@@ -95,16 +94,14 @@ const Dashboard = () => {
                 navigateTo="/offers"
               />
 
-              {estateItem.length == 0 ? (
+              {serachResult.length == 0 ? (
                 <div className="noItemsInArray">
                   <SubTitle content="You have not added any properties yet."></SubTitle>
                 </div>
               ) : (
                 <div style={{ marginTop: 21 }}>
-                  {listOfAdvertisement.map((estate, index) => {
-                    return (
-                      <SingleProperty key={index} realEstate {...estate} />
-                    );
+                  {serachResult.map((item, index) => {
+                    return <SinglePropertyTest key={index} realEstate {...item} />;
                   })}
                 </div>
               )}

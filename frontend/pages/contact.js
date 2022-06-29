@@ -8,8 +8,31 @@ import TextError from "../components/web/utils/TextError";
 import Header from "../components/web/utils/Header";
 import Head from "next/head";
 import axios from "axios";
+import { useWebContext } from "../context/webContext";
+import RegisterSuccessFullModal from "../components/app/auth/register/RegisterSuccessFullModal";
+import MessageSubmited from "../components/web/utils/MessageSubmited";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Contact = () => {
+  const { modalIsOpen, setIsOpen } = useWebContext();
+
+  const { events } = useRouter();
+
+  const close = () => {
+    //call modal close here or place inline in the events
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    // subscribe to next/router event
+    events.on("routeChangeStart", close);
+    return () => {
+      // unsubscribe to event on unmount to prevent memory leak
+      events.off("routeChangeStart", close);
+    };
+  }, [close, events]);
+
   const initialValues = {
     fullName: "",
     email: "",
@@ -31,6 +54,7 @@ const Contact = () => {
       message: values.message,
     });
 
+    setIsOpen(true);
     console.log("Form data", values);
     onSubmitProps.resetForm();
   };
@@ -44,6 +68,8 @@ const Contact = () => {
           content="If you have any questions we're here to help.Call us +41 (0) 123 4567 89 or offview@gmail.com.Adress : Rüeggisingerstrasse 19 CH-6020 Emmenbrücke"
         />
       </Head>
+
+      {modalIsOpen && <MessageSubmited />}
 
       <Header title="Contact" content="Needs help?" />
       <GreenContainer>

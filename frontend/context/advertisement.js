@@ -18,9 +18,9 @@ export const Advertisementcontext = ({ children }) => {
 
   const getAdvertisement = async () => {
     try {
-      await axios
-        .get("http://localhost:3000/advertisements/dashboard/getAll")
-        .then((response) => setListOfAdvertisement(response.data.data));
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
+      ).then((response) => setListOfAdvertisement(response.data.data));
     } catch (error) {
       console.log(error);
     }
@@ -288,8 +288,6 @@ export const Advertisementcontext = ({ children }) => {
         },
       }
     );
-
-
   };
 
   return (
