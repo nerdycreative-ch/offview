@@ -31,7 +31,7 @@ require("./middleware/passport");
 // app.set("views", path.join(__dirname, "views"));
 // app.use(express.static(path.join(__dirname, "./frontend/build")));
 // app.use(express.static(path.join(__dirname, "public")));
-app.use('/_next', express.static(path.join(__dirname, './frontend/.next')))
+// app.use('/_next', express.static(path.join(__dirname, './frontend/.next')))
 
 app.use(express.json());
 app.use(cookieParser());
@@ -60,7 +60,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(process.env.PORT || 3000,"0.0.0.0");
+    app.listen(process.env.APP_PORT || 3000);
     console.log(`You are connected to mongoDB!`);
     console.log(`You are listening in port ${process.env.APP_PORT}.`);
   })

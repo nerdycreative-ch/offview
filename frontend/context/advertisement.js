@@ -19,7 +19,7 @@ export const Advertisementcontext = ({ children }) => {
   const getAdvertisement = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
+        `http://localhost:3000/advertisements/dashboard/getAll`
       ).then((response) => setListOfAdvertisement(response.data.data));
     } catch (error) {
       console.log(error);
