@@ -13,6 +13,8 @@ export const Searchprofilecontext = ({ children }) => {
   const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
   const [propertyActiveLink, setPropertyActiveLink] = useState(0);
 
+  const [filtredSearch, setFiltredSearch] = useState([]);
+
   const [searchRegion, setSearchRegion] = useState("");
   const [advertismentType, setAdvertismetType] = useState([
     {
@@ -45,8 +47,23 @@ export const Searchprofilecontext = ({ children }) => {
 
   console.log("FINAL SUBMIT", finalSubmit);
 
-  const submitDataToBackEnd =  () => {
-     axios
+  useEffect(() => {
+    const getFiltredProfiles = async () => {
+      try {
+        await axios(`${process.env.NEXT_PUBLIC_URL}searchprofiles/getall`).then(
+          // (response) => setFiltredSearch(response.data.data)
+          (response) => console.log("response" + response.data)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getFiltredProfiles();
+  }, []);
+
+  const submitDataToBackEnd = () => {
+    axios
       .post(
         `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
         {
@@ -61,7 +78,7 @@ export const Searchprofilecontext = ({ children }) => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        } 
+        }
       )
       .then((res) => {
         console.log(res);

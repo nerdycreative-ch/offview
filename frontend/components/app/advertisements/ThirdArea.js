@@ -30,12 +30,15 @@ const ThirdArea = () => {
   const [fileName, setFileName] = useState("");
   const [imageName, setImageName] = useState("");
 
-  console.log("IMAGE" + imageName[0]);
+  console.log("IMAGE" + imageName);
 
-  const imageUpload = (e) => {
+  const [imageList, setImageList] = useState([]);
+
+  const imageUpload = async (e) => {
     console.log(e.target.files);
     //  setFileName(e.target.files);
     setImageName(e.target.files);
+    setImageList([...imageList, imageName]);
   };
 
   const fileUpload = (e) => {
@@ -86,13 +89,13 @@ const ThirdArea = () => {
           {(formik) => {
             return (
               <Form>
-                <input
+                {/* <input
                   onChange={imageUpload}
                   type="file"
                   name="image"
                   multiple
                 />
-                <input onChange={fileUpload} type="file" name="file" multiple />
+                <input onChange={fileUpload} type="file" name="file" multiple /> */}
 
                 <div className="inLineItems">
                   <div className="singleItem">
@@ -116,8 +119,19 @@ const ThirdArea = () => {
                   <p className="subTitle ml6">Picture(s) *</p>
 
                   <div className="dragAndDrop">
-                    <input type="file" id="upload" name="file" hidden />
-                    <label htmlFor="upload" className="upload">
+                    {/* <input type="file" id="upload" name="file" hidden /> */}
+                    <input
+                      onChange={imageUpload}
+                      type="file"
+                      name="image"
+                      id="image"
+                      multiple
+                    />
+                    {imageName.length}
+                    {/* {imageName.map(item => {
+                      return <h1>{item}</h1>
+                    })} */}
+                    <label htmlFor="image" className="upload">
                       <img
                         src="../../../assets/images/app/dashboard/uploadBrowse.svg"
                         alt=""
@@ -144,8 +158,20 @@ const ThirdArea = () => {
                   <p className="subTitle ml6">Documents *</p>
 
                   <div className="dragAndDrop">
-                    <input type="file" id="upload" name="myfile" hidden />
-                    <label htmlFor="upload" className="upload">
+                    {/* <input type="file" id="upload" name="myfile" hidden /> */}
+                    <input
+                      onChange={fileUpload}
+                      type="file"
+                      id="file"
+                      name="file"
+                      multiple
+                      hidden
+                    />
+                    {imageList.map((item) => {
+                      console.log("fotoja" + item);
+                      return <img src={item} />;
+                    })}
+                    <label htmlFor="file" className="upload">
                       <img
                         src="../../../assets/images/app/dashboard/uploadBrowse.svg"
                         alt=""
