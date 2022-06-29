@@ -4,7 +4,7 @@ const {
   sbrokerSchema,
   icompanySchema,
   iprivateSchema,
-} = require("../model/user");
+} = require("../model/User");
 
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie-parser");
