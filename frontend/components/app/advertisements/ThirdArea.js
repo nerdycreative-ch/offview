@@ -167,9 +167,8 @@ const ThirdArea = () => {
                       multiple
                       hidden
                     />
-                    {imageList.map((item) => {
-                      console.log("fotoja" + item);
-                      return <img src={item} />;
+                    {imageList.map((item,index) => {
+                      return <img key={index} src={item} />;
                     })}
                     <label htmlFor="file" className="upload">
                       <img
