@@ -12,6 +12,14 @@
   --lightRed: #f9625f;
   --greenPeaBold: #0e3027;
   --lightGreen: #717170;
+
+  /*FONTS */
+
+  --blackFont: 900;
+  --boldFont: 700;
+  --regularFont: 500;
+  --bookFont: 400;
+  --light: 300;
 }
 
 html,
@@ -81,8 +89,11 @@ a {
 
 @font-face {
   font-family: "Messina Sans";
-  src: url("../public/assets/fonts/MessinaSans-Bold.ttf");
-  src: url("../public/assets/fonts/MessinaSans-Regular.ttf");
-  /* src: url("../public/assets/fonts/MessinaSans-Black.ttf"); */
+  src: url("../public/assets/fonts/MessinaSans-Light.ttf");
 
+  src: url("../public/assets/fonts/MessinaSans-Book.ttf");
+  src: url("../public/assets/fonts/MessinaSans-Regular.ttf");
+
+  src: url("../public/assets/fonts/MessinaSans-Bold.ttf");
+  src: url("../public/assets/fonts/MessinaSans-Black.ttf");
 }
