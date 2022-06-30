@@ -13,7 +13,7 @@ const Imprint = () => {
   const getImPrint = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/getall`
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`
       ).then((response) => setImPrint(response.data.imprinti));
     } catch (error) {
       console.log(error);
@@ -27,7 +27,7 @@ const Imprint = () => {
   const getInformationData = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/information/get`
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
       ).then((response) => setInfo(response.data.data[0]));
     } catch (error) {
       console.log(error);

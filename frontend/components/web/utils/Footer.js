@@ -152,11 +152,13 @@ const FooterStyled = styled.div`
   }
   .link {
     margin-top: 12px;
+    font-weight: var(--bookFont);
   }
 
   .information {
     margin-top: 7px;
     width: 220px;
+    font-weight: var(--bookFont);
   }
 
   .bottomPart {

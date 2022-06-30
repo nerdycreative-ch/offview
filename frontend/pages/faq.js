@@ -27,8 +27,6 @@ const Faq = () => {
     getFaq();
   }, []);
 
-
-
   return (
     <FaqStyled>
       <Head>
@@ -79,6 +77,9 @@ const FaqStyled = styled.div`
   }
   .centerQuestions {
     padding: 126px 11.25%;
+  }
+  .greenContainerContent {
+    font-weight: var(--bookFont);
   }
   @media (max-width: 991.98px) {
     .centerQuestions {

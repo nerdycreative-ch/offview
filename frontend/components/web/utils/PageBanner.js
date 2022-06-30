@@ -14,7 +14,7 @@ const PageBanner = ({
   aboutBanner,
 }) => {
   return (
-    <PageBannerStyled propertyDetail={propertyDetail}>
+    <PageBannerStyled propertyDetail={propertyDetail} aboutBanner={aboutBanner}>
       <div>
         {additionalData && (
           <div className="tagContainer">
@@ -40,13 +40,18 @@ const PageBanner = ({
 };
 
 const PageBannerStyled = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${(props) =>
+    !props.aboutBanner &&
+    css`
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    `}
+
   margin-top: 160px;
   padding: 0 10%;
   width: 100%;
-  background-color: blue;
+  /* background-color: blue; */
 
   .tagContainer {
     margin-left: 34px;
@@ -56,19 +61,37 @@ const PageBannerStyled = styled.section`
 
   .pageInfo {
     border-left: 1px solid #e1e1e1;
-    /* padding-left: 40px;
-    padding-bottom: 80px; */
-    /* position: relative;
-    bottom: -40px; */
+    padding-left: 40px;
+    padding-bottom: 80px;
+    position: relative;
+    bottom: -40px;
 
+    ${(props) =>
+      props.aboutBanner &&
+      css`
+        bottom: 0px;
+        padding-bottom: 0px;
+      `}
 
-    width: 100%;
-    background: url("../../../assets/images/web/shapeHomePageBanner.png");
+    ${(props) =>
+      props.aboutBanner &&
+      css`
+        background: url("../../../assets/images/web/shapeHomePageBanner.png")
+          no-repeat;
+        background-size: 100% 100%;
+        background-size: initial;
+        background-position: top center;
+        height: 550px;
+        width: 100%;
+      `}/* background: url("../../../assets/images/web/shapeHomePageBanner.png")
+      no-repeat; */
+  
+
+    /* width: 100%;
     background-repeat: no-repeat;
     background-position: left top;
     background-size: contain;
-    background-color: red;
-
+    background-color: red; */
   }
   .pageName {
     font-weight: bold;
