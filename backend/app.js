@@ -51,8 +51,6 @@ app.use(function (req, res, next) {
 //view-engine
 // app.set("view engine", "ejs");
 
-
-
 //database connect
 mongoose
   .connect(process.env.APP_DB, {
@@ -73,7 +71,7 @@ app.use("/advertisements", advertisementRoutes);
 app.use("/profiles", profileRoutes);
 app.use("/privacypolicy", privacyPolicyroutes);
 app.use("/imprint", imprintRoutes);
-// app.use("/contact", contactRoutes);
+app.use("/contact", contactRoutes);
 app.use("/socialmedia", socialmediaRoutes);
 app.use("/faq", faqRoutes);
 app.use("/searchprofiles", searchRoutes);

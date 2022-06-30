@@ -96,17 +96,17 @@ const signup_post = async (req, res) => {
         verificationCode: randomBytes(20).toString("hex"),
       });
 
-    //   let html = `
-    // <h1>Hello,</h1>
-    // <p>Please click the following link to verify your account</p>
-    // <a href = "http://localhost:${process.env.PORT}/users/verify/${owner.verificationCode}">Verify Now</a>
-    // `;
-    //   await sendVerification(
-    //     owner.email,
-    //     "Verify your account",
-    //     "Please verify your account",
-    //     html
-    //   );
+      let html = `
+    <h1>Hello,</h1>
+    <p>Please click the following link to verify your account</p>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${owner.verificationCode}">Verify Now</a>
+    `;
+      await sendVerification(
+        owner.email,
+        "Verify your account",
+        "Please verify your account",
+        html
+      );
     }
 
     //create company investor and save to mongodb
@@ -131,17 +131,17 @@ const signup_post = async (req, res) => {
         verificationCode: randomBytes(20).toString("hex"),
       });
 
-    //   let html = `
-    // <h1>Hello,</h1>
-    // <p>Please click the following link to verify your account</p>
-    // <a href = "http://localhost:${process.env.PORT}/users/verify/${investorCompany.verificationCode}">Verify Now</a>
-    // `;
-    //   await sendVerification(
-    //     investorCompany.email,
-    //     "Verify your account",
-    //     "Please verify your account",
-    //     html
-    //   );
+      let html = `
+    <h1>Hello,</h1>
+    <p>Please click the following link to verify your account</p>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorCompany.verificationCode}">Verify Now</a>
+    `;
+      await sendVerification(
+        investorCompany.email,
+        "Verify your account",
+        "Please verify your account",
+        html
+      );
     }
     //create private investor and save to mongodb
     if (role === "private") {
@@ -161,17 +161,17 @@ const signup_post = async (req, res) => {
         verificationCode: randomBytes(20).toString("hex"),
       });
 
-    //   let html = `
-    // <h1>Hello,</h1>
-    // <p>Please click the following link to verify your account</p>
-    // <a href = "http://localhost:${process.env.PORT}/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
-    // `;
-    //   await sendVerification(
-    //     investorPrivate.email,
-    //     "Verify your account",
-    //     "Please verify your account",
-    //     html
-    //   );
+      let html = `
+    <h1>Hello,</h1>
+    <p>Please click the following link to verify your account</p>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
+    `;
+      await sendVerification(
+        investorPrivate.email,
+        "Verify your account",
+        "Please verify your account",
+        html
+      );
     }
 
     //create broker and save to mongodb
@@ -195,17 +195,17 @@ const signup_post = async (req, res) => {
         website,
         verificationCode: randomBytes(20).toString("hex"),
       });
-    //   let html = `
-    // <h1>Hello,</h1>
-    // <p>Please click the following link to verify your account</p>
-    // <a href = "http://localhost:${process.env.PORT}/users/verify/${broker.verificationCode}">Verify Now</a>
-    // `;
-    //   await sendVerification(
-    //     broker.email,
-    //     "Verify your account",
-    //     "Please verify your account",
-    //     html
-    //   );
+      let html = `
+    <h1>Hello,</h1>
+    <p>Please click the following link to verify your account</p>
+    <a href = "http://localhost:${process.env.PORT}/users/verify/${broker.verificationCode}">Verify Now</a>
+    `;
+      await sendVerification(
+        broker.email,
+        "Verify your account",
+        "Please verify your account",
+        html
+      );
     }
 
     return res.status(200).json({
@@ -278,17 +278,17 @@ const resetPasswordInit = async (req, res) => {
     user.generatePasswordReset();
     await user.save();
 
-    //Send password reset link to email
-    // let html = `
-    // <h1>Hello,/h1>
-    // <p>Please click the following link to reset your password</p>
-    // <a href = "http://localhost:${process.env.PORT}/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
-    // sendVerification(
-    //   user.email,
-    //   "Reset your password",
-    //   "Please reset your password here",
-    //   html
-    // );
+    // Send password reset link to email
+    let html = `
+    <h1>Hello,/h1>
+    <p>Please click the following link to reset your password</p>
+    <a href = "http://localhost:${process.env.PORT}/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
+    sendVerification(
+      user.email,
+      "Reset your password",
+      "Please reset your password here",
+      html
+    );
     return res.status(200).render({
       success: true,
       message: "Password link is sent to your email",
@@ -376,15 +376,15 @@ const resetPasswordPost = async (req, res) => {
 
     //Send confirmation email to user that the password has been changed
 
-    // let html = `
-    // <h1>Hello,</h1>
-    // <p>Your password has been changed, if it wasn't done by you please contact our support</p>`;
-    // sendVerification(
-    //   user.email,
-    //   "Reseting password was done successfully",
-    //   "Your password was changed",
-    //   html
-    // );
+    let html = `
+    <h1>Hello,</h1>
+    <p>Your password has been changed, if it wasn't done by you please contact our support</p>`;
+    sendVerification(
+      user.email,
+      "Reseting password was done successfully",
+      "Your password was changed",
+      html
+    );
     res.status(200).json({
       success: true,
       message: "Your password has been reseted you can log in now",
