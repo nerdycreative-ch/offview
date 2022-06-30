@@ -19,6 +19,7 @@ const About = () => {
       <Header
         title="About"
         content="Offview is a brokerage platform for real estate."
+        aboutBanner
       />
       <GreenContainer>
         <div>

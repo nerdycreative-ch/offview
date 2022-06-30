@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 import Button from "../utils/Button";
 import TagItem from "./TagItem";
 
+// background: url("../../../assets/images/web/shapeHomePageBanner.png");
+
 const PageBanner = ({
   title,
   content,
@@ -9,6 +11,7 @@ const PageBanner = ({
   category,
   additionalData,
   propertyDetail,
+  aboutBanner,
 }) => {
   return (
     <PageBannerStyled propertyDetail={propertyDetail}>
@@ -42,6 +45,8 @@ const PageBannerStyled = styled.section`
   align-items: center;
   margin-top: 160px;
   padding: 0 10%;
+  width: 100%;
+  background-color: blue;
 
   .tagContainer {
     margin-left: 34px;
@@ -51,10 +56,19 @@ const PageBannerStyled = styled.section`
 
   .pageInfo {
     border-left: 1px solid #e1e1e1;
-    padding-left: 40px;
-    padding-bottom: 80px;
-    position: relative;
-    bottom: -40px;
+    /* padding-left: 40px;
+    padding-bottom: 80px; */
+    /* position: relative;
+    bottom: -40px; */
+
+
+    width: 100%;
+    background: url("../../../assets/images/web/shapeHomePageBanner.png");
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: contain;
+    background-color: red;
+
   }
   .pageName {
     font-weight: bold;

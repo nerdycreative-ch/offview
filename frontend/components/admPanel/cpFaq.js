@@ -42,7 +42,7 @@ const CPFAQ = () => {
 
   const getFaq = async () => {
     try {
-      await axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/get`).then(
+      await axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
         (response) => setFaq(response.data.data)
       );
     } catch (error) {
@@ -52,13 +52,13 @@ const CPFAQ = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/post`;
+      const url = `${process.env.NEXT_PUBLIC_URL}faq/dashboard/post`;
 
       const { data: res } = await axios.post(url, {
         title: values.title,
         content: values.content,
       });
-      await axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/get`).then(
+      await axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
         (response) => setFaq(response.data.data)
       );
       onSubmitProps.resetForm();
@@ -71,7 +71,7 @@ const CPFAQ = () => {
 
   const editItem = async (id) => {
     await axios
-      .put(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/patch/${id}`)
+      .put(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/patch/${id}`)
       .then((res) => {
         console.log(res.data);
         console.log("Student successfully updated");
@@ -83,11 +83,11 @@ const CPFAQ = () => {
 
   const deleteItem = async (id) => {
     await axios
-      .delete(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/delete/${id}`)
+      .delete(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/delete/${id}`)
       .then((res) => {
         console.log("Item successfully deleted!");
 
-        axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/get`).then(
+        axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
           (response) => setFaq(response.data.data)
         );
       })

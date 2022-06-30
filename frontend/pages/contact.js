@@ -48,7 +48,7 @@ const Contact = () => {
   });
 
   const onSubmit = (values, onSubmitProps) => {
-    axios.post(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/contact/sendcontact`, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}contact/sendcontact`, {
       fullName: values.fullName,
       email: values.email,
       message: values.message,
