@@ -47,8 +47,8 @@ const ThirdArea = () => {
     setFileName(e.target.files);
   };
 
-  const onSubmit = async (values, onSubmitProps) => {
-    await setFinalAdvertisement({
+  const onSubmit =  (values, onSubmitProps) => {
+     setFinalAdvertisement({
       ...finalAdvertisement,
       totalActualRental: values.totalActualRental,
       returnOnInvestment: values.returnOnInvestment,
@@ -56,7 +56,7 @@ const ThirdArea = () => {
       file: fileName,
     });
 
-    await submitAdvDataToBackend();
+      submitAdvDataToBackend();
 
     onSubmitProps.resetForm();
   };
@@ -126,8 +126,9 @@ const ThirdArea = () => {
                       name="image"
                       id="image"
                       multiple
+                      hidden
                     />
-                    {imageName.length}
+                    {/* {imageName.length} */}
                     {/* {imageName.map(item => {
                       return <h1>{item}</h1>
                     })} */}
@@ -167,9 +168,9 @@ const ThirdArea = () => {
                       multiple
                       hidden
                     />
-                    {imageList.map((item,index) => {
+                    {/* {imageList.map((item,index) => {
                       return <img key={index} src={item} />;
-                    })}
+                    })} */}
                     <label htmlFor="file" className="upload">
                       <img
                         src="../../../assets/images/app/dashboard/uploadBrowse.svg"
