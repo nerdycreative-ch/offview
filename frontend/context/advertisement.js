@@ -280,7 +280,7 @@ export const Advertisementcontext = ({ children }) => {
     }
 
     await axios.post(
-      "http://localhost:3000/advertisements/dashboard/createAdvertisement",
+      `${process.env.NEXT_PUBLIC_URL}dashboard/createAdvertisement`,
       formData,
       {
         headers: {
