@@ -120,7 +120,7 @@ const HomeBannerStyled = styled.div`
   
   }
 
-  @media (max-width: 2000.98px) {
+  /* @media (max-width: 2000.98px) {
     padding-left: 140px;
     .banner {
       padding: 100px 0;
@@ -132,7 +132,7 @@ const HomeBannerStyled = styled.div`
 
       padding-bottom: 400px;
     }
-  }
+  } */
 
   @media (max-width: 1399.98px) {
     padding-left: 140px;

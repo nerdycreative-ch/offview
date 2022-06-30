@@ -46,6 +46,7 @@ const PageBannerStyled = styled.section`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      
     `}
 
   margin-top: 160px;
@@ -81,7 +82,7 @@ const PageBannerStyled = styled.section`
         background-size: 100% 100%;
         background-size: initial;
         background-position: top center;
-        height: 550px;
+        height: 450px;
         width: 100%;
       `}/* background: url("../../../assets/images/web/shapeHomePageBanner.png")
       no-repeat; */
