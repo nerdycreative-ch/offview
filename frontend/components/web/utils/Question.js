@@ -49,7 +49,7 @@ const QuestionStyled = styled.div`
   }
   .title {
     color: var(--greenPeaBold);
-    font-weight: 600;
+    font-weight: var(--semiBold);
     font-size: 18px;
     line-height: 27px;
   }
@@ -60,6 +60,7 @@ const QuestionStyled = styled.div`
     line-height: 18px;
     margin-top: 16px;
     transition: max-height 0.2s ease-out;
+    font-weight: var(--bookFont);
   }
 
   @media (max-width: 767.98px) {

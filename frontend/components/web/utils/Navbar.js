@@ -79,7 +79,7 @@ const Navbar = ({propertyDetail}) => {
           </Link>
           <Link href="/register">
             <div className="showElement">
-              <div className="registerBtnContainer ">
+              <div className="registerBtnContainer">
                 <Button text="Become a member" green />
               </div>
             </div>
@@ -159,6 +159,7 @@ const NavbarStyled = styled.nav`
     /* border-bottom: 1px solid var(--greenToBlack);
     padding-bottom: 5px;
     border-radius: 1px; */
+    font-weight: var(--bookFont);
   }
   .rightSide {
     display: flex;

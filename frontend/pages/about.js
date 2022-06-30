@@ -46,7 +46,6 @@ const About = () => {
         </div>
       </GreenContainer>
 
-   
       {/* FOOTER */}
       <Footer />
     </AboutStyled>
@@ -54,13 +53,13 @@ const About = () => {
 };
 
 const AboutStyled = styled.div`
-
   .aboutContentContainer {
     margin-top: 80px;
-  
+    border-bottom: 1px solid var(--whiteColor);
+    padding-bottom: 120px;
   }
   .aboutSubTitle {
-    font-weight: 700;
+    font-weight: var(--boldFont);
     font-size: 28px;
     line-height: 42px;
     color: inherit;
@@ -68,8 +67,9 @@ const AboutStyled = styled.div`
   .aboutContent {
     line-height: 24px;
     margin-top: 24px;
+    font-weight: var(--bookFont);
   }
- 
+
   .aboutTitleContainer {
     margin-top: 120px;
     margin-bottom: 108px;
