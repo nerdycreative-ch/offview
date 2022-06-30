@@ -97,7 +97,7 @@ export const AuthWrappercontext = ({ children }) => {
   const submitDataToBackend = () => {
     axios
       .post(
-        "http://localhost:3000/users/signup",
+        `${process.env.NEXT_PUBLIC_URL}users/signup`,
         {
           companyName: userData.companyName,
           legalForm: userData.legalForm,
