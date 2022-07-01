@@ -19,7 +19,7 @@ export const Advertisementcontext = ({ children }) => {
   const getAdvertisement = async () => {
     try {
       await axios(
-        `http://localhost:3000/advertisements/dashboard/getAll`
+        `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
       ).then((response) => setListOfAdvertisement(response.data.data));
     } catch (error) {
       console.log(error);
@@ -280,7 +280,7 @@ export const Advertisementcontext = ({ children }) => {
     }
 
     await axios.post(
-      "http://localhost:3000/advertisements/dashboard/createAdvertisement",
+      `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/createAdvertisement`,
       formData,
       {
         headers: {

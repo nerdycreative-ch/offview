@@ -11,13 +11,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Faq = () => {
-
-
   const [faq, setFaq] = useState([]);
 
   const getFaq = async () => {
     try {
-      await axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/faq/dashboard/get`).then(
+      await axios(`${process.env.NEXT_PUBLIC_URL}faq/dashboard/get`).then(
         (response) => setFaq(response.data.data)
       );
     } catch (error) {
@@ -28,49 +26,6 @@ const Faq = () => {
   useEffect(() => {
     getFaq();
   }, []);
-
-  const questions = [
-    {
-      id: 1,
-      title:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint?",
-      content: `Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. 
-          Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. 
-          Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.
-          Nulla Lorem mollit cupidatat irure. 
-          Laborum magna nulla duis ullamco cillum dolor. 
-          Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.`,
-    },
-    {
-      id: 2,
-      title: "Velit officia consequat duis enim velit mollit.",
-      content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab voluptate magnam dolores quasi est impedit.
-        .`,
-    },
-    {
-      id: 3,
-      title: "Laborum magna nulla duis ullamco cillum dolor. ",
-      content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab voluptate magnam dolores quasi est impedit.
-        `,
-    },
-    {
-      id: 4,
-      title:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint?",
-      content: `Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. 
-            Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. 
-            Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.
-            Nulla Lorem mollit cupidatat irure. 
-            Laborum magna nulla duis ullamco cillum dolor. 
-            Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.`,
-    },
-    {
-      id: 5,
-      title: "Laborum magna nulla duis ullamco cillum dolor. ",
-      content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab voluptate magnam dolores quasi est impedit.
-          `,
-    },
-  ];
 
   return (
     <FaqStyled>
@@ -122,6 +77,9 @@ const FaqStyled = styled.div`
   }
   .centerQuestions {
     padding: 126px 11.25%;
+  }
+  .greenContainerContent {
+    font-weight: var(--bookFont);
   }
   @media (max-width: 991.98px) {
     .centerQuestions {

@@ -40,6 +40,20 @@ const deletefilesmethod = (req)=>{
 }
 
 /**
+ * @description deletes files on folder upload after posting them to s3 bucket
+ */
+
+const deletefilesmethod = (req) => {
+  req.files["image"].forEach((file) => {
+    unlinkFile(file.path);
+  });
+
+  req.files["file"].forEach((file) => {
+    unlinkFile(file.path);
+  });
+};
+
+/**
  * @description Gets one advertisement
  * @type GET
  * @url /advertisements/dashboard/getOne/:id
@@ -59,14 +73,55 @@ const advertisement_Get = async (req, res) => {
 };
 
 /**
- * @description Gets one advertisement
+ * @description Gets all advertisement for web
+ * @type GET
+ * @url /advertisements/dashboard/getallwevb
+ */
+
+const advertisement_GetAllWeb = async (req, res) => {
+  try {
+    const { location, minPrice, maxPrice, type } = req.body;
+    const advertisement = await advertisementBaseSchema.aggregate().match({
+      $and: [
+        { advertisementType: searchprofile.type },
+        { town: searchprofile.location },
+        { propertyType: searchprofile.propertyType },
+        {
+          salesPrice: {
+            $gte: minPrice,
+            $lte: maxPrice,
+          },
+        },
+      ],
+    });
+    if (advertisement == []) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No matches made" });
+    }
+    return res.status(200).json({
+      success: true,
+      data: advertisement,
+      matches: advertisement.length,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Error getting all advertisements" });
+  }
+};
+/**
+ * @description Gets all advertisement
  * @type GET
  * @url /advertisements/dashboard/getAll
  */
 
 const advertisement_GetAll = async (req, res) => {
   try {
-    const advertisements = await advertisementBaseSchema.find({});
+    const user = req.user;
+    const advertisements = await advertisementBaseSchema.find({
+      account: user._id,
+    });
     return res.status(200).json({ success: true, data: advertisements });
   } catch (error) {
     return res
@@ -121,6 +176,7 @@ const advertisement_Post = async (req, res) => {
       livingSpace,
       minergieStandard,
       glassFibreConnection,
+    } = JSON.parse(req.body.data);
 
       // image
     } = JSON.parse(req.body.data);
@@ -483,6 +539,7 @@ const deleteFileAfter = (req, res) => {};
 module.exports = {
   advertisement_Get,
   advertisement_GetAll,
+  advertisement_GetAllWeb,
   advertisement_Post,
   advertisement_Patch,
   advertisement_Delete,

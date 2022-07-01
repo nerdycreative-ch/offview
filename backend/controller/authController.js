@@ -66,12 +66,15 @@ const signup_post = async (req, res) => {
       role,
       gender,
       title,
+      position,
       firstName,
       lastName,
       phoneNumber,
       street,
+      No,
       postalCode,
       country,
+
       companyName,
       legalForm,
       UID,
@@ -91,6 +94,7 @@ const signup_post = async (req, res) => {
         lastName,
         phoneNumber,
         street,
+        No,
         postalCode,
         country,
         verificationCode: randomBytes(20).toString("hex"),
@@ -126,6 +130,7 @@ const signup_post = async (req, res) => {
         lastName,
         phoneNumber,
         street,
+        No,
         postalCode,
         country,
         verificationCode: randomBytes(20).toString("hex"),
@@ -156,6 +161,7 @@ const signup_post = async (req, res) => {
         lastName,
         phoneNumber,
         street,
+        No,
         postalCode,
         country,
         verificationCode: randomBytes(20).toString("hex"),
@@ -183,10 +189,12 @@ const signup_post = async (req, res) => {
         role,
         gender,
         title,
+        position,
         firstName,
         lastName,
         phoneNumber,
         street,
+        No,
         postalCode,
         country,
         companyName,
@@ -278,7 +286,7 @@ const resetPasswordInit = async (req, res) => {
     user.generatePasswordReset();
     await user.save();
 
-    //Send password reset link to email
+    // Send password reset link to email
     let html = `
     <h1>Hello,/h1>
     <p>Please click the following link to reset your password</p>

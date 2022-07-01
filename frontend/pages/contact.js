@@ -48,7 +48,7 @@ const Contact = () => {
   });
 
   const onSubmit = (values, onSubmitProps) => {
-    axios.post(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/contact/sendcontact`, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}contact/sendcontact`, {
       fullName: values.fullName,
       email: values.email,
       message: values.message,
@@ -145,7 +145,7 @@ const Contact = () => {
 
 const ContactStyled = styled.div`
   .contactInformation {
-    font-weight: 700;
+    font-weight: var(--boldFont);
     font-size: 28px;
     line-height: 42px;
   }
@@ -175,7 +175,7 @@ const ContactStyled = styled.div`
     margin-bottom: 80px;
   }
   .letsTalkTitle {
-    font-weight: 700;
+    font-weight: var(--boldFont);
     font-size: 28px;
     line-height: 42px;
 
@@ -187,6 +187,7 @@ const ContactStyled = styled.div`
     text-align: center;
     color: var(--Grey-500);
     margin-top: 8px;
+    font-weight: var(--bookFont);
   }
   .verticalLine {
     width: 1px;
@@ -212,6 +213,7 @@ const ContactStyled = styled.div`
     font-size: 14px;
     line-height: 18px;
     color: var(--black-0);
+    font-weight: var(--bookFont);
   }
   .formGroup input {
     margin-top: 6px;

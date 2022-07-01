@@ -11,7 +11,7 @@ const Footer = () => {
   const getSocialMediaItem = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/socialmedia/dashboard/getall`
+        `${process.env.NEXT_PUBLIC_URL}socialmedia/dashboard/getall`
       ).then((response) => setSocialMedia(response.data.socialmedia));
     } catch (error) {
       console.log(error);
@@ -152,11 +152,13 @@ const FooterStyled = styled.div`
   }
   .link {
     margin-top: 12px;
+    font-weight: var(--bookFont);
   }
 
   .information {
     margin-top: 7px;
     width: 220px;
+    font-weight: var(--bookFont);
   }
 
   .bottomPart {
@@ -233,6 +235,9 @@ const FooterStyled = styled.div`
     }
     .allRightsReserved {
       margin-top: 24px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18px;
     }
   }
   @media (max-width: 420.98px) {

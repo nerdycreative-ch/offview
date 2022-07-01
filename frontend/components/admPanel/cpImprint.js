@@ -39,7 +39,7 @@ const CPImprint = () => {
   const getImPrint = async () => {
     try {
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/getall`
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`
       ).then((response) => setImPrint(response.data.imprinti));
     } catch (error) {
       console.log(error);
@@ -55,14 +55,14 @@ const CPImprint = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/post`;
+      const url = `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/post`;
 
       const { data: res } = await axios.post(url, {
         title: values.title,
         content: values.content,
       });
       await axios(
-        `${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/getall`
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`
       ).then((response) => setImPrint(response.data.imprinti));
       onSubmitProps.resetForm();
     } catch (error) {
@@ -74,7 +74,7 @@ const CPImprint = () => {
 
   const editItem = async (id) => {
     await axios
-      .put(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/patch/${id}`)
+      .put(`${process.env.NEXT_PUBLIC_URL}imprint/dashboard/patch/${id}`)
       .then((res) => {
         console.log(res.data);
         console.log("Student successfully updated");
@@ -86,11 +86,11 @@ const CPImprint = () => {
 
   const deleteItem = async (id) => {
     await axios
-      .delete(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/delete/${id}`)
+      .delete(`${process.env.NEXT_PUBLIC_URL}imprint/dashboard/delete/${id}`)
       .then((res) => {
         console.log("Item successfully deleted!");
 
-        axios(`${process.env.NEXT_PUBLIC_URL}:${process.env.PORT}/imprint/dashboard/getall`).then(
+        axios(`${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`).then(
           (response) => setImPrint(response.data.imprinti)
         );
       })

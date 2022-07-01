@@ -58,7 +58,8 @@ const HomeBannerStyled = styled.div`
 
   @keyframes animatedBackground {
     from {
-      background-position: -400px 0px;
+      /* background-position: 0px -900px; */
+      background-position: left 0px bottom -500px;
     }
     to {
       padding: 100px 0;
@@ -79,15 +80,17 @@ const HomeBannerStyled = styled.div`
   }
 
   .banner .title {
+    /* font-weight: 900; */
+    /* font-weight: light; */
     font-weight: 900;
     font-size: 48px;
     line-height: 62px;
-    color: var(--greenPeaBold);
   }
   .banner .content {
     line-height: 24px;
     color: var(--Grey-500);
     margin-top: 24px;
+    font-weight: var(--bookFont);
   }
   .leftSideContent {
     width: 43%;
@@ -109,12 +112,28 @@ const HomeBannerStyled = styled.div`
     color: var(--Grey-500);
   }
   .contactUs {
-    font-weight: 600;
+    font-weight: var(--regularFont);
     font-size: 14px;
     line-height: 18px;
     color: #175041;
     cursor: pointer;
+  
   }
+
+  /* @media (max-width: 2000.98px) {
+    padding-left: 140px;
+    .banner {
+      padding: 100px 0;
+      margin-top: 50px;
+      width: 90%;
+      background: url("../../../assets/images/web/shapeHomePageBanner.png");
+      background-repeat: no-repeat;
+      background-position:  center;
+
+      padding-bottom: 400px;
+    }
+  } */
+
   @media (max-width: 1399.98px) {
     padding-left: 140px;
     .banner {

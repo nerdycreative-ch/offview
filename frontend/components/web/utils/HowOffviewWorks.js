@@ -133,12 +133,14 @@ const HowOffviewWorksStyled = styled.div`
     font-size: 28px;
     line-height: 42px;
     color: var(--greenPeaBold);
+    
   }
   .topContainer .content {
     font-size: 14px;
     line-height: 18px;
     color: var(--Grey-500);
     margin-top: 8px;
+    font-weight: var(--bookFont);
   }
   .bottomContainer {
     margin-top: 128px;
@@ -187,6 +189,7 @@ const HowOffviewWorksStyled = styled.div`
     font-size: 14px;
     line-height: 18px;
     color: var(--Grey-500);
+    font-weight: var(--bookFont);
   }
   .bottomContainer .rightSide {
     flex: 1.6;
