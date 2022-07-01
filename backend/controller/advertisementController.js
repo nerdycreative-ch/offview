@@ -16,8 +16,10 @@ const {
 } = require("../functions/awsUploader");
 const fs = require("fs-extra");
 const util = require("util");
+const { unlinkSync } = require("fs-extra");
 //removes files from folder
 const unlinkFile = util.promisify(fs.unlink);
+const path = require("path");
 
 /*
 advertisement_Get,
@@ -26,6 +28,20 @@ advertisement_Post,
 advertisement_Put,
 advertisement_Delete,
 */
+
+/**
+ * @description deletes files on folder upload after posting them to s3 bucket
+ */
+
+const deletefilesmethod = (req) => {
+  req.files["image"].forEach((file) => {
+    unlinkFile(file.path);
+  });
+
+  req.files["file"].forEach((file) => {
+    unlinkFile(file.path);
+  });
+};
 
 /**
  * @description Gets one advertisement
@@ -47,14 +63,55 @@ const advertisement_Get = async (req, res) => {
 };
 
 /**
- * @description Gets one advertisement
+ * @description Gets all advertisement for web
+ * @type GET
+ * @url /advertisements/dashboard/getallwevb
+ */
+
+const advertisement_GetAllWeb = async (req, res) => {
+  try {
+    const { location, minPrice, maxPrice, type } = req.body;
+    const advertisement = await advertisementBaseSchema.aggregate().match({
+      $and: [
+        { advertisementType: searchprofile.type },
+        { town: searchprofile.location },
+        { propertyType: searchprofile.propertyType },
+        {
+          salesPrice: {
+            $gte: minPrice,
+            $lte: maxPrice,
+          },
+        },
+      ],
+    });
+    if (advertisement == []) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No matches made" });
+    }
+    return res.status(200).json({
+      success: true,
+      data: advertisement,
+      matches: advertisement.length,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Error getting all advertisements" });
+  }
+};
+/**
+ * @description Gets all advertisement
  * @type GET
  * @url /advertisements/dashboard/getAll
  */
 
 const advertisement_GetAll = async (req, res) => {
   try {
-    const advertisements = await advertisementBaseSchema.find({});
+    const user = req.user;
+    const advertisements = await advertisementBaseSchema.find({
+      account: user._id,
+    });
     return res.status(200).json({ success: true, data: advertisements });
   } catch (error) {
     return res
@@ -109,22 +166,15 @@ const advertisement_Post = async (req, res) => {
       livingSpace,
       minergieStandard,
       glassFibreConnection,
+    } = JSON.parse(req.body.data);
 
-      image,
-    } = req.body;
-    // console.log(req);
-    // console.log(image);
-    // console.log(typeof(image));
-    await imageUpload(image, "image");
-
-    //upload file
+    // upload file
     let filess = [];
-    const promises = [];
+    let promises = [];
     for (let i = 0; i < req.files["file"].length; ) {
       let fileSingle = req.files["file"][i];
-      await promises.push(uploadFile(fileSingle, "file"));
+      promises.push(uploadFile(fileSingle, "file"));
       i++;
-      unlinkFile(fileSingle.path);
     }
     await Promise.all(promises)
       .then((data) => {
@@ -138,13 +188,13 @@ const advertisement_Post = async (req, res) => {
 
     //upload image
     let imagess = [];
-    const promisesImg = [];
+    let promisesImg = [];
     for (let i = 0; i < req.files["image"].length; ) {
       let fileSingleImg = req.files["image"][i];
-      await promisesImg.push(uploadFile(fileSingleImg, "image"));
+      promisesImg.push(uploadFile(fileSingleImg, "image"));
       i++;
-      await unlinkFile(fileSingleImg.path);
     }
+
     await Promise.all(promisesImg)
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -154,8 +204,9 @@ const advertisement_Post = async (req, res) => {
       .catch((err) => {
         console.log(err);
       });
+    deletefilesmethod(req);
 
-    if (propertyType === "Living") {
+    if (propertyType === "living") {
       const living = await invesmentLivingSchema.create({
         advertisementType,
         propertyType,
@@ -188,7 +239,7 @@ const advertisement_Post = async (req, res) => {
         minergieStandard,
         glassFibreConnection,
       });
-    } else if (propertyType === "Commercial") {
+    } else if (propertyType === "commercial") {
       const coomercial = await invesmentCommercialSchema.create({
         advertisementType,
         propertyType,
@@ -221,7 +272,7 @@ const advertisement_Post = async (req, res) => {
         goodsLift,
         fibreOpticConnection,
       });
-    } else if (propertyType === "Residential&Commercial") {
+    } else if (propertyType === "residentialandcommercial") {
       const resandcom = await invesmentResidencialAndCommercialSchema.create({
         advertisementType,
         propertyType,
@@ -265,7 +316,8 @@ const advertisement_Post = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Wrong property type" });
     }
-    res.status(200).json({
+    console.log("uploaded");
+    return res.status(200).json({
       success: true,
       message: "Advertisement has been created",
       files: filess,
@@ -474,6 +526,7 @@ const deleteFileAfter = (req, res) => {};
 module.exports = {
   advertisement_Get,
   advertisement_GetAll,
+  advertisement_GetAllWeb,
   advertisement_Post,
   advertisement_Patch,
   advertisement_Delete,

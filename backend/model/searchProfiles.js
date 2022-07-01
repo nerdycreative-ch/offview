@@ -4,13 +4,17 @@ const mongoose = require("mongoose");
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=16.66667,101.18333&key=YOUR_API_KEY
 
 const searchProfilesSchema = new mongoose.Schema({
+  account: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
   advertisementType: {
     type: String,
-    enum: ["InvesmentProperties", "Land", "NewBuildingProject"],
+    enum: ["investmentproperties", "land", "newbuildingprojects"],
   },
   propertyType: {
     type: String,
-    enum: ["Living", "Commercial", "Residential&Commercial"],
+    enum: ["living", "commercial", "residentialandcommercial"],
   },
   region: {
     type: String,

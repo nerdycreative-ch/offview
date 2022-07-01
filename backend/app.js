@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const cors = require("cors");
 const bodyparser = require("body-parser");
+const checkRole = require("./middleware/authProtect");
 require(`dotenv`).config();
 
 //routes
@@ -19,7 +20,8 @@ const socialmediaRoutes = require("./routes/socialmediaRoutes");
 const faqRoutes = require("./routes/faqRoutes");
 const searchRoutes = require("./routes/searchProfileRoutes");
 const offerRoutes = require("./routes/offerRoutes");
-
+const locationRoutes = require("./routes/locationRoutes");
+const rootRoutes = require("./routes/rootRoutes");
 //cors
 app.use(cors());
 
@@ -29,7 +31,7 @@ require("./middleware/passport");
 //application middlewares
 
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "/frontend/build")));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -55,7 +57,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(process.env.APP_PORT);
+    app.listen(process.env.APP_PORT || 3000);
     console.log(`You are connected to mongoDB!`);
     console.log(`You are listening in port ${process.env.APP_PORT}.`);
   })
@@ -73,3 +75,5 @@ app.use("/socialmedia", socialmediaRoutes);
 app.use("/faq", faqRoutes);
 app.use("/searchprofiles", searchRoutes);
 app.use("/offers", offerRoutes);
+app.use("/location", locationRoutes);
+app.use("/root", rootRoutes);

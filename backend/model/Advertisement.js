@@ -16,11 +16,11 @@ const advertisementBaseSchema = mongoose.model(
       },
       advertisementType: {
         type: String,
-        enum: ["InvesmentProperties", "Land", "NewBuildingProject"],
+        enum: ["investmentproperties", "land", "newbuildingprojects"],
       },
       propertyType: {
         type: String,
-        enum: ["Living", "Commercial", "Residential&Commercial"],
+        enum: ["living", "commercial", "residentialandcommercial"],
       },
       offers: [{ type: mongoose.Schema.Types.ObjectId, ref: "offers" }],
 
@@ -49,7 +49,7 @@ const advertisementBaseSchema = mongoose.model(
       },
       address: {
         type: String,
-        required: [true, "Please enter an address"],
+        //required: [true, "Please enter an address"],
       },
       location: {
         type: {
@@ -150,15 +150,15 @@ const advertisementBaseSchema = mongoose.model(
   )
 );
 
-advertisementBaseSchema.schema.pre("save", async function (next) {
-  const locat = await geocoder.geocode(this.address);
-  this.location = {
-    type: "Point",
-    coordinates: [locat[0].longitude, locat[0].latitude],
-    formattedAddress: locat[0].formattedAddress,
-  };
-  next();
-});
+// advertisementBaseSchema.schema.pre("save", async function (next) {
+//   const locat = await geocoder.geocode(this.address);
+//   this.location = {
+//     type: "Point",
+//     coordinates: [locat[0].longitude, locat[0].latitude],
+//     formattedAddress: locat[0].formattedAddress,
+//   };
+//   next();
+// });
 
 //Type:invesment
 const invesmentCommercialSchema = advertisementBaseSchema.discriminator(
