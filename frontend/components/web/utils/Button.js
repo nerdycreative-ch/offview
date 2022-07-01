@@ -20,7 +20,6 @@ const ButtonStyled = styled.button`
   border-radius: 4px;
   display: inline-block;
   cursor: pointer;
-  font-family: "Inter";
   font-weight: 500;
   line-height: 18px;
   text-align: center;

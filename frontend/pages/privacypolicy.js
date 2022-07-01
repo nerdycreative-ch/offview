@@ -3,41 +3,56 @@ import Footer from "../components/web/utils/Footer";
 import GreenContainer from "../components/web/utils/GreenContainer";
 import Header from "../components/web/utils/Header";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PrivacyPolicy = () => {
-  const data = [
-    {
-      id: 1,
-      title:
-        "Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas.",
-      content: `At erat pellentesque adipiscing commodo elit. Mi tempus imperdiet nulla malesuada. Neque egestas congue quisque egestas diam in arcu. Sed vulputate mi sit amet mauris. Enim sed faucibus turpis in. Vitae justo eget magna fermentum iaculis eu non diam. Duis convallis convallis tellus id interdum velit laoreet id donec. Nunc eget lorem dolor sed. Congue mauris rhoncus aenean vel elit scelerisque. Pellentesque habitant morbi tristique senectus et netus et malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit. Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Adipiscing vitae proin sagittis nisl. Mauris pharetra et ultrices neque ornare. Id interdum velit laoreet id. Quis risus sed vulputate odio ut enim. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Volutpat blandit aliquam etiam erat velit scelerisque in.
+  const [privacyPolicy, setPrivacyPolicy] = useState([]);
 
-          Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet proin fermentum leo vel orci porta non. Sodales ut eu sem integer. In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium lectus quam. Viverra aliquet eget sit amet tellus.`,
-    },
-    {
-      id: 2,
-      title:
-        "Tellus mauris a diam maecenas sed enim. Ut etiam sit amet nisl purus in mollis nunc.",
-      content: `Vitae justo eget magna fermentum iaculis eu non diam. Duis convallis convallis tellus id interdum velit laoreet id donec. Nunc eget lorem dolor sed. Congue mauris rhoncus aenean vel elit scelerisque. Pellentesque habitant morbi tristique senectus et netus et malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit. Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes nascetur. 
+  const getPrivacyPolicy = async () => {
+    try {
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}privacypolicy/dashboard/get`
+      ).then((response) => setPrivacyPolicy(response.data.privacy));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-        Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet proin fermentum leo vel orci porta non. Sodales ut eu sem integer. In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium lectus quam. Viverra aliquet eget sit amet tellus.`,
-    },
-    {
-      id: 1,
-      title: "Ultrices sagittis orci a scelerisque.",
-      content: `Mi tempus imperdiet nulla malesuada. Neque egestas congue quisque egestas diam in arcu. Sed vulputate mi sit amet mauris.
-        Nunc eget lorem dolor sed. Congue mauris rhoncus aenean vel elit scelerisque.
-        Diam maecenas sed enim ut sem viverra aliquet eget sit. Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.
-        Mauris pharetra et ultrices neque ornare. Id interdum velit laoreet id.
-        Volutpat blandit aliquam etiam erat velit scelerisque in.
-        Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas.
-        Sodales ut eu sem integer. In massa tempor nec feugiat nisl pretium fusce.
-        Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. `,
-    },
-  ];
+  useEffect(() => {
+    getPrivacyPolicy();
+  }, []);
 
+  // const data = [
+  //   {
+  //     id: 1,
+  //     title:
+  //       "Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas.",
+  //     content: `At erat pellentesque adipiscing commodo elit. Mi tempus imperdiet nulla malesuada. Neque egestas congue quisque egestas diam in arcu. Sed vulputate mi sit amet mauris. Enim sed faucibus turpis in. Vitae justo eget magna fermentum iaculis eu non diam. Duis convallis convallis tellus id interdum velit laoreet id donec. Nunc eget lorem dolor sed. Congue mauris rhoncus aenean vel elit scelerisque. Pellentesque habitant morbi tristique senectus et netus et malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit. Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Adipiscing vitae proin sagittis nisl. Mauris pharetra et ultrices neque ornare. Id interdum velit laoreet id. Quis risus sed vulputate odio ut enim. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Volutpat blandit aliquam etiam erat velit scelerisque in.
 
-  
+  //         Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet proin fermentum leo vel orci porta non. Sodales ut eu sem integer. In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium lectus quam. Viverra aliquet eget sit amet tellus.`,
+  //   },
+  //   {
+  //     id: 2,
+  //     title:
+  //       "Tellus mauris a diam maecenas sed enim. Ut etiam sit amet nisl purus in mollis nunc.",
+  //     content: `Vitae justo eget magna fermentum iaculis eu non diam. Duis convallis convallis tellus id interdum velit laoreet id donec. Nunc eget lorem dolor sed. Congue mauris rhoncus aenean vel elit scelerisque. Pellentesque habitant morbi tristique senectus et netus et malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit. Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes nascetur.
+
+  //       Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet proin fermentum leo vel orci porta non. Sodales ut eu sem integer. In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium lectus quam. Viverra aliquet eget sit amet tellus.`,
+  //   },
+  //   {
+  //     id: 1,
+  //     title: "Ultrices sagittis orci a scelerisque.",
+  //     content: `Mi tempus imperdiet nulla malesuada. Neque egestas congue quisque egestas diam in arcu. Sed vulputate mi sit amet mauris.
+  //       Nunc eget lorem dolor sed. Congue mauris rhoncus aenean vel elit scelerisque.
+  //       Diam maecenas sed enim ut sem viverra aliquet eget sit. Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.
+  //       Mauris pharetra et ultrices neque ornare. Id interdum velit laoreet id.
+  //       Volutpat blandit aliquam etiam erat velit scelerisque in.
+  //       Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae suscipit tellus mauris a diam maecenas.
+  //       Sodales ut eu sem integer. In massa tempor nec feugiat nisl pretium fusce.
+  //       Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. `,
+  //   },
+  // ];
 
   return (
     <PrivacyPolicyStyled>
@@ -59,7 +74,51 @@ const PrivacyPolicy = () => {
       {/* PRIVACY CONTENT */}
 
       <div className="privacyPolicy">
-        <div className="singleItem">
+        {privacyPolicy.map((privacy, key) => {
+          return (
+            <div key={key} className="singleItem">
+              <div className="number">{key + 1}.</div>
+              <div className="singleItemData">
+                <p className="title">
+                  {/* Integer eget aliquet nibh praesent tristique magna sit. Nisi
+                  vitae suscipit tellus mauris a diam maecenas. */}
+                  {privacy.title}
+                </p>
+
+                <p className="content">
+                  {privacy.content}
+                  {/* At erat pellentesque adipiscing commodo elit. Mi tempus
+                  imperdiet nulla malesuada. Neque egestas congue quisque
+                  egestas diam in arcu. Sed vulputate mi sit amet mauris. Enim
+                  sed faucibus turpis in. Vitae justo eget magna fermentum
+                  iaculis eu non diam. Duis convallis convallis tellus id
+                  interdum velit laoreet id donec. Nunc eget lorem dolor sed.
+                  Congue mauris rhoncus aenean vel elit scelerisque.
+                  Pellentesque habitant morbi tristique senectus et netus et
+                  malesuada. Diam maecenas sed enim ut sem viverra aliquet eget
+                  sit. Faucibus turpis in eu mi. Penatibus et magnis dis
+                  parturient montes nascetur. Orci phasellus egestas tellus
+                  rutrum tellus pellentesque eu tincidunt. Adipiscing vitae
+                  proin sagittis nisl. Mauris pharetra et ultrices neque ornare.
+                  Id interdum velit laoreet id. Quis risus sed vulputate odio ut
+                  enim. Porta non pulvinar neque laoreet suspendisse interdum
+                  consectetur libero. Volutpat blandit aliquam etiam erat velit
+                  scelerisque in. Integer eget aliquet nibh praesent tristique
+                  magna sit. Nisi vitae suscipit tellus mauris a diam maecenas.
+                  Vel eros donec ac odio tempor. Pretium viverra suspendisse
+                  potenti nullam ac tortor. Purus faucibus ornare suspendisse
+                  sed nisi lacus sed viverra tellus. Netus et malesuada fames
+                  ac. Imperdiet proin fermentum leo vel orci porta non. Sodales
+                  ut eu sem integer. In massa tempor nec feugiat nisl pretium
+                  fusce. Nisl vel pretium lectus quam. Viverra aliquet eget sit
+                  amet tellus. */}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* <div className="singleItem">
           <div className="number">1.</div>
           <div className="singleItemData">
             <p className="title">
@@ -195,7 +254,7 @@ const PrivacyPolicy = () => {
               aliquet eget sit amet tellus.
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <Footer />

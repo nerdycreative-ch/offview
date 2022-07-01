@@ -36,6 +36,7 @@ const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
               <h1 className="titleOfLink">Search profiles</h1>
             </div>
           </Link>
+         
           <Link href="/offers">
             <div className="singleLink">
               <img
@@ -52,6 +53,16 @@ const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
             />
             <h1 className="titleOfLink">Deals</h1>
           </div>
+
+          <Link href="/advertisement">
+            <div className="singleLink">
+              <img
+                src="../../../../assets/images/app/dashboard/search.svg"
+                alt="logo"
+              />
+              <h1 className="titleOfLink">Advertisement</h1>
+            </div>
+          </Link>
         </div>
       </div>
       <div

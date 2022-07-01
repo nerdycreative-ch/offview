@@ -49,7 +49,7 @@ const advertisementBaseSchema = mongoose.model(
       },
       address: {
         type: String,
-        //required: [true, "Please enter an address"],
+        // required: [true, "Please enter an address"],
       },
       location: {
         type: {

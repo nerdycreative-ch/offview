@@ -19,7 +19,7 @@ const util = require("util");
 const { unlinkSync } = require("fs-extra");
 //removes files from folder
 const unlinkFile = util.promisify(fs.unlink);
-const path = require("path");
+const path = require('path');
 
 /*
 advertisement_Get,
@@ -28,6 +28,16 @@ advertisement_Post,
 advertisement_Put,
 advertisement_Delete,
 */
+const deletefilesmethod = (req)=>{
+
+  req.files["image"].forEach(file=>{
+    unlinkFile(file.path)
+  })
+  
+  req.files["file"].forEach(file =>{
+    unlinkFile(file.path)
+  })
+}
 
 /**
  * @description deletes files on folder upload after posting them to s3 bucket
@@ -128,7 +138,7 @@ const advertisement_GetAll = async (req, res) => {
 
 const advertisement_Post = async (req, res) => {
   try {
-    const user = req.user;
+   // const user = req.user;
     const {
       advertisementType,
       propertyType,
@@ -168,14 +178,17 @@ const advertisement_Post = async (req, res) => {
       glassFibreConnection,
     } = JSON.parse(req.body.data);
 
+      // image
+    } = JSON.parse(req.body.data);
+
     // upload file
     let filess = [];
     let promises = [];
     for (let i = 0; i < req.files["file"].length; ) {
       let fileSingle = req.files["file"][i];
-      promises.push(uploadFile(fileSingle, "file"));
+       promises.push(uploadFile(fileSingle, "file"));
       i++;
-    }
+      }
     await Promise.all(promises)
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -191,10 +204,10 @@ const advertisement_Post = async (req, res) => {
     let promisesImg = [];
     for (let i = 0; i < req.files["image"].length; ) {
       let fileSingleImg = req.files["image"][i];
-      promisesImg.push(uploadFile(fileSingleImg, "image"));
+     promisesImg.push(uploadFile(fileSingleImg, "image"));
       i++;
-    }
-
+      }
+    
     await Promise.all(promisesImg)
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -204,7 +217,7 @@ const advertisement_Post = async (req, res) => {
       .catch((err) => {
         console.log(err);
       });
-    deletefilesmethod(req);
+      deletefilesmethod(req);
 
     if (propertyType === "living") {
       const living = await invesmentLivingSchema.create({

@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NoItem from "../components/app/utils/NoItem";
 import SingleProperty from "../components/app/utils/SingleProperty";
 import TopContainer from "../components/app/utils/TopContainer";
 import AppContainer from "../components/app/wrappers/AppContainer";
 import styled from "styled-components";
+import { useAdvertisementContext } from "../context/advertisement";
+import axios from "axios";
 
 const Advertisement = () => {
   const [activeAllDrafts, setActiveAllDrafts] = useState("all");
 
   const [allEstateItem, setAllEstateItem] = useState([]);
+
+  const { listOfAdvertisement } = useAdvertisementContext();
 
   return (
     <AppContainer>
@@ -47,7 +51,7 @@ const Advertisement = () => {
       {/* ALL */}
       {activeAllDrafts == "all" && (
         <div>
-          {allEstateItem.length == 0 ? (
+          {listOfAdvertisement.length == 0 ? (
             <div
               style={{
                 height: "65vh",
@@ -65,7 +69,7 @@ const Advertisement = () => {
             </div>
           ) : (
             <div style={{ marginTop: 20 }}>
-              {allEstateItem.map((estate, index) => {
+              {listOfAdvertisement.map((estate, index) => {
                 return <SingleProperty key={index} realEstate {...estate} />;
               })}
             </div>

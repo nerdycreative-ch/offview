@@ -2,9 +2,42 @@ import styled from "styled-components";
 import Footer from "../components/web/utils/Footer";
 import GreenContainer from "../components/web/utils/GreenContainer";
 import Header from "../components/web/utils/Header";
+import { useEffect, useState } from "react";
 import Head from "next/head";
+import axios from "axios";
 
 const Imprint = () => {
+  const [imPrint, setImPrint] = useState([]);
+  const [info, setInfo] = useState([]);
+
+  const getImPrint = async () => {
+    try {
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/getall`
+      ).then((response) => setImPrint(response.data.imprinti));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getImPrint();
+  }, []);
+
+  const getInformationData = async () => {
+    try {
+      await axios(
+        `${process.env.NEXT_PUBLIC_URL}imprint/dashboard/information/get`
+      ).then((response) => setInfo(response.data.data[0]));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getInformationData();
+  }, []);
+
   const directors = [
     {
       id: 1,
@@ -32,8 +65,9 @@ const Imprint = () => {
           <div className="information">
             <h1 className="subTitle">Information</h1>
             <p>
-              offview AG Rüeggisingerstrasse 19 CH-6020 Emmenbrücke VAT-ID:
-              CH123456789
+              {/* offview AG Rüeggisingerstrasse 19 CH-6020 Emmenbrücke VAT-ID:
+              CH123456789 */}
+              {info.data}
             </p>
           </div>
           <div className="directors">
@@ -48,136 +82,21 @@ const Imprint = () => {
           </div>
           <div className="contactUs">
             <h1 className="subTitle">Contact Us</h1>
-            <p className="phone">Phone: +41 (0) 123 4567 89</p>
-            <p className="email">E-Mail: contact@offview.ch</p>
+            <p className="phone">Phone: {info.phoneNumber}</p>
+            <p className="email">E-Mail: {info.email}</p>
           </div>
         </div>
       </GreenContainer>
 
       <div className="imPrintContainer">
-        <div className="singleItem">
-          <p className="title">
-            Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae
-            suscipit tellus mauris a diam maecenas.
-          </p>
-          <p className="content">
-            At erat pellentesque adipiscing commodo elit. Mi tempus imperdiet
-            nulla malesuada. Neque egestas congue quisque egestas diam in arcu.
-            Sed vulputate mi sit amet mauris. Enim sed faucibus turpis in. Vitae
-            justo eget magna fermentum iaculis eu non diam. Duis convallis
-            convallis tellus id interdum velit laoreet id donec. Nunc eget lorem
-            dolor sed. Congue mauris rhoncus aenean vel elit scelerisque.
-            Pellentesque habitant morbi tristique senectus et netus et
-            malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit.
-            Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes
-            nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque
-            eu tincidunt. Adipiscing vitae proin sagittis nisl. Mauris pharetra
-            et ultrices neque ornare. Id interdum velit laoreet id. Quis risus
-            sed vulputate odio ut enim. Porta non pulvinar neque laoreet
-            suspendisse interdum consectetur libero. Volutpat blandit aliquam
-            etiam erat velit scelerisque in. Integer eget aliquet nibh praesent
-            tristique magna sit. Nisi vitae suscipit tellus mauris a diam
-            maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse
-            potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi
-            lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet
-            proin fermentum leo vel orci porta non. Sodales ut eu sem integer.
-            In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium
-            lectus quam. Viverra aliquet eget sit amet tellus.
-          </p>
-        </div>
-
-        <div className="singleItem">
-          <p className="title">
-            Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae
-            suscipit tellus mauris a diam maecenas.
-          </p>
-          <p className="content">
-            At erat pellentesque adipiscing commodo elit. Mi tempus imperdiet
-            nulla malesuada. Neque egestas congue quisque egestas diam in arcu.
-            Sed vulputate mi sit amet mauris. Enim sed faucibus turpis in. Vitae
-            justo eget magna fermentum iaculis eu non diam. Duis convallis
-            convallis tellus id interdum velit laoreet id donec. Nunc eget lorem
-            dolor sed. Congue mauris rhoncus aenean vel elit scelerisque.
-            Pellentesque habitant morbi tristique senectus et netus et
-            malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit.
-            Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes
-            nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque
-            eu tincidunt. Adipiscing vitae proin sagittis nisl. Mauris pharetra
-            et ultrices neque ornare. Id interdum velit laoreet id. Quis risus
-            sed vulputate odio ut enim. Porta non pulvinar neque laoreet
-            suspendisse interdum consectetur libero. Volutpat blandit aliquam
-            etiam erat velit scelerisque in. Integer eget aliquet nibh praesent
-            tristique magna sit. Nisi vitae suscipit tellus mauris a diam
-            maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse
-            potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi
-            lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet
-            proin fermentum leo vel orci porta non. Sodales ut eu sem integer.
-            In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium
-            lectus quam. Viverra aliquet eget sit amet tellus.
-          </p>
-        </div>
-
-        <div className="singleItem">
-          <p className="title">
-            Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae
-            suscipit tellus mauris a diam maecenas.
-          </p>
-          <p className="content">
-            At erat pellentesque adipiscing commodo elit. Mi tempus imperdiet
-            nulla malesuada. Neque egestas congue quisque egestas diam in arcu.
-            Sed vulputate mi sit amet mauris. Enim sed faucibus turpis in. Vitae
-            justo eget magna fermentum iaculis eu non diam. Duis convallis
-            convallis tellus id interdum velit laoreet id donec. Nunc eget lorem
-            dolor sed. Congue mauris rhoncus aenean vel elit scelerisque.
-            Pellentesque habitant morbi tristique senectus et netus et
-            malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit.
-            Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes
-            nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque
-            eu tincidunt. Adipiscing vitae proin sagittis nisl. Mauris pharetra
-            et ultrices neque ornare. Id interdum velit laoreet id. Quis risus
-            sed vulputate odio ut enim. Porta non pulvinar neque laoreet
-            suspendisse interdum consectetur libero. Volutpat blandit aliquam
-            etiam erat velit scelerisque in. Integer eget aliquet nibh praesent
-            tristique magna sit. Nisi vitae suscipit tellus mauris a diam
-            maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse
-            potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi
-            lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet
-            proin fermentum leo vel orci porta non. Sodales ut eu sem integer.
-            In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium
-            lectus quam. Viverra aliquet eget sit amet tellus.
-          </p>
-        </div>
-
-        <div className="singleItem">
-          <p className="title">
-            Integer eget aliquet nibh praesent tristique magna sit. Nisi vitae
-            suscipit tellus mauris a diam maecenas.
-          </p>
-          <p className="content">
-            At erat pellentesque adipiscing commodo elit. Mi tempus imperdiet
-            nulla malesuada. Neque egestas congue quisque egestas diam in arcu.
-            Sed vulputate mi sit amet mauris. Enim sed faucibus turpis in. Vitae
-            justo eget magna fermentum iaculis eu non diam. Duis convallis
-            convallis tellus id interdum velit laoreet id donec. Nunc eget lorem
-            dolor sed. Congue mauris rhoncus aenean vel elit scelerisque.
-            Pellentesque habitant morbi tristique senectus et netus et
-            malesuada. Diam maecenas sed enim ut sem viverra aliquet eget sit.
-            Faucibus turpis in eu mi. Penatibus et magnis dis parturient montes
-            nascetur. Orci phasellus egestas tellus rutrum tellus pellentesque
-            eu tincidunt. Adipiscing vitae proin sagittis nisl. Mauris pharetra
-            et ultrices neque ornare. Id interdum velit laoreet id. Quis risus
-            sed vulputate odio ut enim. Porta non pulvinar neque laoreet
-            suspendisse interdum consectetur libero. Volutpat blandit aliquam
-            etiam erat velit scelerisque in. Integer eget aliquet nibh praesent
-            tristique magna sit. Nisi vitae suscipit tellus mauris a diam
-            maecenas. Vel eros donec ac odio tempor. Pretium viverra suspendisse
-            potenti nullam ac tortor. Purus faucibus ornare suspendisse sed nisi
-            lacus sed viverra tellus. Netus et malesuada fames ac. Imperdiet
-            proin fermentum leo vel orci porta non. Sodales ut eu sem integer.
-            In massa tempor nec feugiat nisl pretium fusce. Nisl vel pretium
-            lectus quam. Viverra aliquet eget sit amet tellus.
-          </p>
-        </div>
+        {imPrint.map((print, index) => {
+          return (
+            <div key={index} className="singleItem">
+              <p className="title">{print.title}</p>
+              <p className="content">{print.content}</p>
+            </div>
+          );
+        })}
       </div>
 
       <Footer />

@@ -9,6 +9,7 @@ const BigRadioButton = ({
   onClick,
   nameOfCat,
   PCactiveLink,
+  typeOfCat,
 }) => {
   // const [widthOfScreen, setWidthOffScreen] = useState(0);
 
@@ -21,6 +22,28 @@ const BigRadioButton = ({
 
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
+
+  if (typeOfCat) {
+    return (
+      <UserInputStyle
+        style={{
+          width: `${width}%`,
+          height,
+          borderColor:
+            activeLink == id || PCactiveLink == id ? "#298F74" : "#e1e1e1",
+        }}
+        onClick={onClick}
+      >
+        <label className="testContainer">
+          <input type="radio" name={nameOfCat} className="testInput" />
+          <span className="checkmark"></span>
+        </label>
+
+        {/* <input type="radio" name="property" className={styles.radioButton} /> */}
+        <h1 className="type">{type}</h1>
+      </UserInputStyle>
+    );
+  }
 
   return (
     <UserInputStyle
@@ -123,8 +146,6 @@ const UserInputStyle = styled.label`
     background-repeat: no-repeat;
     background-image: url("../../../assets/images/whiteNike.svg");
   }
-
-
 
   @media (max-width: 340.98px) {
     .radioButtonContainer {

@@ -45,8 +45,8 @@ const Price = ({ changeStep }) => {
     setAvg((maxVal + minVal) / 2);
   }, [minVal, maxVal]);
 
-  const onClick = () => {
-    setFinalSubmit({
+  const onClick = async () => {
+     await setFinalSubmit({
       ...finalSubmit,
       minPrice: minVal,
       maxPrice: maxVal,
@@ -68,8 +68,10 @@ const Price = ({ changeStep }) => {
 
             <div style={{ width: 199 }}>
               <div className="inputRangeContainer">
-                <p className="inputNumber">{min}</p>
-                <p className="inputNumber">{max}</p>
+                {/* <p className="inputNumber">{min}</p>
+                <p className="inputNumber">{max}</p> */}
+                <p className="inputNumber">{minVal.toFixed(0)}</p>
+                <p className="inputNumber">{maxVal.toFixed(0)}</p>
               </div>
 
               <div
@@ -80,9 +82,9 @@ const Price = ({ changeStep }) => {
                 data-thumbsize={thumbsize}
                 data-rangewidth={width}
               >
-                <label htmlFor="min" style={{ marginLeft: minVal }}>
+                {/* <label htmlFor="min" style={{ marginLeft: minVal }}>
                   {minVal.toFixed(0)}
-                </label>
+                </label> */}
                 <input
                   id="min"
                   className="min"

@@ -1,12 +1,10 @@
 const Searchprofile = require("../model/searchProfiles");
-
 const {
   advertisementBaseSchema,
   invesmentCommercialSchema,
   invesmentLivingSchema,
   invesmentResidencialAndCommercialSchema,
 } = require("../model/Advertisement");
-
 const getSearchedAdvertisement = (req, res) => {
   try {
   } catch (err) {
@@ -17,13 +15,11 @@ const getSearchedAdvertisement = (req, res) => {
     });
   }
 };
-
 /**
  * @description get all search profiles
  * @type GET
- * @url /searchprofiles/getall
+ * @url /searchprofile/getall/:id
  */
-
 const getAllSearchProfiles = async (req, res) => {
   try {
     const id = req.user._id;
@@ -39,13 +35,11 @@ const getAllSearchProfiles = async (req, res) => {
     });
   }
 };
-
 /**
  * @description get one search profiles
  * @type GET
  * @url /searchprofiles/getone/:id
  */
-
 const getOneSearchProfile = async (req, res) => {
   try {
     const id = req.params.id;
@@ -81,28 +75,24 @@ const getOneSearchProfile = async (req, res) => {
     });
   }
 };
-
 /**
  * @description create search profiles
  * @type POST
  * @url /searchprofiles/create
  */
-
 const createSearchProfile = async (req, res) => {
   try {
     const user = req.user;
     const { advertisementType, propertyType, region, minPrice, maxPrice } =
       req.body;
-
     const searchprofile = await Searchprofile.create({
-      account: user._id,
+      // account: user._id,
       advertisementType,
       propertyType,
       region,
       minPrice,
       maxPrice,
     });
-
     const advertisement = await advertisementBaseSchema.aggregate().match({
       $and: [
         { advertisementType: advertisementType },
@@ -111,7 +101,6 @@ const createSearchProfile = async (req, res) => {
         { salesPrice: { $gte: minPrice, $lte: maxPrice } },
       ],
     });
-
     if (advertisement == []) {
       return res
         .status(404)
@@ -135,7 +124,6 @@ const createSearchProfile = async (req, res) => {
  * @type DELETE
  * @url /searchprofiles/delete/:id
  */
-
 const deleteSearchProfile = async (req, res) => {
   try {
     const id = req.params.id;
@@ -150,7 +138,6 @@ const deleteSearchProfile = async (req, res) => {
       .json({ success: false, message: "error on deleting search profile" });
   }
 };
-
 /**
  * @description edit one search profiles
  * @type DELETE
@@ -172,7 +159,6 @@ const editSearchProfile = async (req, res) => {
       .json({ success: false, message: "error on deleting search profile" });
   }
 };
-
 module.exports = {
   getAllSearchProfiles,
   getOneSearchProfile,

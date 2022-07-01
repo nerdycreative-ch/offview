@@ -1,5 +1,5 @@
 const Profile = require("../model/profile");
-const { baseSchema } = require("../model/user");
+const { baseSchema } = require("../model/User");
 // const fs = require("fs");
 // const util = require("util");
 const {

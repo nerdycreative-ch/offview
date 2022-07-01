@@ -13,6 +13,8 @@ export const Searchprofilecontext = ({ children }) => {
   const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
   const [propertyActiveLink, setPropertyActiveLink] = useState(0);
 
+  const [filtredSearch, setFiltredSearch] = useState([]);
+
   const [searchRegion, setSearchRegion] = useState("");
   const [advertismentType, setAdvertismetType] = useState([
     {
@@ -45,16 +47,31 @@ export const Searchprofilecontext = ({ children }) => {
 
   console.log("FINAL SUBMIT", finalSubmit);
 
+  useEffect(() => {
+    const getFiltredProfiles = async () => {
+      try {
+        await axios(`${process.env.NEXT_PUBLIC_URL}searchprofiles/getall`).then(
+          // (response) => setFiltredSearch(response.data.data)
+          (response) => console.log("response" + response.data)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getFiltredProfiles();
+  }, []);
+
   const submitDataToBackEnd = () => {
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_URL}searchprofile`,
+        `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
         {
-          advertisementType: finalSubmit.companyname,
-          propertyType: finalSubmit.legalForm,
-          region: finalSubmit.uid,
-          minPrice: finalSubmit.title,
-          maxPrice: finalSubmit.firstname,
+          advertisementType: finalSubmit.advertisementType,
+          propertyType: finalSubmit.propertyType,
+          region: finalSubmit.region,
+          minPrice: finalSubmit.minPrice,
+          maxPrice: finalSubmit.maxPrice,
         },
         {
           headers: {

@@ -8,8 +8,31 @@ import TextError from "../components/web/utils/TextError";
 import Header from "../components/web/utils/Header";
 import Head from "next/head";
 import axios from "axios";
+import { useWebContext } from "../context/webContext";
+import RegisterSuccessFullModal from "../components/app/auth/register/RegisterSuccessFullModal";
+import MessageSubmited from "../components/web/utils/MessageSubmited";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Contact = () => {
+  const { modalIsOpen, setIsOpen } = useWebContext();
+
+  const { events } = useRouter();
+
+  const close = () => {
+    //call modal close here or place inline in the events
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    // subscribe to next/router event
+    events.on("routeChangeStart", close);
+    return () => {
+      // unsubscribe to event on unmount to prevent memory leak
+      events.off("routeChangeStart", close);
+    };
+  }, [close, events]);
+
   const initialValues = {
     fullName: "",
     email: "",
@@ -31,6 +54,7 @@ const Contact = () => {
       message: values.message,
     });
 
+    setIsOpen(true);
     console.log("Form data", values);
     onSubmitProps.resetForm();
   };
@@ -44,6 +68,8 @@ const Contact = () => {
           content="If you have any questions we're here to help.Call us +41 (0) 123 4567 89 or offview@gmail.com.Adress : Rüeggisingerstrasse 19 CH-6020 Emmenbrücke"
         />
       </Head>
+
+      {modalIsOpen && <MessageSubmited />}
 
       <Header title="Contact" content="Needs help?" />
       <GreenContainer>
@@ -119,7 +145,7 @@ const Contact = () => {
 
 const ContactStyled = styled.div`
   .contactInformation {
-    font-weight: 700;
+    font-weight: var(--boldFont);
     font-size: 28px;
     line-height: 42px;
   }
@@ -149,7 +175,7 @@ const ContactStyled = styled.div`
     margin-bottom: 80px;
   }
   .letsTalkTitle {
-    font-weight: 700;
+    font-weight: var(--boldFont);
     font-size: 28px;
     line-height: 42px;
 
@@ -161,6 +187,7 @@ const ContactStyled = styled.div`
     text-align: center;
     color: var(--Grey-500);
     margin-top: 8px;
+    font-weight: var(--bookFont);
   }
   .verticalLine {
     width: 1px;
@@ -186,6 +213,7 @@ const ContactStyled = styled.div`
     font-size: 14px;
     line-height: 18px;
     color: var(--black-0);
+    font-weight: var(--bookFont);
   }
   .formGroup input {
     margin-top: 6px;

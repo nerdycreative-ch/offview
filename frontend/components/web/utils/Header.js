@@ -10,6 +10,7 @@ const Header = ({
   category,
   additionalData,
   propertyDetail,
+  aboutBanner,
 }) => {
   return (
     <HeaderStyled
@@ -25,6 +26,7 @@ const Header = ({
           price={price}
           category={category}
           propertyDetail={propertyDetail}
+          aboutBanner={aboutBanner}
         />
       </div>
     </HeaderStyled>
@@ -40,7 +42,6 @@ const HeaderStyled = styled.div`
 
   .pageBannerContainer {
     padding: 40px 5% 0 5%;
-    
 
     ${(props) =>
       props.propertyDetail &&

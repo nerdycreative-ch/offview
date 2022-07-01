@@ -52,7 +52,7 @@ const Register = () => {
 
       {page == "userdetails" &&
         singleCategory == "investor" &&
-        singleTypeCategory == "company" && (
+        singleTypeCategory == "acompany" && (
           <CompanyDetails
             whichType={singleCategory == "investor" && true}
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}

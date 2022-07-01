@@ -38,7 +38,7 @@ const Login = () => {
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const url = "http://localhost:3000/users/login";
+      const url = `${process.env.NEXT_PUBLIC_URL}users/login`;
 
       const { data: res } = await axios.post(url, {
         email: values.email,

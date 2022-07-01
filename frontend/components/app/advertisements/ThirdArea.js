@@ -21,65 +21,50 @@ const ThirdArea = () => {
     globalValuesAdv,
     finalAdvertisement,
     setFinalAdvertisement,
-    submitAdvDataToBackend
+    submitAdvDataToBackend,
   } = useAdvertisementContext();
 
   const { modalIsOpen, setIsOpen } = useWebContext();
 
   const [imgsSrc, setImgsSrc] = useState([]);
+  const [fileName, setFileName] = useState("");
+  const [imageName, setImageName] = useState("");
 
-  const onChange = (changeEvent) => {
-    for (let file of changeEvent.target.files) {
-      setTimeout(() => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          setImgsSrc([...imgsSrc, reader.result]);
-        };
-        reader.onerror = () => {
-          console.log(reader.error);
-        };
-      }, 1000);
-    }
+  console.log("IMAGE" + imageName);
+
+  const [imageList, setImageList] = useState([]);
+
+  const imageUpload = async (e) => {
+    console.log(e.target.files);
+    //  setFileName(e.target.files);
+    setImageName(e.target.files);
+    setImageList([...imageList, imageName]);
   };
 
-  console.log("IMG SRC" + imgsSrc);
+  const fileUpload = (e) => {
+    console.log(e.target.files);
+    //  setFileName(e.target.files);
+    setFileName(e.target.files);
+  };
 
-  const onSubmit = async (values, onSubmitProps) => {
-    await setFinalAdvertisement({
+  const onSubmit =  (values, onSubmitProps) => {
+     setFinalAdvertisement({
       ...finalAdvertisement,
       totalActualRental: values.totalActualRental,
       returnOnInvestment: values.returnOnInvestment,
-      image: imgsSrc[0],
-      file: imgsSrc[0],
+      image: imageName,
+      file: fileName,
     });
 
-    await submitAdvDataToBackend();
+      submitAdvDataToBackend();
 
     onSubmitProps.resetForm();
-    // setImgsSrc([]);
-    // const reader = new FileReader();
-    // reader.readAsDataURL();
-    // reader.onload = () => {
-    //   setImgsSrc([]);
-    // };
-
-    console.log("third area " + values);
-
-    // console.log("IMG SRC" + imgsSrc);
   };
 
   return (
     <AppContainer>
       <ThirdAreaStyled>
         {modalIsOpen && <AdvertisementSubModal />}
-
-        <input  onChange={onChange} type="file" name="image" multiple />
-        <input  onChange={onChange} type="file" name="file" multiple />
-
-        {imgsSrc.map((link) => (
-          <img src={link} />
-        ))}
 
         <ExitButton content="Exit Advertisement" />
         <StepsNumber stepsLength={4} />
@@ -91,6 +76,10 @@ const ThirdArea = () => {
           content="We use this data to calculate matches with purchase profiles of potential buyers."
         />
 
+        {imgsSrc.map((link,index) => (
+          <img key={index} src={link} />
+        ))}
+
         <Formik
           initialValues={globalValuesAdv}
           validationSchema={AdvertisementThirdArea}
@@ -100,6 +89,14 @@ const ThirdArea = () => {
           {(formik) => {
             return (
               <Form>
+                {/* <input
+                  onChange={imageUpload}
+                  type="file"
+                  name="image"
+                  multiple
+                />
+                <input onChange={fileUpload} type="file" name="file" multiple /> */}
+
                 <div className="inLineItems">
                   <div className="singleItem">
                     <UserInput
@@ -122,8 +119,20 @@ const ThirdArea = () => {
                   <p className="subTitle ml6">Picture(s) *</p>
 
                   <div className="dragAndDrop">
-                    <input type="file" id="upload" name="myfile" hidden />
-                    <label htmlFor="upload" className="upload">
+                    {/* <input type="file" id="upload" name="file" hidden /> */}
+                    <input
+                      onChange={imageUpload}
+                      type="file"
+                      name="image"
+                      id="image"
+                      multiple
+                      hidden
+                    />
+                    {/* {imageName.length} */}
+                    {/* {imageName.map(item => {
+                      return <h1>{item}</h1>
+                    })} */}
+                    <label htmlFor="image" className="upload">
                       <img
                         src="../../../assets/images/app/dashboard/uploadBrowse.svg"
                         alt=""
@@ -150,8 +159,19 @@ const ThirdArea = () => {
                   <p className="subTitle ml6">Documents *</p>
 
                   <div className="dragAndDrop">
-                    <input type="file" id="upload" name="myfile" hidden />
-                    <label htmlFor="upload" className="upload">
+                    {/* <input type="file" id="upload" name="myfile" hidden /> */}
+                    <input
+                      onChange={fileUpload}
+                      type="file"
+                      id="file"
+                      name="file"
+                      multiple
+                      hidden
+                    />
+                    {/* {imageList.map((item,index) => {
+                      return <img key={index} src={item} />;
+                    })} */}
+                    <label htmlFor="file" className="upload">
                       <img
                         src="../../../assets/images/app/dashboard/uploadBrowse.svg"
                         alt=""
