@@ -38,7 +38,7 @@ const getAllSearchProfiles = async (req, res) => {
 /**
  * @description get one search profiles
  * @type GET
- * @url /searchprofile/getone/:id
+ * @url /searchprofiles/getone/:id
  */
 const getOneSearchProfile = async (req, res) => {
   try {
@@ -78,7 +78,7 @@ const getOneSearchProfile = async (req, res) => {
 /**
  * @description create search profiles
  * @type POST
- * @url /searchprofile/create
+ * @url /searchprofiles/create
  */
 const createSearchProfile = async (req, res) => {
   try {
@@ -122,7 +122,7 @@ const createSearchProfile = async (req, res) => {
 /**
  * @description delete one search profiles
  * @type DELETE
- * @url /searchprofile/delete/:id
+ * @url /searchprofiles/delete/:id
  */
 const deleteSearchProfile = async (req, res) => {
   try {
@@ -141,7 +141,7 @@ const deleteSearchProfile = async (req, res) => {
 /**
  * @description edit one search profiles
  * @type DELETE
- * @url /searchprofile/patch/:id
+ * @url /searchprofiles/patch/:id
  */
 const editSearchProfile = async (req, res) => {
   try {

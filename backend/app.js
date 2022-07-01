@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const cors = require("cors");
 const bodyparser = require("body-parser");
+const checkRole = require("./middleware/authProtect");
 require(`dotenv`).config();
 
 //routes
@@ -19,7 +20,8 @@ const socialmediaRoutes = require("./routes/socialmediaRoutes");
 const faqRoutes = require("./routes/faqRoutes");
 const searchRoutes = require("./routes/searchProfileRoutes");
 const offerRoutes = require("./routes/offerRoutes");
-
+const locationRoutes = require("./routes/locationRoutes");
+const rootRoutes = require("./routes/rootRoutes");
 //cors
 app.use(cors());
 
@@ -76,3 +78,5 @@ app.use("/socialmedia", socialmediaRoutes);
 app.use("/faq", faqRoutes);
 app.use("/searchprofiles", searchRoutes);
 app.use("/offers", offerRoutes);
+app.use("/location", locationRoutes);
+app.use("/root", rootRoutes);

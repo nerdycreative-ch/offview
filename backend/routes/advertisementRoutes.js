@@ -1,4 +1,10 @@
 const router = require("express").Router();
+const authGuard = require("../middleware/auth-guard");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+const{}
+
+//controllers
 const {
   advertisement_Get,
   advertisement_GetAll,
@@ -23,9 +29,14 @@ const {
   approveOffer,
   getAllOffers,
 } = require("../controller/offerController");
-const authGuard = require("../middleware/auth-guard");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+
+const {
+  approveAdvertisement,
+  waitingAdvertisement,
+  rejectAdvertisement,
+} = require("../controller/adminController");
+
+//routes\\
 
 router.get("/dashboard/getOne/:id", advertisement_Get);
 router.get("/dashboard/getAll", advertisement_GetAll);
@@ -72,6 +83,12 @@ router.delete("/dashboard/file/deleteafter/:id/:key", deleteFileAfter);
 
 //download file
 router.get("/dashboard/image/downloadfile/:key", downloadFile);
+
+//admin methods for approving or rejecting advertisement
+
+router.patch("/approve", authGuard, approveAdvertisement);
+router.patch("/waiting", authGuard, waitingAdvertisement);
+router.delete("/reject", authGuard, rejectAdvertisement);
 
 //offers
 

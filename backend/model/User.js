@@ -31,12 +31,12 @@ const baseSchema = mongoose.model(
       mainrole: {
         type: String,
         default: "investor",
-        enum: ["investor", "seller"],
+        enum: ["investor", "seller", "root", "admin"],
       },
       role: {
         type: String,
         default: "private",
-        enum: ["owner", "broker", "private", "company"],
+        enum: ["owner", "broker", "private", "company", "root", "admin"],
       },
       verified: {
         type: Boolean,
@@ -56,7 +56,7 @@ const baseSchema = mongoose.model(
       },
       gender: {
         type: String,
-        enum: ["female", "male", "other"],
+        enum: ["female", "male", "other", "unknown"],
         required: true,
       },
     },
@@ -142,7 +142,15 @@ const icompanySchema = baseSchema.discriminator(
       type: String,
       required: true,
     },
+    No: {
+      type: Number,
+      required: true,
+    },
     postalCode: {
+      type: String,
+      required: true,
+    },
+    city: {
       type: String,
       required: true,
     },
@@ -232,7 +240,6 @@ const sbrokerSchema = baseSchema.discriminator(
       type: String,
       required: true,
     },
-
     legalForm: {
       type: String,
       required: true,
@@ -242,6 +249,10 @@ const sbrokerSchema = baseSchema.discriminator(
       required: true,
     },
     website: {
+      type: String,
+      required: true,
+    },
+    position: {
       type: String,
       required: true,
     },
@@ -277,10 +288,17 @@ const sbrokerSchema = baseSchema.discriminator(
   })
 );
 
+// the schema of root user
+const rootSchema = baseSchema.discriminator("root", new mongoose.Schema({}));
+// the schema of admin user
+const adminSchema = baseSchema.discriminator("admin", new mongoose.Schema({}));
+
 module.exports = {
   icompanySchema,
   iprivateSchema,
   sownerSchema,
   sbrokerSchema,
   baseSchema,
+  rootSchema,
+  adminSchema,
 };
