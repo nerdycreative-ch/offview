@@ -78,6 +78,7 @@ const signup_post = async (req, res) => {
       companyName,
       legalForm,
       UID,
+      position,
       website,
     } = req.body;
 
@@ -112,9 +113,8 @@ const signup_post = async (req, res) => {
         html
       );
     }
-
     //create company investor and save to mongodb
-    if (role === "company") {
+    else if (role === "company") {
       const investorCompany = await icompanySchema.create({
         email,
         password,
@@ -131,6 +131,7 @@ const signup_post = async (req, res) => {
         phoneNumber,
         street,
         No,
+        position,
         postalCode,
         country,
         verificationCode: randomBytes(20).toString("hex"),
@@ -149,7 +150,7 @@ const signup_post = async (req, res) => {
       );
     }
     //create private investor and save to mongodb
-    if (role === "private") {
+    else if (role === "private") {
       const investorPrivate = await iprivateSchema.create({
         email,
         password,
@@ -181,7 +182,7 @@ const signup_post = async (req, res) => {
     }
 
     //create broker and save to mongodb
-    if (role === "broker") {
+    else if (role === "broker") {
       const broker = await sbrokerSchema.create({
         email,
         password,
@@ -214,6 +215,10 @@ const signup_post = async (req, res) => {
         "Please verify your account",
         html
       );
+    } else {
+      return res
+        .status(500)
+        .json({ success: false, message: "server failed on creating account" });
     }
 
     return res.status(200).json({

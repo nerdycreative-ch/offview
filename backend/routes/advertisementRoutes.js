@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const authGuard = require("../middleware/auth-guard");
 const multer = require("multer");
+const checkRole = require("../middleware/authProtect");
 const upload = multer({ dest: "uploads/" });
-const{}
 
 //controllers
 const {
@@ -31,8 +31,9 @@ const {
 } = require("../controller/offerController");
 
 const {
+  getOne,
+  getAll,
   approveAdvertisement,
-  waitingAdvertisement,
   rejectAdvertisement,
 } = require("../controller/adminController");
 
@@ -46,7 +47,7 @@ router.post(
     { name: "file", maxCount: 3 },
     { name: "image", maxCount: 3 },
   ]),
- // authGuard,
+  // authGuard,
   advertisement_Post
 );
 router.patch("/dashboard/edit/:id", advertisement_Patch);
@@ -86,9 +87,21 @@ router.get("/dashboard/image/downloadfile/:key", downloadFile);
 
 //admin methods for approving or rejecting advertisement
 
-router.patch("/approve", authGuard, approveAdvertisement);
-router.patch("/waiting", authGuard, waitingAdvertisement);
-router.delete("/reject", authGuard, rejectAdvertisement);
+router.get("/dashboard/admin/getone/:id", getOne);
+router.get("/dashboard/admin/getall", getAll);
+router.patch(
+  "/dashboard/admin/approve/:id",
+  checkRole("admin", "admin"),
+  authGuard,
+  approveAdvertisement
+);
+
+router.patch(
+  "/dashboard/admin/reject/:id",
+  checkRole("admin", "admin"),
+  authGuard,
+  rejectAdvertisement
+);
 
 //offers
 
