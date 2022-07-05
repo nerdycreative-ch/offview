@@ -14,6 +14,7 @@ import TextError from "../../web/utils/TextError";
 import * as Yup from "yup";
 import { useSearchProfileContext } from "../../../context/searchprofile";
 import { useRouter } from "next/router";
+import { Persist } from "formik-persist";
 
 const SearchRegion = ({ changeStep }) => {
   const Router = useRouter();
@@ -81,6 +82,9 @@ const SearchRegion = ({ changeStep }) => {
                       <Button title="Continue" type="submit" />
                     </div>
                   </div>
+
+                  <Persist name="search-region-form" />
+
                 </Form>
               );
             }}

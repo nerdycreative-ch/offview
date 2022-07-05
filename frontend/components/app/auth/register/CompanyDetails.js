@@ -9,6 +9,7 @@ import RegisterTitle from "../../utils/RegisterTitle";
 import AuthContainer from "../../wrappers/AuthContainer";
 import { useAuthContext } from "../../../../context/auth";
 import { useRouter } from "next/router";
+import { Persist } from "formik-persist";
 
 const CompanyDetails = ({ whichType }) => {
   const Router = useRouter();
@@ -154,6 +155,9 @@ const CompanyDetails = ({ whichType }) => {
                       <div style={{ marginTop: 30 }}>
                         <Button type="submit" title="Continue" />
                       </div>
+
+                      <Persist name="company-details-form" />
+
                     </Form>
                   );
                 }}

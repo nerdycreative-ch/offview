@@ -12,6 +12,7 @@ import MapView from "../utils/MapView";
 import { Formik, Form, validateYupSchema } from "formik";
 import { useRouter } from "next/router";
 import { useAdvertisementContext } from "../../../context/advertisement";
+import { Persist } from "formik-persist";
 
 const FirstArea = ({ changeStep }) => {
   const {
@@ -118,6 +119,10 @@ const FirstArea = ({ changeStep }) => {
                       />
                     </div>
                   </div>
+
+
+                  <Persist name="firstarea-adv-form" />
+
                 </Form>
               );
             }}

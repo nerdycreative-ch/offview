@@ -12,6 +12,7 @@ const TopContainer = ({
   plusButtonTitle,
   href,
   dropdownMenu,
+  realEstate,
 }) => {
   const [showDropdownMenu, setShowDropDownMenu] = useState("");
 
@@ -40,7 +41,7 @@ const TopContainer = ({
 
       <div className="dropDownContainer">
         <div onClick={() => setShowDropDownMenu(!showDropdownMenu)}>
-          <PlusButton title={plusButtonTitle} href={href} />
+          {!realEstate && <PlusButton title={plusButtonTitle} href={href} />}
         </div>
         {dropdownMenu && showDropdownMenu && (
           <div className="dropdownMenu" ref={catMenu}>

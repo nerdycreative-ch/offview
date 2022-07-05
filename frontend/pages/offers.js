@@ -32,6 +32,7 @@ const Offers = () => {
         content="Add a real estate to identify potential buyers."
         plusButtonTitle="Create real estate"
         href=""
+        realEstate
       />
       {/* ALL DRAFT */}
       <OffersStyled>

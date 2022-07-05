@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import styled from "styled-components";
+import { useAuthContext } from "../../../context/auth";
 
 const BigRadioButton = ({
   id,
@@ -23,6 +25,13 @@ const BigRadioButton = ({
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
 
+  // const { setSingleCategory, setSingleTypeCategory } = useAuthContext();
+
+  // useEffect(() => {
+  //   setSingleCategory(JSON.parse(localStorage.getItem("IS")));
+  //   setSingleTypeCategory(JSON.parse(localStorage.getItem("OS")));
+  // }, []);
+
   if (typeOfCat) {
     return (
       <UserInputStyle
@@ -35,7 +44,12 @@ const BigRadioButton = ({
         onClick={onClick}
       >
         <label className="testContainer">
-          <input type="radio" name={nameOfCat} className="testInput" />
+          <input
+            type="radio"
+            name={nameOfCat}
+            value={nameOfCat}
+            className="testInput"
+          />
           <span className="checkmark"></span>
         </label>
 
@@ -56,7 +70,12 @@ const BigRadioButton = ({
       onClick={onClick}
     >
       <label className="testContainer">
-        <input type="radio" name={nameOfCat} className="testInput" />
+        <input
+          type="radio"
+          name={nameOfCat}
+          value={nameOfCat}
+          className="testInput"
+        />
         <span className="checkmark"></span>
       </label>
 
