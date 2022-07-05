@@ -10,6 +10,7 @@ const UserInput = ({
   marginTop = 14,
   placeholder,
   name,
+  value
 }) => {
   return (
     <UserInputStyle style={{ marginTop }}>

@@ -1,4 +1,5 @@
 import { Formik, Form } from "formik";
+import { Persist } from "formik-persist";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAdvertisementContext } from "../../../context/advertisement";
@@ -47,8 +48,8 @@ const ThirdArea = () => {
     setFileName(e.target.files);
   };
 
-  const onSubmit =  (values, onSubmitProps) => {
-     setFinalAdvertisement({
+  const onSubmit = async (values, onSubmitProps) => {
+    await setFinalAdvertisement({
       ...finalAdvertisement,
       totalActualRental: values.totalActualRental,
       returnOnInvestment: values.returnOnInvestment,
@@ -56,7 +57,7 @@ const ThirdArea = () => {
       file: fileName,
     });
 
-      submitAdvDataToBackend();
+    await submitAdvDataToBackend();
 
     onSubmitProps.resetForm();
   };
@@ -76,7 +77,7 @@ const ThirdArea = () => {
           content="We use this data to calculate matches with purchase profiles of potential buyers."
         />
 
-        {imgsSrc.map((link,index) => (
+        {imgsSrc.map((link, index) => (
           <img key={index} src={link} />
         ))}
 
@@ -205,6 +206,8 @@ const ThirdArea = () => {
                     />
                   </div>
                 </div>
+
+                <Persist name="thirdarea-adv-form" />
               </Form>
             );
           }}
