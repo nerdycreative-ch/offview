@@ -36,10 +36,29 @@ const SelectProfile = ({ changeStep }) => {
       advertisementType: advertisementActiveLink,
       propertyType: propertyActiveLink,
     });
+
+    localStorage.setItem(
+      "advertisementActiveLink",
+      JSON.stringify(advertisementActiveLink)
+    );
+    localStorage.setItem(
+      "propertyActiveLink",
+      JSON.stringify(propertyActiveLink)
+    );
+
     changeStep();
 
     Router.push("/searchsteps?page=searchregion");
   };
+
+  useEffect(() => {
+    setAdvertisementActiveLink(
+      JSON.parse(localStorage.getItem("advertisementActiveLink"))
+    );
+    setPropertyActiveLink(
+      JSON.parse(localStorage.getItem("propertyActiveLink"))
+    );
+  }, []);
 
   return (
     <SelectProfileStyled>

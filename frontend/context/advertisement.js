@@ -16,20 +16,20 @@ export const Advertisementcontext = ({ children }) => {
 
   const [listOfAdvertisement, setListOfAdvertisement] = useState([]);
 
-  const getAdvertisement = async () => {
-    try {
-      await axios(
-        `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
-      ).then((response) => setListOfAdvertisement(response.data.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   //GET ADVERTISEMENT
-  useEffect(() => {
-    getAdvertisement();
-  }, []);
+  // useEffect(() => {
+  //   const getAdvertisement = async () => {
+  //     try {
+  //       await axios(
+  //         `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
+  //       ).then((response) => setListOfAdvertisement(response.data.data));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   getAdvertisement();
+  // }, [listOfAdvertisement.length]);
 
   // const {
   //   AdvadvertisementActiveLink,
@@ -272,12 +272,24 @@ export const Advertisementcontext = ({ children }) => {
     formData.append("data", JSON.stringify(dataWithOutImage));
 
     for (let index = 0; index < finalAdvertisement.image.length; index++) {
-      formData.append("image", finalAdvertisement.image[index]);
+      const test = await finalAdvertisement.file[index];
+      formData.append("image", test);
     }
 
     for (let index = 0; index < finalAdvertisement.file.length; index++) {
-      formData.append("file", finalAdvertisement.file[index]);
+      const test = await finalAdvertisement.file[index];
+      formData.append("file", test);
     }
+
+    // for (let index = 0; index < finalAdvertisement.image.length; index++) {
+    //   const test = await finalAdvertisement.file[index];
+    //   formData.append("image", test);
+    // }
+
+    // for (let index = 0; index < finalAdvertisement.file.length; index++) {
+    //   const test = await finalAdvertisement.file[index];
+    //   formData.append("file", test);
+    // }
 
     await axios.post(
       `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/createAdvertisement`,

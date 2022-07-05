@@ -30,7 +30,12 @@ const SelectProfile = ({ changeStep }) => {
 
   useEffect(() => {
     setSingleTypeCategory("");
-  }, [singleCategory]);
+  }, [singleCategory, singleTypeCategory]);
+
+  // useEffect(() => {
+  //   setSingleCategory(JSON.parse(localStorage.getItem("IS")));
+  //   setSingleTypeCategory(JSON.parse(localStorage.getItem("OS")));
+  // }, []);
 
   const [categories, setCategories] = useState([
     {
@@ -63,11 +68,11 @@ const SelectProfile = ({ changeStep }) => {
     },
     {
       id: 6,
-      ["name"]: singleCategory == "seller" ? "Broker" : "Acomapny",
+      ["name"]: singleCategory == "seller" ? "Broker" : "company",
 
       // name: "Company",
       // key: "company",
-      ["key"]: singleCategory == "seller" ? "broker" : "acomapny",
+      ["key"]: singleCategory == "seller" ? "broker" : "company",
     },
   ]);
 
@@ -81,8 +86,17 @@ const SelectProfile = ({ changeStep }) => {
       singleCategory: singleCategory,
       singleTypeCategory: singleTypeCategory,
     });
+
+    localStorage.setItem("IS", JSON.stringify(singleCategory));
+    localStorage.setItem("PC", JSON.stringify(singleTypeCategory));
+
     Router.push("/registersteps?page=userdetails");
   };
+
+  // // useEffect(() => {
+  // //   localStorage.getItem("IS");
+  // //   localStorage.getItem("PC");
+  // // }, [singleCategory, singleTypeCategory]);
 
   console.log(userData);
 
@@ -91,6 +105,8 @@ const SelectProfile = ({ changeStep }) => {
       <AuthContainer>
         <StepsNumber stepsLength={3} />
         <div className="registerStepContainer">
+          <h1>{singleCategory}</h1>
+          <h1>{singleTypeCategory}</h1>
           <div>
             <div style={{ marginBottom: 40 }}>
               <RegisterTitle title="Select Profile" />
@@ -157,7 +173,7 @@ const SelectProfile = ({ changeStep }) => {
                 <BigRadioButton
                   onClick={() =>
                     setSingleTypeCategory(
-                      singleCategory == "seller" ? "broker" : "acompany"
+                      singleCategory == "seller" ? "broker" : "company"
                     )
                   }
                   // key={index}
@@ -165,7 +181,7 @@ const SelectProfile = ({ changeStep }) => {
                   type={singleCategory == "seller" ? "Broker" : "Company"}
                   height={116}
                   PCactiveLink={singleTypeCategory}
-                  id={singleCategory == "seller" ? "broker" : "acompany"}
+                  id={singleCategory == "seller" ? "broker" : "company"}
                   nameOfCat="PC"
                   typeOfCat
                 />

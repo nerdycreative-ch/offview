@@ -40,6 +40,11 @@ export const AuthWrappercontext = ({ children }) => {
     confirmPassword: "",
   };
 
+  useEffect(() => {
+    setSingleCategory(JSON.parse(localStorage.getItem("IS")));
+    setSingleTypeCategory(JSON.parse(localStorage.getItem("OS")));
+  }, []);
+
   const RegisterValidationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
@@ -76,9 +81,9 @@ export const AuthWrappercontext = ({ children }) => {
     UID: Yup.string().required("UID is required"),
     Website: Yup.string().required("Website is required"),
     title: Yup.string().required("Title is required"),
-    country:  Yup.string().required("Country is required"),
-    street:  Yup.string().required("Street is required"),
-    phoneNumber:  Yup.string().required("Phone Number is required"),
+    country: Yup.string().required("Country is required"),
+    street: Yup.string().required("Street is required"),
+    phoneNumber: Yup.string().required("Phone Number is required"),
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string().required("Last Name is required"),
     // Position: Yup.string().required("Position  is required"),
@@ -129,6 +134,9 @@ export const AuthWrappercontext = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
+    localStorage.removeItem("signup-form");
+    localStorage.removeItem("company-details-form");
+    localStorage.removeItem("user-details-form");
   };
 
   return (
