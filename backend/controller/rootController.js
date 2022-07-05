@@ -6,7 +6,7 @@ const {
   iprivateSchema,
   rootSchema,
   adminSchema,
-} = require("../model/user");
+} = require("../model/User");
 
 /**
  * @description Gets one admins info
