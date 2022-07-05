@@ -6,7 +6,7 @@ require("dotenv").config();
 /**
  * @description Get one contact
  * @type GET
- * @url /contact/dashboard/getcontact
+ * @url /api/contact/dashboard/getcontact
  */
 
 const getContact = async (req, res) => {
@@ -24,7 +24,7 @@ const getContact = async (req, res) => {
 /**
  * @description Create one contact
  * @type POST
- * @url /contact/dashboard/postcontact
+ * @url /api/contact/dashboard/postcontact
  */
 
 const postContact = async (req, res) => {
@@ -43,7 +43,7 @@ const postContact = async (req, res) => {
 /**
  * @description Edits one contact
  * @type PATCH
- * @url /contact/dashboard/editcontact
+ * @url /api/contact/dashboard/editcontact
  */
 
 const editContact = async (req, res) => {
@@ -66,7 +66,7 @@ const editContact = async (req, res) => {
 /**
  * @description Sends email with contact data to admin
  * @type POST
- * @url /contact/sendcontact
+ * @url /api/contact/sendcontact
  */
 
 const sendContact = async (req, res) => {

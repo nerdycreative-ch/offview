@@ -46,7 +46,7 @@ const deletefilesmethod = (req) => {
 /**
  * @description Gets one advertisement
  * @type GET
- * @url /advertisements/dashboard/getOne/:id
+ * @url /api/advertisements/dashboard/getOne/:id
  */
 
 const advertisement_Get = async (req, res) => {
@@ -65,7 +65,7 @@ const advertisement_Get = async (req, res) => {
 /**
  * @description Gets all advertisement for web
  * @type GET
- * @url /advertisements/dashboard/getallwevb
+ * @url /api/advertisements/dashboard/getallwevb
  */
 
 const advertisement_GetAllWeb = async (req, res) => {
@@ -103,7 +103,7 @@ const advertisement_GetAllWeb = async (req, res) => {
 /**
  * @description Gets all advertisement
  * @type GET
- * @url /advertisements/dashboard/getAll
+ * @url /api/advertisements/dashboard/getAll
  */
 
 const advertisement_GetAll = async (req, res) => {
@@ -123,7 +123,7 @@ const advertisement_GetAll = async (req, res) => {
 /**
  * @description Create advertisement
  * @type POST
- * @url /advertisements/dashboard/createAdvertisement
+ * @url /api/advertisements/dashboard/createAdvertisement
  */
 
 const advertisement_Post = async (req, res) => {
@@ -337,7 +337,7 @@ const advertisement_Post = async (req, res) => {
 /**
  * @description Edit advertisenent
  * @type PATCH
- * @url /advertisements/dashboard/edit/:id
+ * @url /api/advertisements/dashboard/edit/:id
  */
 
 const advertisement_Patch = async (req, res) => {
@@ -361,7 +361,7 @@ const advertisement_Patch = async (req, res) => {
 /**
  * @description Delete advertisement
  * @type DELETE
- * @url /advertisements/dashboard/delete/:id
+ * @url /api/advertisements/dashboard/delete/:id
  */
 
 const advertisement_Delete = async (req, res) => {
@@ -407,7 +407,7 @@ const advertisement_Delete = async (req, res) => {
 /**
  * @description Upload image after creating advertisement
  * @type POST
- * @url /advertisements/dashboard/image/uploadafter/:id
+ * @url /api/advertisements/dashboard/image/uploadafter/:id
  */
 const uploadAfter = async (req, res) => {
   const id = req.params.id;
@@ -439,7 +439,7 @@ const uploadAfter = async (req, res) => {
 /**
  * @description Edit file after creating advertisement
  * @type PATCH
- * @url /advertisements/dashboard/image/patchafter/:id/:key
+ * @url /api/advertisements/dashboard/image/patchafter/:id/:key
  */
 const patchAfter = async (req, res) => {
   try {
@@ -472,7 +472,7 @@ const patchAfter = async (req, res) => {
 /**
  * @description Delete file after creating advertisement
  * @type DELETE
- * @url /advertisements/dashboard/image/deleteafter/:id/:key
+ * @url /api/advertisements/dashboard/image/deleteafter/:id/:key
  */
 const deleteAfter = async (req, res) => {
   try {
@@ -510,7 +510,7 @@ const deleteAfter = async (req, res) => {
 /**
  * @description Download file after creating advertisement
  * @type GET
- * @url /advertisements/dashboard/image/downloadfile/:key
+ * @url /api/advertisements/dashboard/image/downloadfile/:key
  */
 const downloadFile = async (req, res) => {
   try {

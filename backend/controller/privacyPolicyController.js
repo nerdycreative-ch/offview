@@ -3,7 +3,7 @@ const privacyPolicy = require("../model/privacyPolicy");
 /**
  * @description Get all policy
  * @type GET
- * @url privacypolicy/dashboard/get
+ * @url /api/privacypolicy/dashboard/get
  */
 
 const privacyPolicyGet = async (req, res) => {
@@ -21,7 +21,7 @@ const privacyPolicyGet = async (req, res) => {
 /**
  * @description Post policy
  * @type POST
- * @url privacypolicy/dashboard/post
+ * @url /api/privacypolicy/dashboard/post
  */
 
 const privacyPolicyPost = async (req, res) => {
@@ -45,7 +45,7 @@ const privacyPolicyPost = async (req, res) => {
 /**
  * @description Edit policy
  * @type POST
- * @url privacypolicy/dashboard/patch/:id"
+ * @url /api/privacypolicy/dashboard/patch/:id"
  */
 
 const privacyPolicyPatch = async (req, res) => {
@@ -64,7 +64,7 @@ const privacyPolicyPatch = async (req, res) => {
 /**
  * @description Delete policy
  * @type POST
- * @url privacypolicy/dashboard/delete/:id"
+ * @url /api/privacypolicy/dashboard/delete/:id"
  */
 
 const privacyPolicyDelete = async (req, res) => {

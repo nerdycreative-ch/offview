@@ -3,7 +3,7 @@ const Faq = require("../model/faq");
 /**
  * @description Get all faqs
  * @type GET
- * @url /dashboard/faq
+ * @url /api/dashboard/faq
  */
 
 const faqGet = async (req, res) => {
@@ -19,7 +19,7 @@ const faqGet = async (req, res) => {
 /**
  * @description Post all faqs
  * @type POST
- * @url /dashboard/faq
+ * @url /api/dashboard/faq
  */
 
 const faqPost = async (req, res) => {

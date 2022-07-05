@@ -4,7 +4,7 @@ const { advertisementBaseSchema } = require("../model/Advertisement");
 /**
  * @description Admin can get one advertisement
  * @type GET
- * @url /dashboard/admin/getone/:id
+ * @url /api/advertisements/dashboard/admin/getone/:id
  */
 const getOne = async (req, res) => {
   try {
@@ -21,7 +21,7 @@ const getOne = async (req, res) => {
 /**
  * @description Admin can get all advertisements
  * @type GET
- * @url /advertisements/dashboard/admin/getall
+ * @url /api/advertisements/dashboard/admin/getall
  */
 const getAll = async (req, res) => {
   try {
@@ -74,7 +74,7 @@ const getAll = async (req, res) => {
 /**
  * @description Admin can approve advertisement
  * @type PATCH
- * @url /advertisements/dashboard/admin/approve/:id
+ * @url /api/advertisements/dashboard/admin/approve/:id
  */
 const approveAdvertisement = async (req, res) => {
   try {
@@ -82,13 +82,11 @@ const approveAdvertisement = async (req, res) => {
     const advertisement = await advertisementBaseSchema.findOne({ _id: id });
     advertisement.stateOfAdvertisement = "approved";
     advertisement.save();
-    return res
-      .status(200)
-      .json({
-        success: true,
-        data: advertisement,
-        message: "advertisement has been approved",
-      });
+    return res.status(200).json({
+      success: true,
+      data: advertisement,
+      message: "advertisement has been approved",
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -99,7 +97,7 @@ const approveAdvertisement = async (req, res) => {
 /**
  * @description Admin can reject advertisement
  * @type PATCH
- * @url /advertisements/dashboard/admin/reject/:id
+ * @url /api/advertisements/dashboard/admin/reject/:id
  */
 const rejectAdvertisement = async (req, res) => {
   try {
