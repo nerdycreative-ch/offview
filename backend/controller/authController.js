@@ -35,7 +35,7 @@ const createToken = (id) => {
 /**
  * @description Renders signup page
  * @type GET
- * @url /users/signup
+ * @url /api/users/signup
  */
 const signup_get = (req, res) => {
   res.render("signup");
@@ -44,7 +44,7 @@ const signup_get = (req, res) => {
 /**
  * @description get login method
  * @type GET
- * @url /users/login
+ * @url /api/users/login
  */
 const login_get = (req, res) => {
   console.log("REQ", req.user);
@@ -55,7 +55,7 @@ const login_get = (req, res) => {
 /**
  * @description Renders signup page
  * @type POST
- * @url /users/signup
+ * @url /api/users/signup
  */
 const signup_post = async (req, res) => {
   try {
@@ -237,7 +237,7 @@ const signup_post = async (req, res) => {
 /**
  * @description verify user
  * @type GET
- * @url /users/verify/:verificationCode
+ * @url /api/users/verify/:verificationCode
  */
 const verify_now = async (req, res) => {
   try {
@@ -263,7 +263,7 @@ const verify_now = async (req, res) => {
 /**
  * @description Reset password init
  * @type PUT
- * @url /users/resetpassword
+ * @url /api/users/resetpassword
  */
 
 //Initiating reset password
@@ -318,7 +318,7 @@ const resetPasswordInit = async (req, res) => {
 /**
  * @description Reset password
  * @type GET
- * @url /users/resetpassword/:resetPasswordToken
+ * @url /api/users/resetpassword/:resetPasswordToken
  */
 const resetPassword = async (req, res) => {
   try {
@@ -357,7 +357,7 @@ const resetPassword = async (req, res) => {
 /**
  * @description Reset password post method
  * @type Post
- * @url /users/resetpassword
+ * @url /api/users/resetpassword
  */
 const resetPasswordPost = async (req, res) => {
   try {
@@ -414,7 +414,7 @@ const resetPasswordPost = async (req, res) => {
 /**
  * @description log in user
  * @type POST
- * @url /users/login
+ * @url /api/users/login
  */
 
 const login_post = async (req, res) => {
@@ -449,7 +449,7 @@ const login_post = async (req, res) => {
 /**
  * @description Edit user
  * @type PATCH
- * @url /users/dashboard/editUser/:id
+ * @url /api/users/dashboard/editUser/:id
  */
 
 const editUser = async (req, res) => {
@@ -469,7 +469,7 @@ const editUser = async (req, res) => {
 /**
  * @description Delete user
  * @type DELETE
- * @url /users/dashboard/deleteuser/:id
+ * @url /api/users/dashboard/deleteuser/:id
  */
 const deleteUser = async (req, res) => {
   try {
@@ -485,7 +485,7 @@ const deleteUser = async (req, res) => {
 /**
  * @description gets only one user
  * @type GET
- * @url /users/dashboard/getOne/:id
+ * @url /api/users/dashboard/getOne/:id
  */
 
 const getOne = async (req, res) => {
@@ -509,7 +509,7 @@ const getOne = async (req, res) => {
 /**
  * @description gets all user
  * @type GET
- * @url /users/dashboard/getAll
+ * @url /api/users/dashboard/getAll
  */
 const getAll = async (req, res) => {
   const userat = await baseSchema

@@ -5,7 +5,7 @@ const { advertisementBaseSchema } = require("../model/Advertisement");
 /**
  * @description Gets one offer
  * @type GET
- * @url /advertisements/:id/getoffer/:id
+ * @url /api/advertisements/:id/getoffer/:id
  */
 const getOffer = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ const getOffer = async (req, res) => {
 /**
  * @description Gets all offer
  * @type GET
- * @url /advertisements/:id/getoffer
+ * @url /api/advertisements/:id/getoffer
  */
 
 const getAllOffers = (req, res) => {
@@ -37,7 +37,7 @@ const getAllOffers = (req, res) => {
 /**
  * @description create offer
  * @type POST
- * @url /advertisements/:id/createoffer
+ * @url /api/advertisements/:id/createoffer
  */
 const createOffer = async (req, res) => {
   try {

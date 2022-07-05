@@ -17,7 +17,7 @@ const { isError, first } = require("lodash");
 /**
  * @description Searches profile by name
  * @type GET
- * @url /profiles/dashboard/searchProfiles
+ * @url /api/profiles/dashboard/searchProfiles
  */
 const searchProfiles = async (req, res) => {
   try {
@@ -74,7 +74,7 @@ const searchProfiles = async (req, res) => {
 /**
  * @description Gets your profile
  * @type GET
- * @url /profiles/dashboard/myprofile
+ * @url /api/profiles/dashboard/myprofile
  */
 const getMyProfile = async (req, res) => {
   const { user } = req;
@@ -118,7 +118,7 @@ const getMyProfile = async (req, res) => {
 /**
  * @description Creates profile
  * @type POST
- * @url /profiles/dashboard/createprofile
+ * @url /api/profiles/dashboard/createprofile
  */
 const createProfile = async (req, res) => {
   let { body, user } = req;
@@ -143,7 +143,7 @@ const createProfile = async (req, res) => {
 /**
  * @description Edits profile
  * @type PATCH
- * @url /profiles/dashboard/editprofile
+ * @url /api/profiles/dashboard/editprofile
  */
 const editProfile = async (req, res) => {
   const { body, user } = req;
@@ -176,7 +176,7 @@ const editProfile = async (req, res) => {
 /**
  * @description Edits profile pic
  * @type PATCH
- * @url /profiles/dashboard/editprofilepic/
+ * @url /api/profiles/dashboard/editprofilepic/
  */
 const editProfilePic = async (req, res) => {
   const { user } = req;
