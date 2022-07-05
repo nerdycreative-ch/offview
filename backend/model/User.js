@@ -119,9 +119,7 @@ const icompanySchema = baseSchema.discriminator(
     },
     website: {
       type: String,
-      required: true,
     },
-
     title: {
       type: String,
       required: true,
@@ -144,6 +142,10 @@ const icompanySchema = baseSchema.discriminator(
     },
     No: {
       type: Number,
+      required: true,
+    },
+    position: {
+      type: String,
       required: true,
     },
     postalCode: {

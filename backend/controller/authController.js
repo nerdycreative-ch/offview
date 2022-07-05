@@ -78,6 +78,7 @@ const signup_post = async (req, res) => {
       companyName,
       legalForm,
       UID,
+      position,
       website,
     } = req.body;
 
@@ -130,6 +131,7 @@ const signup_post = async (req, res) => {
         phoneNumber,
         street,
         No,
+        position,
         postalCode,
         country,
         verificationCode: randomBytes(20).toString("hex"),
