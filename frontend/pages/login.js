@@ -11,9 +11,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "../components/web/utils/TextError";
 import Button from "../components/app/utils/Button";
 import axios from "axios";
+import { useAuthContext } from "../context/auth";
 
 const Login = () => {
   const [erorr, setError] = useState("");
+
+  const { setToken } = useAuthContext();
 
   const initialValues = {
     email: "",
@@ -47,7 +50,11 @@ const Login = () => {
 
       console.log("RES", res);
 
+      console.log("E PARA");
       localStorage.setItem("token", res.token);
+
+      console.log("E DYTA", res.token);
+      setToken("asdasd" + res.token);
 
       onSubmitProps.resetForm();
       Router.push("/dashboard");

@@ -1,8 +1,13 @@
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const BackButton = () => {
+
+  const router = useRouter();
+
+
   return (
-    <BackButtonStyle>
+    <BackButtonStyle onClick={() => router.back()}>
       <img src="/assets/images/register/Union.svg" alt="backButton" />
       <h1 className="backText">Back</h1>
     </BackButtonStyle>

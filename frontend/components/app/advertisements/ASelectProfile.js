@@ -36,10 +36,42 @@ const ASelectProfile = ({ changeStep }) => {
       advertisementType: AdvadvertisementActiveLink,
       propertyType: AdvpropertyActiveLink,
     });
+
+    localStorage.setItem(
+      "advertisementActiveLink",
+      JSON.stringify(AdvadvertisementActiveLink)
+    );
+    localStorage.setItem(
+      "propertyActiveLink",
+      JSON.stringify(AdvpropertyActiveLink)
+    );
+
     changeStep();
 
     Router.push("/advertisementsteps?page=firstarea");
   };
+
+  useEffect(() => {
+    let momentaryAdvertisemetLink = JSON.parse(
+      localStorage.getItem("advertisementActiveLink")
+    );
+    let momentaryActiveLink = JSON.parse(
+      localStorage.getItem("propertyActiveLink")
+    );
+    let momentaryElement;
+
+    if (momentaryAdvertisemetLink) {
+      document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+        momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+        if (
+          momentaryElement == momentaryAdvertisemetLink ||
+          momentaryElement == momentaryActiveLink
+        ) {
+          element.click();
+        }
+      });
+    }
+  }, []);
 
   const [advertismentType, setAdvertismetType] = useState([
     {

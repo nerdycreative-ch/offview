@@ -31,12 +31,6 @@ const SelectProfile = ({ changeStep }) => {
   } = useSearchProfileContext();
 
   const onClick = () => {
-    setFinalSubmit({
-      ...finalSubmit,
-      advertisementType: advertisementActiveLink,
-      propertyType: propertyActiveLink,
-    });
-
     localStorage.setItem(
       "advertisementActiveLink",
       JSON.stringify(advertisementActiveLink)
@@ -46,18 +40,44 @@ const SelectProfile = ({ changeStep }) => {
       JSON.stringify(propertyActiveLink)
     );
 
+    setFinalSubmit({
+      ...finalSubmit,
+      advertisementType: advertisementActiveLink,
+      propertyType: propertyActiveLink,
+    });
+
     changeStep();
 
     Router.push("/searchsteps?page=searchregion");
   };
 
   useEffect(() => {
-    setAdvertisementActiveLink(
-      JSON.parse(localStorage.getItem("advertisementActiveLink"))
+    let momentaryAdvertisemetLink = JSON.parse(
+      localStorage.getItem("advertisementActiveLink")
     );
-    setPropertyActiveLink(
-      JSON.parse(localStorage.getItem("propertyActiveLink"))
+    let momentaryActiveLink = JSON.parse(
+      localStorage.getItem("propertyActiveLink")
     );
+    let momentaryElement;
+
+    if (momentaryAdvertisemetLink) {
+      document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+        momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+        if (
+          momentaryElement == momentaryAdvertisemetLink ||
+          momentaryElement == momentaryActiveLink
+        ) {
+          element.click();
+        }
+      });
+    }
+
+    // setAdvertisementActiveLink(
+    //   JSON.parse(localStorage.getItem("advertisementActiveLink"))
+    // );
+    // setPropertyActiveLink(
+    //   JSON.parse(localStorage.getItem("propertyActiveLink"))
+    // );
   }, []);
 
   return (

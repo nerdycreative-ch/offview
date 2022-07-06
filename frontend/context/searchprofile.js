@@ -3,11 +3,16 @@ import { useRouter } from "next/router";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { useAuthContext } from "./auth";
 
 const SearchProfileContext = createContext();
 
 export const Searchprofilecontext = ({ children }) => {
   const router = useRouter();
+
+  const { token } = useAuthContext();
+
+  console.log("TOKEN NGA ASKUSHI ", token);
 
   const [finalSubmit, setFinalSubmit] = useState();
   const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
@@ -75,6 +80,7 @@ export const Searchprofilecontext = ({ children }) => {
         },
         {
           headers: {
+            Authorization: token,
             "Content-Type": "application/json",
             Accept: "application/json",
           },

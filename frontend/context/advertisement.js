@@ -300,6 +300,12 @@ export const Advertisementcontext = ({ children }) => {
         },
       }
     );
+
+    localStorage.removeItem("advertisementActiveLink");
+    localStorage.removeItem("propertyActiveLink");
+    localStorage.removeItem("firstarea-adv-form");
+    localStorage.removeItem("secondarea-adv-form");
+    localStorage.removeItem("thirdarea-adv-form");
   };
 
   return (

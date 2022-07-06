@@ -76,6 +76,7 @@ const BigRadioButton = ({
           value={nameOfCat}
           className="testInput"
         />
+        
         <span className="checkmark"></span>
       </label>
 

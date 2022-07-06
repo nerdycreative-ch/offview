@@ -20,8 +20,12 @@ const Price = ({ changeStep }) => {
   let max = 199;
 
   const [avg, setAvg] = useState((min + max) / 2);
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
+  const [minVal, setMinVal] = useState(
+    JSON.parse(localStorage.getItem("minVal")) ?? 0
+  );
+  const [maxVal, setMaxVal] = useState(
+    JSON.parse(localStorage.getItem("maxVal")) ?? 199
+  );
 
   const width = 199;
   const minWidth =
@@ -45,11 +49,16 @@ const Price = ({ changeStep }) => {
     setAvg((maxVal + minVal) / 2);
   }, [minVal, maxVal]);
 
+  useEffect(() => {
+    localStorage.setItem("minVal", JSON.stringify(minVal));
+    localStorage.setItem("maxVal", JSON.stringify(maxVal));
+  }, [minVal, maxVal]);
+
   const onClick = async () => {
-     await setFinalSubmit({
+    await setFinalSubmit({
       ...finalSubmit,
-      minPrice: minVal,
-      maxPrice: maxVal,
+      minPrice: JSON.parse(localStorage.getItem("minVal")),
+      maxPrice: JSON.parse(localStorage.getItem("maxVal")),
     });
     submitDataToBackEnd();
   };
@@ -87,7 +96,7 @@ const Price = ({ changeStep }) => {
                 </label> */}
                 <input
                   id="min"
-                  className="min"
+                  className="min rangeBtn"
                   style={styled.min}
                   name="min"
                   type="range"
@@ -100,7 +109,7 @@ const Price = ({ changeStep }) => {
                 {/* <label  htmlFor="max">{maxVal.toFixed(0)}</label> */}
                 <input
                   id="max"
-                  className="max"
+                  className="max rangeBtn"
                   style={styled.max}
                   name="max"
                   type="range"

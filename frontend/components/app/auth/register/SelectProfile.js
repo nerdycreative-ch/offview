@@ -33,8 +33,21 @@ const SelectProfile = ({ changeStep }) => {
   }, [singleCategory, singleTypeCategory]);
 
   // useEffect(() => {
-  //   setSingleCategory(JSON.parse(localStorage.getItem("IS")));
-  //   setSingleTypeCategory(JSON.parse(localStorage.getItem("OS")));
+  //   let momentaryAdvertisemetLink = JSON.parse(localStorage.getItem("IS"));
+  //   let momentaryActiveLink = JSON.parse(localStorage.getItem("PC"));
+  //   let momentaryElement;
+
+  //   if (momentaryAdvertisemetLink) {
+  //     document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+  //       momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+  //       if (
+  //         momentaryElement == momentaryAdvertisemetLink ||
+  //         momentaryElement == momentaryActiveLink
+  //       ) {
+  //         element.click();
+  //       }
+  //     });
+  //   }
   // }, []);
 
   const [categories, setCategories] = useState([
@@ -70,16 +83,14 @@ const SelectProfile = ({ changeStep }) => {
       id: 6,
       ["name"]: singleCategory == "seller" ? "Broker" : "company",
 
-      // name: "Company",
-      // key: "company",
       ["key"]: singleCategory == "seller" ? "broker" : "company",
     },
   ]);
 
-  // const [singleCategory, setSingleCategory] = useState("");
-  // const [singleTypeCategory, setSingleTypeCategory] = useState("");
-
   const onClick = () => {
+    localStorage.setItem("IS", JSON.stringify(singleCategory));
+    localStorage.setItem("PC", JSON.stringify(singleTypeCategory));
+
     changeStep();
     setUserData({
       ...userData,
@@ -87,16 +98,26 @@ const SelectProfile = ({ changeStep }) => {
       singleTypeCategory: singleTypeCategory,
     });
 
-    localStorage.setItem("IS", JSON.stringify(singleCategory));
-    localStorage.setItem("PC", JSON.stringify(singleTypeCategory));
-
     Router.push("/registersteps?page=userdetails");
   };
 
-  // // useEffect(() => {
-  // //   localStorage.getItem("IS");
-  // //   localStorage.getItem("PC");
-  // // }, [singleCategory, singleTypeCategory]);
+  useEffect(() => {
+    let momentaryAdvertisemetLink = JSON.parse(localStorage.getItem("IS"));
+    let momentaryActiveLink = JSON.parse(localStorage.getItem("PC"));
+    let momentaryElement;
+
+    if (momentaryAdvertisemetLink) {
+      document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+        momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+        if (
+          momentaryElement == momentaryAdvertisemetLink ||
+          momentaryElement == momentaryActiveLink
+        ) {
+          element.click();
+        }
+      });
+    }
+  }, []);
 
   console.log(userData);
 
@@ -105,8 +126,7 @@ const SelectProfile = ({ changeStep }) => {
       <AuthContainer>
         <StepsNumber stepsLength={3} />
         <div className="registerStepContainer">
-          <h1>{singleCategory}</h1>
-          <h1>{singleTypeCategory}</h1>
+        
           <div>
             <div style={{ marginBottom: 40 }}>
               <RegisterTitle title="Select Profile" />

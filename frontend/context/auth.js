@@ -7,6 +7,10 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthWrappercontext = ({ children }) => {
+  const [token, setToken] = useState("");
+
+  const [currentUser, setCurrentUser] = useState();
+
   // SELECT PROFILE
   const [singleCategory, setSingleCategory] = useState("");
   const [singleTypeCategory, setSingleTypeCategory] = useState("");
@@ -14,6 +18,25 @@ export const AuthWrappercontext = ({ children }) => {
   const [registerSteps, setRegisterSteps] = useState(1);
 
   const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await axios(
+          `${process.env.NEXT_PUBLIC_URL}profiles/dashboard/myprofile`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        ).then((response) => console.log("responsi e kta " + response));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUser();
+  }, [token]);
 
   const globalValues = {
     // email: "",
@@ -137,6 +160,8 @@ export const AuthWrappercontext = ({ children }) => {
     localStorage.removeItem("signup-form");
     localStorage.removeItem("company-details-form");
     localStorage.removeItem("user-details-form");
+    localStorage.removeItem("IS");
+    localStorage.removeItem("PC");
   };
 
   return (
@@ -156,6 +181,8 @@ export const AuthWrappercontext = ({ children }) => {
         setSingleTypeCategory,
         CompanyBasedValidationSchema,
         CompanyValidationSchema,
+        token,
+        setToken,
       }}
     >
       {children}
