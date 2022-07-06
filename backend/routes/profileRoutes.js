@@ -10,7 +10,7 @@ const authGuard = require("../middleware/auth-guard");
 const {
   getMyProfile,
   searchProfiles,
-  createProfile,
+  // createProfile,
   editProfile,
   editProfilePic,
 } = require("../controller/profileController");
@@ -22,7 +22,7 @@ router.get("/dashboard/myprofile", authGuard, getMyProfile);
 router.get("/dashboard/searchProfiles", searchProfiles);
 
 //create profile
-router.post("/dashboard/createprofile", authGuard, createProfile);
+//router.post("/dashboard/createprofile", authGuard, createProfile);
 
 //edit profile
 router.patch("/dashboard/editprofile", authGuard, editProfile);

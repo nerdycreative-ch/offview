@@ -47,7 +47,7 @@ router.post(
     { name: "file", maxCount: 3 },
     { name: "image", maxCount: 3 },
   ]),
-  // authGuard,
+  authGuard,
   advertisement_Post
 );
 router.patch("/dashboard/edit/:id", advertisement_Patch);

@@ -5,6 +5,7 @@ const {
   icompanySchema,
   iprivateSchema,
 } = require("../model/User");
+const Profile = require("../model/profile");
 
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie-parser");
@@ -30,6 +31,24 @@ const hashMethod = async (password) => {
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.APP_SECRET, { expiresIn: maxAge });
+};
+
+/**
+ * @description Creates profile for user
+ */
+const createProfile = async (useri) => {
+  try {
+    const profile = await Profile.create({
+      account: useri._id,
+      avatar: undefined,
+      firstName: useri.firstName,
+      lastName: useri.lastName,
+      fullName: `${useri.firstName} ${useri.lastName}`,
+    });
+    console.log("Profile has been created");
+  } catch (error) {
+    console.log("Profile wasn't created", err);
+  }
 };
 
 /**
@@ -78,7 +97,6 @@ const signup_post = async (req, res) => {
       companyName,
       legalForm,
       UID,
-      position,
       website,
     } = req.body;
 
@@ -100,6 +118,7 @@ const signup_post = async (req, res) => {
         country,
         verificationCode: randomBytes(20).toString("hex"),
       });
+      createProfile(owner);
 
       let html = `
     <h1>Hello,</h1>
@@ -136,7 +155,7 @@ const signup_post = async (req, res) => {
         country,
         verificationCode: randomBytes(20).toString("hex"),
       });
-
+      createProfile(investorCompany);
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
@@ -167,7 +186,7 @@ const signup_post = async (req, res) => {
         country,
         verificationCode: randomBytes(20).toString("hex"),
       });
-
+      createProfile(investorPrivate);
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
@@ -204,6 +223,7 @@ const signup_post = async (req, res) => {
         website,
         verificationCode: randomBytes(20).toString("hex"),
       });
+      createProfile(broker);
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
