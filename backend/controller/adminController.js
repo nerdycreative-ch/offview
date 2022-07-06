@@ -29,38 +29,79 @@ const getAll = async (req, res) => {
     const pageOptions = {
       page: parseInt(req.query.page, 10) || 0,
       limit: parseInt(req.query.limit, 10) || 10,
-      sort: req.query.sort,
+      sort: parseInt(req.query.sort),
     };
     let advertisements;
     if (req.query.search) {
       pageOptions.search = req.query.search;
-      advertisements = await advertisementBaseSchema
-        .aggregate()
-        .search({
-          index: "default",
-          autocomplete: {
-            query: `${pageOptions.search}`,
-            path: "fullName",
-            fuzzy: {
-              maxEdits: 2,
-              prefixLength: 3,
+      advertisements = await advertisementBaseSchema.aggregate([
+        {
+          $search: {
+            index: "default",
+            autocomplete: {
+              query: `${pageOptions.search}`,
+              path: "title",
             },
           },
-        })
-        .skip(pageOptions.page * pageOptions.limit)
-        .limit(pageOptions.limit)
-        .sort(pageOptions.sort);
+        },
+        {
+          $facet: {
+            totalData: [
+              {
+                $skip: pageOptions.page * pageOptions.limit,
+              },
+              {
+                $limit: pageOptions.limit,
+              },
+              {
+                $sort: {
+                  yearOfConstruction: pageOptions.sort,
+                },
+              },
+            ],
+            totalCount: [
+              {
+                $count: "numberOAdvertisements",
+              },
+            ],
+          },
+        },
+      ]);
     } else if (!req.query.search) {
-      advertisements = await advertisementBaseSchema
-        .find()
-        .skip((pageOptions.page - 1) * pageOptions.limit)
-        .limit(pageOptions.limit)
-        .sort(pageOptions.sort);
+      advertisements = await advertisementBaseSchema.aggregate([
+        {
+          $match: { _id: { $exists: true } },
+        },
+        {
+          $facet: {
+            totalData: [
+              {
+                $skip: pageOptions.page * pageOptions.limit,
+              },
+              {
+                $limit: pageOptions.limit,
+              },
+              {
+                $sort: {
+                  yearOfConstruction: pageOptions.sort,
+                },
+              },
+            ],
+            totalCount: [
+              {
+                $count: "numberOAdvertisements",
+              },
+            ],
+          },
+        },
+      ]);
+    } else if (advertisements === []) {
+      return res.json({ message: "no advertisements match" });
     }
     return res.status(200).json({
-      succes: true,
+      success: true,
       data: advertisements,
-      length: "me db.count bohet",
+      length: advertisements.totalCount,
     });
   } catch (error) {
     console.log(error);

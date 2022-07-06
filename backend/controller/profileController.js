@@ -88,7 +88,7 @@ const getMyProfile = async (req, res) => {
         foreignField: "_id",
         as: "userinfo",
       });
-    if (profile.length() == 0) {
+    if (profile.length == 0) {
       return res
         .status(404)
         .json({ success: false, message: "Profile was not found" });
@@ -115,30 +115,30 @@ const getMyProfile = async (req, res) => {
   }
 };
 
-/**
- * @description Creates profile
- * @type POST
- * @url /api/profiles/dashboard/createprofile
- */
-const createProfile = async (req, res) => {
-  let { body, user } = req;
-  try {
-    const useri = await baseSchema.findOne({ _id: user._id });
-    const profile = await Profile.create({
-      account: useri._id,
-      avatar: undefined,
-      firstName: useri.firstName,
-      lastName: useri.lastName,
-      fullName: `${useri.firstName} ${useri.lastName}`,
-    });
-    return res.status(201).json({ success: true, data: profile });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Error creating profile" });
-  }
-};
+// /**
+//  * @description Creates profile
+//  * @type POST
+//  * @url /api/profiles/dashboard/createprofile
+//  */
+// const createProfile = async (req, res) => {
+//   let { user } = req;
+//   try {
+//     const useri = await baseSchema.findOne({ _id: user._id });
+//     const profile = await Profile.create({
+//       account: useri._id,
+//       avatar: undefined,
+//       firstName: useri.firstName,
+//       lastName: useri.lastName,
+//       fullName: `${useri.firstName} ${useri.lastName}`,
+//     });
+//     return res.status(201).json({ success: true, data: profile });
+//   } catch (error) {
+//     console.log(error);
+//     return res
+//       .status(500)
+//       .json({ success: false, message: "Error creating profile" });
+//   }
+// };
 
 /**
  * @description Edits profile
@@ -206,7 +206,7 @@ const editProfilePic = async (req, res) => {
 module.exports = {
   getMyProfile,
   searchProfiles,
-  createProfile,
+  // createProfile,
   editProfile,
   editProfilePic,
 };
