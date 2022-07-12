@@ -296,7 +296,10 @@ export const Advertisementcontext = ({ children }) => {
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGhvdG1haWwuY29tIiwiaWQiOiI2MmM2OTFlOTdlY2I4MDI2NmQ4M2M1ZDMiLCJpYXQiOjE2NTcxODEzNjgsImV4cCI6MTY1NzQ0MDU2OH0.NKykfu6zenMC8T2AhWmLcFXnNGS0JnJK62tJvEBw47U",
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );

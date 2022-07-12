@@ -53,7 +53,8 @@ export const AuthWrappercontext = ({ children }) => {
     legalForm: "",
     UID: "",
     Website: "",
-    // Position: "",
+    position: "",
+    city: "",
     postalcode: "",
   };
 
@@ -109,7 +110,9 @@ export const AuthWrappercontext = ({ children }) => {
     phoneNumber: Yup.string().required("Phone Number is required"),
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string().required("Last Name is required"),
-    // Position: Yup.string().required("Position  is required"),
+    position: Yup.string().required("Position  is required"),
+    no: Yup.number().required("No  is required"),
+    city: Yup.string(),
   });
 
   const CompanyValidationSchema = CompanyBasedValidationSchema.shape({
@@ -141,6 +144,9 @@ export const AuthWrappercontext = ({ children }) => {
           mainrole: userData.singleCategory,
           role: userData.singleTypeCategory,
           website: userData.website,
+          city: userData.city,
+          No: userData.no,
+          position: userData.position,
           postalCode: "1234",
           gender: "male",
         },

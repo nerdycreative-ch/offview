@@ -116,6 +116,7 @@ const HowOffviewWorks = () => {
               alt="dashboard img"
               width={640}
               height={400}
+              style={{ borderRadius: 8 }}
             />
           </div>
         </div>
@@ -133,7 +134,6 @@ const HowOffviewWorksStyled = styled.div`
     font-size: 28px;
     line-height: 42px;
     color: var(--greenPeaBold);
-    
   }
   .topContainer .content {
     font-size: 14px;

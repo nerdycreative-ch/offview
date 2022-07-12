@@ -154,7 +154,7 @@ const icompanySchema = baseSchema.discriminator(
     },
     city: {
       type: String,
-      required: true,
+      // required: true,
     },
     country: {
       type: String,

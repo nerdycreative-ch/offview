@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
 import AppContainer from "../wrappers/AppContainer";
 import StepsNumber from "../utils/StepsNumber";
@@ -9,6 +9,13 @@ import RegisterTitle from "../utils/RegisterTitle";
 import ExitButton from "../utils/ExitButton";
 import { useRouter } from "next/router";
 import { useAdvertisementContext } from "../../../context/advertisement";
+import { zoomIn } from "react-animations";
+
+const bounceAnimation = keyframes`${zoomIn}`;
+
+const BouncyDiv = styled.div`
+  animation: 0.7s ${bounceAnimation};
+`;
 
 const ASelectProfile = ({ changeStep }) => {
   const Router = useRouter();
@@ -146,32 +153,39 @@ const ASelectProfile = ({ changeStep }) => {
                   })}
                 </div>
               </div>
-              <div
-                style={{
-                  marginTop: `${heightOfScreen < 900 ? "14px" : "55px"}`,
-                }}
-                className="radioButtonForm"
-              >
-                <p className={`smallText`}>How are you going to use offview?</p>
-                <div className="radioButtonGroup">
-                  {propertyType.map((item, index) => {
-                    return (
-                      <BigRadioButton
-                        onClick={() => AdvsetPropertyActiveLink(item.id)}
-                        key={index}
-                        width={45}
-                        height={136}
-                        type={item.name}
-                        PCactiveLink={AdvpropertyActiveLink}
-                        id={item.id}
-                        nameOfCat="PC"
-                        paddingVertical={20}
-                        paddingHorizontal={42}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+
+              {AdvadvertisementActiveLink != "" && (
+                <BouncyDiv>
+                  <div
+                    style={{
+                      marginTop: `${heightOfScreen < 900 ? "14px" : "55px"}`,
+                    }}
+                    className="radioButtonForm"
+                  >
+                    <p className={`smallText`}>
+                      How are you going to use offview?
+                    </p>
+                    <div className="radioButtonGroup">
+                      {propertyType.map((item, index) => {
+                        return (
+                          <BigRadioButton
+                            onClick={() => AdvsetPropertyActiveLink(item.id)}
+                            key={index}
+                            width={45}
+                            height={136}
+                            type={item.name}
+                            PCactiveLink={AdvpropertyActiveLink}
+                            id={item.id}
+                            nameOfCat="PC"
+                            paddingVertical={20}
+                            paddingHorizontal={42}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </BouncyDiv>
+              )}
             </div>
           </div>{" "}
           <div style={{ marginTop: 30, paddingBottom: 30 }}>

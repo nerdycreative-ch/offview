@@ -54,12 +54,12 @@ const Price = ({ changeStep }) => {
     localStorage.setItem("maxVal", JSON.stringify(maxVal));
   }, [minVal, maxVal]);
 
-  const onClick = async () => {
-    await setFinalSubmit({
-      ...finalSubmit,
-      minPrice: JSON.parse(localStorage.getItem("minVal")),
-      maxPrice: JSON.parse(localStorage.getItem("maxVal")),
-    });
+  const onClick =  () => {
+     setFinalSubmit(prev => ({
+      ...prev,
+      minPrice: minVal,
+      maxPrice: maxVal,
+    }));
     submitDataToBackEnd();
   };
 
@@ -91,9 +91,6 @@ const Price = ({ changeStep }) => {
                 data-thumbsize={thumbsize}
                 data-rangewidth={width}
               >
-                {/* <label htmlFor="min" style={{ marginLeft: minVal }}>
-                  {minVal.toFixed(0)}
-                </label> */}
                 <input
                   id="min"
                   className="min rangeBtn"
@@ -106,7 +103,7 @@ const Price = ({ changeStep }) => {
                   value={minVal}
                   onChange={({ target }) => setMinVal(Number(target.value))}
                 />
-                {/* <label  htmlFor="max">{maxVal.toFixed(0)}</label> */}
+
                 <input
                   id="max"
                   className="max rangeBtn"

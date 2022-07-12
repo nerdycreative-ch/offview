@@ -14,6 +14,8 @@ export const Searchprofilecontext = ({ children }) => {
 
   console.log("TOKEN NGA ASKUSHI ", token);
 
+  console.log("A" + token);
+
   const [finalSubmit, setFinalSubmit] = useState();
   const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
   const [propertyActiveLink, setPropertyActiveLink] = useState(0);
@@ -67,8 +69,8 @@ export const Searchprofilecontext = ({ children }) => {
     getFiltredProfiles();
   }, []);
 
-  const submitDataToBackEnd = () => {
-    axios
+  const submitDataToBackEnd = async () => {
+    await axios
       .post(
         `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
         {
@@ -80,7 +82,9 @@ export const Searchprofilecontext = ({ children }) => {
         },
         {
           headers: {
-            Authorization: token,
+            // Authorization: token,
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImE0QGhvdG1haWwuY29tIiwiaWQiOiI2MmM2OTMwMDdlY2I4MDI2NmQ4M2M1ZGYiLCJpYXQiOjE2NTc1MzAwMjYsImV4cCI6MTY1Nzc4OTIyNn0.2wcSRnlHWr8PkTS2sYd9cNi8aB_eMOL3MSup6HzDRlY",
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -92,6 +96,12 @@ export const Searchprofilecontext = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
+      
+    localStorage.removeItem("advertisementActiveLink");
+    localStorage.removeItem("propertyActiveLink");
+    localStorage.removeItem("search-region-form");
+    localStorage.removeItem("minVal");
+    localStorage.removeItem("maxVal");
   };
 
   return (
