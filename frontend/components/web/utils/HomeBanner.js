@@ -38,7 +38,7 @@ const HomeBanner = () => {
 
 const HomeBannerStyled = styled.div`
   display: flex;
-  padding-left: 210px;
+  padding: 0 210px;
   position: relative;
 
   margin-top: 105px;
@@ -49,9 +49,8 @@ const HomeBannerStyled = styled.div`
     width: 100%;
     background: url("../../../assets/images/web/shapeHomePageBanner.png");
     background-repeat: no-repeat;
-    background-position: left top;
+    background-position: center top;
     background-size: contain;
-
     padding-bottom: 400px;
     animation: animatedBackground 2.5s linear alternate;
   }
@@ -59,7 +58,7 @@ const HomeBannerStyled = styled.div`
   @keyframes animatedBackground {
     from {
       /* background-position: 0px -900px; */
-      background-position: left 0px bottom -500px;
+      background-position: center bottom -500px;
     }
     to {
       padding: 100px 0;
@@ -67,9 +66,8 @@ const HomeBannerStyled = styled.div`
       width: 100%;
       background: url("../../../assets/images/web/shapeHomePageBanner.png");
       background-repeat: no-repeat;
-      background-position: left top;
+      background-position: center top;
       background-size: contain;
-
       padding-bottom: 400px;
     }
   }
@@ -117,7 +115,6 @@ const HomeBannerStyled = styled.div`
     line-height: 18px;
     color: #175041;
     cursor: pointer;
-  
   }
 
   /* @media (max-width: 2000.98px) {
@@ -142,7 +139,7 @@ const HomeBannerStyled = styled.div`
       width: 90%;
       background: url("../../../assets/images/web/shapeHomePageBanner.png");
       background-repeat: no-repeat;
-      background-position: left center;
+      background-position: center top;
 
       padding-bottom: 400px;
     }

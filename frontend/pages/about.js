@@ -21,7 +21,7 @@ const About = () => {
         content="Offview is a brokerage platform for real estate."
         aboutBanner
       />
-      <GreenContainer>
+      <GreenContainer color="grey">
         <div>
           <h1 className="aboutSubTitle">Our vision</h1>
           <p className="aboutContent">
@@ -55,7 +55,6 @@ const About = () => {
 const AboutStyled = styled.div`
   .aboutContentContainer {
     margin-top: 80px;
-    border-bottom: 1px solid var(--whiteColor);
     padding-bottom: 120px;
   }
   .aboutSubTitle {
@@ -63,11 +62,15 @@ const AboutStyled = styled.div`
     font-size: 28px;
     line-height: 42px;
     color: inherit;
+    font-family: "Messina Sans";
+    color: var(--black-0);
   }
   .aboutContent {
     line-height: 24px;
     margin-top: 24px;
     font-weight: var(--bookFont);
+    color: var(--black-0);
+
   }
 
   .aboutTitleContainer {

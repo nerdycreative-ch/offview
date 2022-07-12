@@ -22,6 +22,8 @@ const Register = () => {
 
   const { setStepsActiveLink, changeStep } = useDashboardContext();
 
+  
+
   return (
     <RegisterStepsStyled>
       {page == "selectprofile" && (

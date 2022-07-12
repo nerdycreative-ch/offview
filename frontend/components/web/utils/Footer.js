@@ -26,7 +26,8 @@ const Footer = () => {
     <FooterStyled>
       <div className="bothSide">
         <div className="leftSide">
-          <div className="imgContainer">
+            <div className="leftSideBorder">
+            <div className="imgContainer">
             <Link href="/">
               {/* <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" /> */}
               <img src="../../../assets/images/web/whiteLogo.svg" alt="logo" />
@@ -35,6 +36,7 @@ const Footer = () => {
           <p className="information">
             offview is a brokerage platform for real estate.
           </p>
+            </div>
         </div>
 
         {/* SITEMAP */}
@@ -133,6 +135,10 @@ const FooterStyled = styled.div`
   .leftSide {
     flex: 1;
   }
+  .leftSideBorder {
+    width: 320px;
+    border-right: 1px solid white;
+  }
   .rightSide {
     display: flex;
     flex-wrap: wrap;
@@ -196,6 +202,10 @@ const FooterStyled = styled.div`
     }
     .information {
       margin-top: 20px;
+    }
+    .leftSideBorder {
+      border-right: 0px solid white;
+
     }
   }
 
