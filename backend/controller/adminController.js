@@ -1,5 +1,6 @@
 const { json } = require("body-parser");
 const { advertisementBaseSchema } = require("../model/Advertisement");
+const { baseSchema } = require("../model/User");
 
 /**
  * @description Admin can get one advertisement
@@ -45,6 +46,11 @@ const getAll = async (req, res) => {
           },
         },
         {
+          $match: {
+            stateOfAdvertisement: "waiting",
+          },
+        },
+        {
           $facet: {
             totalData: [
               {
@@ -70,7 +76,7 @@ const getAll = async (req, res) => {
     } else if (!req.query.search) {
       advertisements = await advertisementBaseSchema.aggregate([
         {
-          $match: { _id: { $exists: true } },
+          $match: { stateOfAdvertisement: "waiting" },
         },
         {
           $facet: {
@@ -120,15 +126,36 @@ const getAll = async (req, res) => {
 const approveAdvertisement = async (req, res) => {
   try {
     const { id } = req.params;
-    const advertisement = await advertisementBaseSchema.findOne({ _id: id });
-    advertisement.stateOfAdvertisement = "approved";
-    advertisement.save();
+    const advertisement = await advertisementBaseSchema.findOneAndUpdate(
+      { _id: id },
+      { $set: { stateOfAdvertisement: "approved" } },
+      { returnOriginal: false }
+    );
+    const user = await baseSchema.updateOne(
+      { _id: advertisement.account },
+      {
+        $push: {
+          notifications: {
+            $each: [
+              {
+                notificationMessage: "Your advertisement has been approved",
+                notificationUrl: `localhost:3001/advertisements/${id}`,
+              },
+            ],
+            $sort: 1,
+            $slice: 20,
+          },
+        },
+      }
+    );
+
     return res.status(200).json({
       success: true,
       data: advertisement,
       message: "advertisement has been approved",
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: "Error on server while approving advertisement",
@@ -143,16 +170,16 @@ const approveAdvertisement = async (req, res) => {
 const rejectAdvertisement = async (req, res) => {
   try {
     const { id } = req.params;
-    const { message } = req.body;
-    const advertisement = await advertisementBaseSchema.findOne({ _id: id });
-    advertisement.stateOfAdvertisement = "rejected";
-    if (message) {
-      advertisement.adminMessage = message;
-      advertisement.save();
-    } else {
-      advertisement.adminMessage = "no messages from admin";
-      advertisement.save();
+    let { message } = req.body;
+    if (message == "" || !message) {
+      message = "No message from admin";
     }
+    console.log(message);
+    const advertisement = await advertisementBaseSchema.findOneAndUpdate(
+      { _id: id },
+      { $set: { stateOfAdvertisement: "rejected", adminMessage: message } },
+      { returnOriginal: false }
+    );
     return res.status(200).json({
       success: true,
       data: advertisement,
@@ -161,14 +188,44 @@ const rejectAdvertisement = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Error on server while approving advertisement",
+      message: "Error on server while rejecting advertisement",
     });
   }
 };
+/**
+ * @description Gets one user
+ * @type GET
+ * @url /api/advertisements/dashboard/admin/user/getone/:id
+ */
+const getOneUser = async (req, res) => {};
+/**
+ * @description Gets all users that are waiting
+ * @type GET
+ * @url /api/advertisements/dashboard/admin/user/getall/:id
+ */
+const getAllUsers = async (req, res) => {};
+
+/**
+ * @description Admin can approve user
+ * @type PATCH
+ * @url /api/advertisements/dashboard/admin/user/approve/:id
+ */
+const approveUser = async (req, res) => {};
+
+/**
+ * @description Admin can reject user
+ * @type PATCH
+ * @url /api/advertisements/dashboard/admin/user/reject/:id
+ */
+const rejectUser = async (req, res) => {};
 
 module.exports = {
   getOne,
   getAll,
   approveAdvertisement,
   rejectAdvertisement,
+  getOneUser,
+  getAllUsers,
+  approveUser,
+  rejectUser,
 };
