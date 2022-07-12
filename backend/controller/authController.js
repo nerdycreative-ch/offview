@@ -123,7 +123,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${owner.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${owner.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         owner.email,
@@ -159,7 +159,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorCompany.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${investorCompany.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         investorCompany.email,
@@ -190,7 +190,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         investorPrivate.email,
@@ -227,7 +227,7 @@ const signup_post = async (req, res) => {
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${broker.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${broker.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         broker.email,
@@ -315,7 +315,7 @@ const resetPasswordInit = async (req, res) => {
     let html = `
     <h1>Hello,/h1>
     <p>Please click the following link to reset your password</p>
-    <a href = "http://localhost:${process.env.PORT}/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
     sendVerification(
       user.email,
       "Reset your password",
@@ -441,7 +441,12 @@ const login_post = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await baseSchema.findOne({ email: email });
-
+    if (user.verified !== true) {
+      return res.status(500).json({
+        success: false,
+        message: "email is not verifed, please verify ur email",
+      });
+    }
     if (!(await user.comparePassword(password))) {
       return res.status(401).json({
         success: false,
@@ -456,7 +461,9 @@ const login_post = async (req, res) => {
       token: `Bearer ${token}`,
       message: "Token has been created",
     });
-    res.status(200).json({ success: true, message: "successfully logged in" });
+    return res
+      .status(200)
+      .json({ success: true, message: "successfully logged in" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
