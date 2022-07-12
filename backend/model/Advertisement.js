@@ -27,11 +27,11 @@ const advertisementBaseSchema = mongoose.model(
         default: "waiting",
         enum: ["approved", "waiting", "rejected"],
       },
+      offers: [{ type: mongoose.Schema.Types.ObjectId, ref: "offers" }],
       adminMessage: {
+        default: "no message from admin",
         type: String,
       },
-      offers: [{ type: mongoose.Schema.Types.ObjectId, ref: "offers" }],
-
       //first part
       title: {
         type: String,

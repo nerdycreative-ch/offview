@@ -20,6 +20,7 @@ const { unlinkSync } = require("fs-extra");
 //removes files from folder
 const unlinkFile = util.promisify(fs.unlink);
 const path = require("path");
+const advertisementPagination = require("../functions/advertisementpagination.js");
 
 /*
 advertisement_Get,
@@ -65,36 +66,92 @@ const advertisement_Get = async (req, res) => {
 /**
  * @description Gets all advertisement for web
  * @type GET
- * @url /api/advertisements/dashboard/getallwevb
+ * @url /api/advertisements/dashboard/getallweb
  */
 
 const advertisement_GetAllWeb = async (req, res) => {
   try {
-    const { location, minPrice, maxPrice, type } = req.body;
-    const advertisement = await advertisementBaseSchema.aggregate().match({
-      $and: [
-        { advertisementType: searchprofile.type },
-        { town: searchprofile.location },
-        { propertyType: searchprofile.propertyType },
+    const { location, minPrice, maxPrice, type, page, limit, sort } = req.query;
+    const pageOptions = {
+      page: parseInt(page, 10) || 0,
+      limit: parseInt(limit, 10) || 10,
+      sort: parseInt(sort),
+    };
+    let advertisements;
+    if (maxPrice && minPrice && location && type) {
+      advertisements = await advertisementBaseSchema.aggregate([
         {
-          salesPrice: {
-            $gte: minPrice,
-            $lte: maxPrice,
+          $match: {
+            $and: [
+              { advertisementType: type },
+              { town: location },
+              {
+                salesPrice: {
+                  $gte: parseInt(minPrice),
+                  $lte: parseInt(maxPrice),
+                },
+              },
+            ],
           },
         },
-      ],
-    });
-    if (advertisement == []) {
+        {
+          $facet: {
+            totalData: [
+              {
+                $skip: pageOptions.page * pageOptions.limit,
+              },
+              {
+                $limit: pageOptions.limit,
+              },
+              {
+                $sort: {
+                  yearOfConstruction: pageOptions.sort,
+                },
+              },
+            ],
+            totalCount: [
+              {
+                $count: "numberOAdvertisements",
+              },
+            ],
+          },
+        },
+      ]);
+    } else {
+      advertisements = await advertisementBaseSchema.aggregate().facet({
+        totalData: [
+          {
+            $skip: pageOptions.page * pageOptions.limit,
+          },
+          {
+            $limit: pageOptions.limit,
+          },
+          {
+            $sort: {
+              yearOfConstruction: pageOptions.sort,
+            },
+          },
+        ],
+        totalCount: [
+          {
+            $count: "numberOAdvertisements",
+          },
+        ],
+      });
+    }
+
+    if (advertisements == []) {
       return res
         .status(404)
         .json({ success: false, message: "No matches made" });
     }
     return res.status(200).json({
       success: true,
-      data: advertisement,
-      matches: advertisement.length,
+      data: advertisements,
+      length: advertisements.totalCount,
     });
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Error getting all advertisements" });
@@ -104,20 +161,20 @@ const advertisement_GetAllWeb = async (req, res) => {
  * @description Gets all advertisement
  * @type GET
  * @url /api/advertisements/dashboard/getAll
+ * @query page,limit,sort,search
  */
 
 const advertisement_GetAll = async (req, res) => {
-  try {
-    const user = req.user;
-    const advertisements = await advertisementBaseSchema.find({
-      account: user._id,
-    });
-    return res.status(200).json({ success: true, data: advertisements });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ success: false, message: "Error getting all advertisements" });
-  }
+  const { page, limit, sort, search } = req.query;
+  return advertisementPagination(
+    page,
+    limit,
+    sort,
+    search,
+    "approved",
+    req.user,
+    res
+  );
 };
 
 /**
@@ -448,7 +505,7 @@ const patchAfter = async (req, res) => {
     let imageurlsplited = [];
     let imgKey = [];
     const advertisement = await advertisementBaseSchema.findOne({ _id: id });
-    for (let i = 0; i < advertisement.image.length; ) {
+    for (let i = 0; i < advertisement["image"].length; ) {
       imageurlsplited.push(advertisement.image[i].split("/"));
       imgKey.push(imageurlsplited[i][4]);
       if (imgKey[i] === key) {
