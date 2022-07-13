@@ -441,16 +441,16 @@ const login_post = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await baseSchema.findOne({ email: email });
-    if (user.verified !== true) {
-      return res.status(500).json({
-        success: false,
-        message: "email is not verifed, please verify ur email",
-      });
-    }
+
     if (!(await user.comparePassword(password))) {
       return res.status(401).json({
         success: false,
-        message: "Failed, password is not correct",
+        message: "Email or password is not correct",
+      });
+    } else if (user.verified !== true) {
+      return res.status(401).json({
+        success: false,
+        message: "Email is not verifed, please verify ur email",
       });
     }
 
@@ -461,9 +461,9 @@ const login_post = async (req, res) => {
       token: `Bearer ${token}`,
       message: "Token has been created",
     });
-    return res
-      .status(200)
-      .json({ success: true, message: "successfully logged in" });
+    // return res
+    //   .status(200)
+    //   .json({ success: true, message: "Successfully logged in" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({

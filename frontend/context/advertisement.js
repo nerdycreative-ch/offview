@@ -3,11 +3,14 @@ import { useRouter } from "next/router";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { useAuthContext } from "./auth";
 
 const AdvertisementContext = createContext();
 
 export const Advertisementcontext = ({ children }) => {
   const router = useRouter();
+
+  const {token} = useAuthContext();
 
   const [finalAdvertisement, setFinalAdvertisement] = useState("");
   const [AdvadvertisementActiveLink, AdvsetAdvertisementActiveLink] =
@@ -15,6 +18,8 @@ export const Advertisementcontext = ({ children }) => {
   const [AdvpropertyActiveLink, AdvsetPropertyActiveLink] = useState(0);
 
   const [listOfAdvertisement, setListOfAdvertisement] = useState([]);
+
+
 
   //GET ADVERTISEMENT
   // useEffect(() => {
@@ -297,7 +302,7 @@ export const Advertisementcontext = ({ children }) => {
       {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGhvdG1haWwuY29tIiwiaWQiOiI2MmM2OTFlOTdlY2I4MDI2NmQ4M2M1ZDMiLCJpYXQiOjE2NTcxODEzNjgsImV4cCI6MTY1NzQ0MDU2OH0.NKykfu6zenMC8T2AhWmLcFXnNGS0JnJK62tJvEBw47U",
+           token,
           "Content-Type": "application/json",
           Accept: "application/json",
         },

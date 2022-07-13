@@ -83,8 +83,7 @@ export const Searchprofilecontext = ({ children }) => {
         {
           headers: {
             // Authorization: token,
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImE0QGhvdG1haWwuY29tIiwiaWQiOiI2MmM2OTMwMDdlY2I4MDI2NmQ4M2M1ZGYiLCJpYXQiOjE2NTc1MzAwMjYsImV4cCI6MTY1Nzc4OTIyNn0.2wcSRnlHWr8PkTS2sYd9cNi8aB_eMOL3MSup6HzDRlY",
+            Authorization: token,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -96,7 +95,7 @@ export const Searchprofilecontext = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
-      
+
     localStorage.removeItem("advertisementActiveLink");
     localStorage.removeItem("propertyActiveLink");
     localStorage.removeItem("search-region-form");

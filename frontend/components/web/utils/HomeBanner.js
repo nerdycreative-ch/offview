@@ -136,12 +136,13 @@ const HomeBannerStyled = styled.div`
     .banner {
       padding: 100px 0;
       margin-top: 50px;
-      width: 90%;
+      width: 100%;
       background: url("../../../assets/images/web/shapeHomePageBanner.png");
       background-repeat: no-repeat;
       background-position: center top;
+      background-size: contain;
 
-      padding-bottom: 400px;
+      padding-bottom: 240px;
     }
   }
 
@@ -157,10 +158,11 @@ const HomeBannerStyled = styled.div`
       line-height: 34px;
     }
     .banner {
-      background-position: top left;
+      background-position: top center;
       padding: 40px 0;
-      padding-bottom: 200px;
+      padding-bottom: 240px;
       width: 100%;
+      background-size: contain;
     }
   }
   .leftSideContent {
@@ -171,7 +173,7 @@ const HomeBannerStyled = styled.div`
     .banner {
       background-position: top left;
       padding: 40px 0;
-      padding-bottom: 200px;
+      padding-bottom: 100px;
       width: 100%;
       background-size: contain;
     }

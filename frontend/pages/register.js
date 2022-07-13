@@ -67,12 +67,14 @@ const Register = () => {
                     type="password"
                     icon
                     name="password"
+                    showPasswordProp
                   />
                   <UserInput
                     labelName="Confirm Password"
                     type="password"
                     icon
                     name="ConfirmPassword"
+                    showPasswordProp
                   />
 
                   {/* {errorResult && (

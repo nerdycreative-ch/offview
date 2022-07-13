@@ -17,6 +17,7 @@ const BackButton = () => {
 const BackButtonStyle = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   .backText {
     font-weight: 400;

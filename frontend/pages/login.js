@@ -23,13 +23,6 @@ const Login = () => {
     password: "",
   };
 
-  const [errorResult, setErrorResult] = useState(false);
-
-  const passwordValidation = {
-    email: "",
-    password: "",
-  };
-
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
@@ -48,46 +41,14 @@ const Login = () => {
         password: values.password,
       });
 
-      console.log("RES", res);
-
-      console.log("E PARA");
-      localStorage.setItem("token", res.token);
-
-      console.log("E DYTA", res.token);
-      setToken("asdasd" + res.token);
+      setToken(localStorage.setItem("token", res.token));
+      // setToken("asdasd" + res.token);
 
       onSubmitProps.resetForm();
       Router.push("/dashboard");
     } catch (error) {
-      // if (
-      //   error.response &&
-      //   error.reponse.stauts >= 400 &&
-      //   error.response.status <= 500
-      // ) {
-      //   console.log("ERROR" , error);
-      //   setError(error.response.data.message);
-      // }
-      setError("Email or password is not correct");
+      setError(error.response.data.message);
     }
-
-    // if (
-    //   values.email == passwordValidation.password ||
-    //   values.password == passwordValidation.password
-    // ) {
-    //   console.log("Form data", values);
-    //   onSubmitProps.resetForm();
-    //   setErrorResult(false);
-    //   Router.push("/dashboard");
-    // } else {
-    //   setErrorResult(true);
-    //   setTimeout(() => {
-    //     setErrorResult(false);
-    //   }, 6000);
-    // }
-  };
-
-  const errorMessage = {
-    name: "Incorrect email or password",
   };
 
   return (
@@ -119,11 +80,8 @@ const Login = () => {
                   type="password"
                   icon
                   name="password"
+                  showPasswordProp={true}
                 />
-
-                {errorResult && (
-                  <p className="errorMessage">{errorMessage.name}</p>
-                )}
 
                 {erorr && <p className="errorMessage">{erorr}</p>}
 

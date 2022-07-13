@@ -38,6 +38,15 @@ export const AuthWrappercontext = ({ children }) => {
     getUser();
   }, [token]);
 
+  useEffect(() => {
+    console.log("TOKEN MAFIA", token);
+
+  },[token])
+
+
+
+
+
   const globalValues = {
     // email: "",
     // password: "",

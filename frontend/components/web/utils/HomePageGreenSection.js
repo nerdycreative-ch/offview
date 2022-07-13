@@ -285,6 +285,7 @@ const HomePageGreenSectionStyled = styled.div`
   }
 
   @media (max-width: 1439px) {
+    padding-top: 70px;
     .dashboardImage {
       display: none;
     }
@@ -329,18 +330,16 @@ const HomePageGreenSectionStyled = styled.div`
       top: 100px;
     }
     .bannerDataSection {
-      margin-top: -70px;
+      margin-top: 0px;
     }
     .bannerDataSection h1 {
+  
       font-size: 22px;
     }
     .bothSide {
       padding: 30px 22px;
       padding-bottom: 0px;
     }
-  }
-  @media (max-width: 991.98px) {
-    margin-top: 50px;
   }
 
   @media (max-width: 767.98px) {
