@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
 import AppContainer from "../wrappers/AppContainer";
 import StepsNumber from "../utils/StepsNumber";
@@ -8,6 +8,13 @@ import Button from "../utils/Button";
 import RegisterTitle from "../utils/RegisterTitle";
 import { useSearchProfileContext } from "../../../context/searchprofile";
 import { useRouter } from "next/router";
+import { zoomIn } from "react-animations";
+
+const bounceAnimation = keyframes`${zoomIn}`;
+
+const BouncyDiv = styled.div`
+  animation: 0.7s ${bounceAnimation};
+`;
 
 const SelectProfile = ({ changeStep }) => {
   const Router = useRouter();
@@ -31,15 +38,54 @@ const SelectProfile = ({ changeStep }) => {
   } = useSearchProfileContext();
 
   const onClick = () => {
+    localStorage.setItem(
+      "advertisementActiveLink",
+      JSON.stringify(advertisementActiveLink)
+    );
+    localStorage.setItem(
+      "propertyActiveLink",
+      JSON.stringify(propertyActiveLink)
+    );
+
     setFinalSubmit({
       ...finalSubmit,
       advertisementType: advertisementActiveLink,
       propertyType: propertyActiveLink,
     });
+
     changeStep();
 
     Router.push("/searchsteps?page=searchregion");
   };
+
+  useEffect(() => {
+    let momentaryAdvertisemetLink = JSON.parse(
+      localStorage.getItem("advertisementActiveLink")
+    );
+    let momentaryActiveLink = JSON.parse(
+      localStorage.getItem("propertyActiveLink")
+    );
+    let momentaryElement;
+
+    if (momentaryAdvertisemetLink) {
+      document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+        momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+        if (
+          momentaryElement == momentaryAdvertisemetLink ||
+          momentaryElement == momentaryActiveLink
+        ) {
+          element.click();
+        }
+      });
+    }
+
+    // setAdvertisementActiveLink(
+    //   JSON.parse(localStorage.getItem("advertisementActiveLink"))
+    // );
+    // setPropertyActiveLink(
+    //   JSON.parse(localStorage.getItem("propertyActiveLink"))
+    // );
+  }, []);
 
   return (
     <SelectProfileStyled>
@@ -82,32 +128,39 @@ const SelectProfile = ({ changeStep }) => {
                   })}
                 </div>
               </div>
-              <div
-                style={{
-                  marginTop: `${heightOfScreen < 900 ? "14px" : "55px"}`,
-                }}
-                className="radioButtonForm"
-              >
-                <p className={`smallText`}>How are you going to use offview?</p>
-                <div className="radioButtonGroup">
-                  {propertyType.map((item, index) => {
-                    return (
-                      <BigRadioButton
-                        onClick={() => setPropertyActiveLink(item.id)}
-                        key={index}
-                        width={45}
-                        height={136}
-                        type={item.name}
-                        PCactiveLink={propertyActiveLink}
-                        id={item.id}
-                        nameOfCat="PC"
-                        paddingVertical={20}
-                        paddingHorizontal={42}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+
+              {advertisementActiveLink != "" && (
+                <BouncyDiv>
+                  <div
+                    style={{
+                      marginTop: `${heightOfScreen < 900 ? "14px" : "55px"}`,
+                    }}
+                    className="radioButtonForm"
+                  >
+                    <p className={`smallText`}>
+                      How are you going to use offview?
+                    </p>
+                    <div className="radioButtonGroup">
+                      {propertyType.map((item, index) => {
+                        return (
+                          <BigRadioButton
+                            onClick={() => setPropertyActiveLink(item.id)}
+                            key={index}
+                            width={45}
+                            height={136}
+                            type={item.name}
+                            PCactiveLink={propertyActiveLink}
+                            id={item.id}
+                            nameOfCat="PC"
+                            paddingVertical={20}
+                            paddingHorizontal={42}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </BouncyDiv>
+              )}
             </div>
           </div>{" "}
           <div style={{ marginTop: 30, paddingBottom: 30 }}>

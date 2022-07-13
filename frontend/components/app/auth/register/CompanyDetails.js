@@ -9,6 +9,7 @@ import RegisterTitle from "../../utils/RegisterTitle";
 import AuthContainer from "../../wrappers/AuthContainer";
 import { useAuthContext } from "../../../../context/auth";
 import { useRouter } from "next/router";
+import { Persist } from "formik-persist";
 
 const CompanyDetails = ({ whichType }) => {
   const Router = useRouter();
@@ -40,6 +41,9 @@ const CompanyDetails = ({ whichType }) => {
       street: values.street,
       country: values.country,
       phoneNumber: values.phoneNumber,
+      no: values.no,
+      city: values.city,
+      position: values.position,
       // Position: values.Position,
     });
 
@@ -103,32 +107,32 @@ const CompanyDetails = ({ whichType }) => {
                         name="title"
                         placeholder="Select Title"
                       />
-                      {/* <UserInput
+                      <UserInput
                         labelName="Position *"
                         type="text"
-                        name="Position"
+                        name="position"
                         placeholder="ex. Manager"
-                      /> */}
-{/* 
+                      />
+                      {/* 
                       {whichType && ( */}
-                        <div className="inLineItems">
-                          <div className="singleItem">
-                            <UserInput
-                              labelName="First Name *"
-                              type="text"
-                              name="firstname"
-                              placeholder="John"
-                            />
-                          </div>
-                          <div className="singleItem">
-                            <UserInput
-                              labelName="Last Name *"
-                              type="text"
-                              name="lastname"
-                              placeholder="Doe"
-                            />
-                          </div>
+                      <div className="inLineItems">
+                        <div className="singleItem">
+                          <UserInput
+                            labelName="First Name *"
+                            type="text"
+                            name="firstname"
+                            placeholder="John"
+                          />
                         </div>
+                        <div className="singleItem">
+                          <UserInput
+                            labelName="Last Name *"
+                            type="text"
+                            name="lastname"
+                            placeholder="Doe"
+                          />
+                        </div>
+                      </div>
                       {/* )} */}
                       <UserInput
                         labelName="Phone Number *"
@@ -145,6 +149,20 @@ const CompanyDetails = ({ whichType }) => {
                       />
 
                       <UserInput
+                        labelName="City"
+                        type="text"
+                        name="city"
+                        placeholder="City"
+                      />
+
+                      <UserInput
+                        labelName="No *"
+                        type="text"
+                        name="no"
+                        placeholder="00"
+                      />
+
+                      <UserInput
                         labelName="Street Address *"
                         type="text"
                         name="street"
@@ -154,6 +172,8 @@ const CompanyDetails = ({ whichType }) => {
                       <div style={{ marginTop: 30 }}>
                         <Button type="submit" title="Continue" />
                       </div>
+
+                      <Persist name="company-details-form" />
                     </Form>
                   );
                 }}

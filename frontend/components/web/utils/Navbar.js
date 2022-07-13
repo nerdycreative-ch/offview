@@ -3,8 +3,11 @@ import styled from "styled-components";
 import Link from "next/link";
 import Button from "./Button";
 import { useRouter } from "next/router";
+import { useAuthContext } from "../../../context/auth";
 
-const Navbar = ({propertyDetail}) => {
+const Navbar = ({ propertyDetail }) => {
+  const { token, setToken } = useAuthContext();
+
   const [activeLink, setActiveLink] = useState("");
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -13,7 +16,10 @@ const Navbar = ({propertyDetail}) => {
   console.log(router);
 
   return (
-    <NavbarStyled isDropDownOpen={isDropDownOpen} propertyDetail={propertyDetail}>
+    <NavbarStyled
+      isDropDownOpen={isDropDownOpen}
+      propertyDetail={propertyDetail}
+    >
       <div className="borderLineNavbar">
         <div className="leftSide">
           <Link href="/">
@@ -74,16 +80,34 @@ const Navbar = ({propertyDetail}) => {
           </ul>
         </div>
         <div className="rightSide ">
-          <Link href="/login">
-            <a>Login</a>
-          </Link>
-          <Link href="/register">
-            <div className="showElement">
-              <div className="registerBtnContainer">
-                <Button text="Become a member" green />
-              </div>
-            </div>
-          </Link>
+          {token == null ? (
+            <>
+              <Link href="/login">
+                <a>Login</a>
+              </Link>
+              <Link href="/register">
+                <div className="showElement">
+                  <div className="registerBtnContainer">
+                    <Button text="Become a member" green />
+                  </div>
+                </div>
+              </Link>
+            </>
+          ) : (
+            <>
+              <a onClick={() => setToken(localStorage.removeItem("token"))}>
+                Logout
+              </a>
+              <Link href="/register">
+                <div className="showElement">
+                  <div className="registerBtnContainer">
+                    <Button text="Go to App" green />
+                  </div>
+                </div>
+              </Link>
+            </>
+          )}
+
           {!isDropDownOpen && (
             <img
               src="../../../assets/images/web/dropdownHamburgerMenu.svg"
@@ -140,7 +164,6 @@ const NavbarStyled = styled.nav`
 
   .leftSide {
     display: flex;
-
   }
   .logo {
     cursor: pointer;

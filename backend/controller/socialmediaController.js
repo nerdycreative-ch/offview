@@ -3,7 +3,7 @@ const Socialmedia = require("../model/socialmedia");
 /**
  * @description get all socialmedia
  * @type GET
- * @url socialmedia/dashboard/getall
+ * @url /api/socialmedia/dashboard/getall
  */
 
 const socialmediaGet = async (req, res) => {
@@ -21,7 +21,7 @@ const socialmediaGet = async (req, res) => {
 /**
  * @description Get one socialmedia
  * @type GET
- * @url socialmedia/dashboard/getone
+ * @url /api/socialmedia/dashboard/getone
  */
 
 const socialmediaGetOne = async (req, res) => {
@@ -39,7 +39,7 @@ const socialmediaGetOne = async (req, res) => {
 /**
  * @description Create socialmedia
  * @type POST
- * @url socialmedia/dashboard/post
+ * @url /api/socialmedia/dashboard/post
  */
 const socialmediaPost = async (req, res) => {
   const { icon, url } = req.body;
@@ -60,7 +60,7 @@ const socialmediaPost = async (req, res) => {
 /**
  * @description Edit socialmedia
  * @type PATCH
- * @url socialmedia/dashboard/patch/:id
+ * @url /api/socialmedia/dashboard/patch/:id
  */
 
 const socialmediaPatch = async (req, res) => {
@@ -81,7 +81,7 @@ const socialmediaPatch = async (req, res) => {
 /**
  * @description Delete socialmedia
  * @type DELETE
- * @url socialmedia/dashboard/delete/:id
+ * @url /api/socialmedia/dashboard/delete/:id
  */
 
 const socialmediaDelete = async (req, res) => {

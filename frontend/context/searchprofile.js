@@ -3,11 +3,18 @@ import { useRouter } from "next/router";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { useAuthContext } from "./auth";
 
 const SearchProfileContext = createContext();
 
 export const Searchprofilecontext = ({ children }) => {
   const router = useRouter();
+
+  const { token } = useAuthContext();
+
+  console.log("TOKEN NGA ASKUSHI ", token);
+
+  console.log("A" + token);
 
   const [finalSubmit, setFinalSubmit] = useState();
   const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
@@ -62,8 +69,8 @@ export const Searchprofilecontext = ({ children }) => {
     getFiltredProfiles();
   }, []);
 
-  const submitDataToBackEnd = () => {
-    axios
+  const submitDataToBackEnd = async () => {
+    await axios
       .post(
         `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
         {
@@ -75,6 +82,8 @@ export const Searchprofilecontext = ({ children }) => {
         },
         {
           headers: {
+            // Authorization: token,
+            Authorization: token,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -86,6 +95,12 @@ export const Searchprofilecontext = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
+
+    localStorage.removeItem("advertisementActiveLink");
+    localStorage.removeItem("propertyActiveLink");
+    localStorage.removeItem("search-region-form");
+    localStorage.removeItem("minVal");
+    localStorage.removeItem("maxVal");
   };
 
   return (

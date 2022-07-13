@@ -2,6 +2,7 @@ import styled from "styled-components";
 // import imageText from "../../../public/assets/images/register/Eye.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "../../web/utils/TextError";
+import { useEffect, useState } from "react";
 
 const UserInput = ({
   labelName,
@@ -10,28 +11,38 @@ const UserInput = ({
   marginTop = 14,
   placeholder,
   name,
+  showPasswordProp,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+
+
   return (
-    <UserInputStyle style={{ marginTop }}>
+    <UserInputStyle style={{ marginTop }} >
       <label htmlFor={labelName} className="label">
         {labelName}
       </label>
-      <Field
-        id={labelName}
-        type={type}
-        className="textInput"
-        placeholder={
-          type == "password" ? "· · · · · · · · · · · · ·" : placeholder
-        }
-        style={
-          icon && {
-            backgroundImage: `url("../../../../assets/images/register/Eye.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 12px center",
+      <div className="textWrapper">
+        <Field
+          id={labelName}
+         
+          type={(showPasswordProp && !showPassword) ? "password" : "text"}
+          
+          // type={type == "password" ? "password" : type}
+          className="textInput"
+          placeholder={
+            type == "password" ? "· · · · · · · · · · · · ·" : placeholder
           }
-        }
-        name={name}
-      />
+          name={name}
+        />
+        {type == "password" && (
+          <img
+            src="../../../../assets/images/register/Eye.svg"
+            className="eye"
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        )}
+      </div>
       <ErrorMessage name={name} component={TextError} />
     </UserInputStyle>
   );
@@ -62,6 +73,16 @@ const UserInputStyle = styled.div`
     padding: 0 12px;
     margin: 6px 0;
     outline: none;
+  }
+  .textWrapper {
+    display: flex;
+    position: relative;
+  }
+  .eye {
+    position: absolute;
+    top: 22px;
+    right: 10px;
+    cursor: pointer;
   }
 `;
 

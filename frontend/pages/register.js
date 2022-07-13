@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import AuthRightSideContainer from "../components/app/wrappers/AuthRightSideCont
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useAuthContext } from "../context/auth";
+import { Persist } from "formik-persist";
 
 const Register = () => {
   const Router = useRouter();
@@ -31,10 +32,11 @@ const Register = () => {
       password: values.password,
       ConfirmPassword: values.ConfirmPassword,
     });
+
     Router.push("/registersteps?page=selectprofile");
   };
 
-  console.log(userData);
+  // console.log(userData);
 
   return (
     <RegisterStyled>
@@ -65,12 +67,14 @@ const Register = () => {
                     type="password"
                     icon
                     name="password"
+                    showPasswordProp
                   />
                   <UserInput
                     labelName="Confirm Password"
                     type="password"
                     icon
                     name="ConfirmPassword"
+                    showPasswordProp
                   />
 
                   {/* {errorResult && (
@@ -83,6 +87,8 @@ const Register = () => {
 
                     {/* </Link> */}
                   </div>
+
+                  <Persist name="signup-form" />
                 </Form>
               );
             }}

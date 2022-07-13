@@ -17,12 +17,55 @@ const HomePageGreenSection = () => {
   //   },
   // ]);
 
-  const [activeImage, setActiveImage] = useState("dashboard");
+  // const [activeImage, setActiveImage] = useState("dashboard");
+
+  const [activeImage, setActiveImage] = useState("first");
 
   return (
     <HomePageGreenSectionStyled>
       <div className="topImagesContainer">
-        {activeImage == "dashboard" ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            className={`${
+              activeImage == "first" ? "active growImage" : "notactive"
+            } dashboardImage`}
+            onClick={() => setActiveImage("first")}
+          >
+            <Image
+              className="likiImg"
+              src={DashboardImage}
+              alt="dashboard image"
+            />
+          </div>
+
+          <div
+            className={`${
+              activeImage == "second" ? "active growImage" : "notactive "
+            } dashboardImage`}
+            onClick={() => setActiveImage("second")}
+          >
+            <Image
+              className="likiImg"
+              src={selectProfileScreen}
+              alt="dashboard image"
+            />
+          </div>
+
+          <div
+            className={`${
+              activeImage == "third" ? "active growImage" : "notactive"
+            } dashboardImage`}
+            onClick={() => setActiveImage("third")}
+          >
+            <Image
+              className="likiImg"
+              src={DashboardImage}
+              alt="dashboard image"
+            />
+          </div>
+        </div>
+
+        {/* {activeImage == "dashboard" ? (
           <div className="dashboardImage">
             <Image src={DashboardImage} alt="dashboard image" />
           </div>
@@ -30,8 +73,8 @@ const HomePageGreenSection = () => {
           <div className="dashboardImage">
             <Image src={selectProfileScreen} alt="dashboard image" />
           </div>
-        )}
-
+        )} */}
+        {/* 
         <div className="littleImageBanner">
           <Image
             src={SelectProfileImageBanner1}
@@ -49,7 +92,7 @@ const HomePageGreenSection = () => {
             height={461}
             className="littleImage"
           />
-        </div>
+        </div> */}
       </div>
 
       <div className="bannerDataSection">
@@ -118,12 +161,12 @@ const HomePageGreenSectionStyled = styled.div`
   width: 100%;
 
   .topImagesContainer {
-    display: flex;
-    justify-content: space-around;
     position: relative;
     bottom: 170px;
     padding: 0 11.25%;
     height: 100%;
+    width: 100%;
+    /* background-color: red; */
   }
 
   .bannerDataSection {
@@ -209,8 +252,41 @@ const HomePageGreenSectionStyled = styled.div`
     border-radius: 10px;
   }
 
+  .dashboardImage {
+    /* width: 240px; */
+    width: 720px;
+  }
+
+  .active {
+    width: px;
+  }
+  .notactive {
+    clip-path: polygon(50% 0, 90% 0, 90% 100%, 50% 100%);
+    transition: all 1.3s ease;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .growImage {
+    transition: all 1.3s ease;
+
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    border-radius: 20px;
+  }
+  .likiImg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .dashboardImage > span {
+    height: 100% !important;
+    display: flex !important;
+    align-items: stretch !important;
+  }
+
   @media (max-width: 1439px) {
-    .littleImageBanner {
+    padding-top: 70px;
+    .dashboardImage {
       display: none;
     }
 
@@ -254,18 +330,16 @@ const HomePageGreenSectionStyled = styled.div`
       top: 100px;
     }
     .bannerDataSection {
-      margin-top: -70px;
+      margin-top: 0px;
     }
     .bannerDataSection h1 {
+  
       font-size: 22px;
     }
     .bothSide {
       padding: 30px 22px;
       padding-bottom: 0px;
     }
-  }
-  @media (max-width: 991.98px) {
-    margin-top: 50px;
   }
 
   @media (max-width: 767.98px) {

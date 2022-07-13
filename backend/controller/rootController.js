@@ -6,12 +6,12 @@ const {
   iprivateSchema,
   rootSchema,
   adminSchema,
-} = require("../model/user");
+} = require("../model/User");
 
 /**
  * @description Gets one admins info
  * @type GET
- * @url /root/dashboard/get/:id
+ * @url /api/root/dashboard/get/:id
  */
 
 const getAdmin = async (req, res) => {
@@ -29,7 +29,7 @@ const getAdmin = async (req, res) => {
 /**
  * @description Gets all admins
  * @type GET
- * @url /root/dashboard/getall
+ * @url /api/root/dashboard/getall
  */
 const getAllAdmins = async (req, res) => {
   try {
@@ -45,7 +45,7 @@ const getAllAdmins = async (req, res) => {
 /**
  * @description create admins
  * @type POST
- * @url /root/dashboard/create
+ * @url /api/root/dashboard/create
  */
 const createAdmin = async (req, res) => {
   try {
@@ -69,7 +69,7 @@ const createAdmin = async (req, res) => {
 /**
  * @description Delete admin
  * @type DELETE
- * @url /root/dashboard/delete/:id
+ * @url /api/root/dashboard/delete/:id
  */
 
 const deleteAdmin = async (req, res) => {
@@ -91,7 +91,7 @@ const deleteAdmin = async (req, res) => {
 /**
  * @description Edit admin
  * @type PATCH
- * @url /root/dashboard/patch/:id
+ * @url /api/root/dashboard/patch/:id
  */
 
 const editAdmin = async (req, res) => {
@@ -113,7 +113,7 @@ const editAdmin = async (req, res) => {
 /**
  * @description Create the root user
  * @type POST
- * @url /root/dashboard/createroot
+ * @url /api/root/dashboard/createroot
  */
 
 const createRoot = async (req, res) => {

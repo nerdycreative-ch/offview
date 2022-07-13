@@ -1,13 +1,14 @@
 const router = require("express").Router();
 const authGuard = require("../middleware/auth-guard");
 const multer = require("multer");
+const checkRole = require("../middleware/authProtect");
 const upload = multer({ dest: "uploads/" });
-const{}
 
 //controllers
 const {
   advertisement_Get,
   advertisement_GetAll,
+  advertisement_GetAllWeb,
   advertisement_Post,
   advertisement_Patch,
   advertisement_Delete,
@@ -31,22 +32,28 @@ const {
 } = require("../controller/offerController");
 
 const {
+  getOne,
+  getAll,
   approveAdvertisement,
-  waitingAdvertisement,
   rejectAdvertisement,
+  getOneUser,
+  getAllUsers,
+  approveUser,
+  rejectUser,
 } = require("../controller/adminController");
 
 //routes\\
 
 router.get("/dashboard/getOne/:id", advertisement_Get);
-router.get("/dashboard/getAll", advertisement_GetAll);
+router.get("/dashboard/getAll", authGuard, advertisement_GetAll);
+router.get("/dashboard/getallweb", advertisement_GetAllWeb);
 router.post(
   "/dashboard/createAdvertisement",
   upload.fields([
     { name: "file", maxCount: 3 },
     { name: "image", maxCount: 3 },
   ]),
- // authGuard,
+  authGuard,
   advertisement_Post
 );
 router.patch("/dashboard/edit/:id", advertisement_Patch);
@@ -84,11 +91,27 @@ router.delete("/dashboard/file/deleteafter/:id/:key", deleteFileAfter);
 //download file
 router.get("/dashboard/image/downloadfile/:key", downloadFile);
 
-//admin methods for approving or rejecting advertisement
+//admin methods for approving or rejecting advertisement and users
 
-router.patch("/approve", authGuard, approveAdvertisement);
-router.patch("/waiting", authGuard, waitingAdvertisement);
-router.delete("/reject", authGuard, rejectAdvertisement);
+router.get("/dashboard/admin/getone/:id", getOne);
+router.get("/dashboard/admin/getall", getAll);
+router.patch(
+  "/dashboard/admin/approve/:id",
+  //checkRole("admin", "admin"),
+  //authGuard,
+  approveAdvertisement
+);
+
+router.patch(
+  "/dashboard/admin/reject/:id",
+  //checkRole("admin", "admin"),
+  // authGuard,
+  rejectAdvertisement
+);
+router.get("/dashboard/admin/user/getone/:id", getOneUser);
+router.get("/dashboard/admin/user/getall", getAllUsers);
+router.patch("/dashboard/admin/user/approve/:id", approveUser);
+router.patch("/dashboard/admin/user/reject/:id", rejectUser);
 
 //offers
 

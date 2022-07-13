@@ -5,7 +5,7 @@ const Location = require("../model/Location");
 /**
  * @description Gets one location
  * @type GET
- * @url /location/dashboard/getlocation/:id
+ * @url /api/location/dashboard/getlocation/:id
  */
 
 const getLocation = async (req, res) => {
@@ -24,7 +24,7 @@ const getLocation = async (req, res) => {
 /**
  * @description Gets all locations
  * @type GET
- * @url /location/dashboard/getalllocations
+ * @url /api/location/dashboard/getalllocations
  */
 
 const getAllLocations = async (req, res) => {
@@ -42,7 +42,7 @@ const getAllLocations = async (req, res) => {
 /**
  * @description Gets all locations countries
  * @type GET
- * @url /location/dashboard/getcountries
+ * @url /api/location/dashboard/getcountries
  */
 const getCountries = async (req, res) => {
   try {
@@ -63,7 +63,7 @@ const getCountries = async (req, res) => {
 /**
  * @description Creates one advertisement
  * @type POST
- * @url /location/dashboard/getalllocations
+ * @url /api/location/dashboard/getalllocations
  */
 
 const createLocation = async (req, res) => {
@@ -85,7 +85,7 @@ const createLocation = async (req, res) => {
 /**
  * @description Edits one advertisement
  * @type PATCH
- * @url /location/dashboard/getalllocations
+ * @url /api/location/dashboard/getalllocations
  */
 
 const editLocation = async (req, res) => {
@@ -107,7 +107,7 @@ const editLocation = async (req, res) => {
 /**
  * @description deletes one advertisement
  * @type DELETE
- * @url /location/dashboard/getalllocations
+ * @url /api/location/dashboard/getalllocations
  */
 
 const deleteLocation = async (req, res) => {

@@ -7,6 +7,10 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthWrappercontext = ({ children }) => {
+  const [token, setToken] = useState("");
+
+  const [currentUser, setCurrentUser] = useState();
+
   // SELECT PROFILE
   const [singleCategory, setSingleCategory] = useState("");
   const [singleTypeCategory, setSingleTypeCategory] = useState("");
@@ -14,6 +18,34 @@ export const AuthWrappercontext = ({ children }) => {
   const [registerSteps, setRegisterSteps] = useState(1);
 
   const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await axios(
+          `${process.env.NEXT_PUBLIC_URL}profiles/dashboard/myprofile`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        ).then((response) => console.log("responsi e kta " + response));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUser();
+  }, [token]);
+
+  useEffect(() => {
+    console.log("TOKEN MAFIA", token);
+
+  },[token])
+
+
+
+
 
   const globalValues = {
     // email: "",
@@ -30,7 +62,8 @@ export const AuthWrappercontext = ({ children }) => {
     legalForm: "",
     UID: "",
     Website: "",
-    // Position: "",
+    position: "",
+    city: "",
     postalcode: "",
   };
 
@@ -39,6 +72,11 @@ export const AuthWrappercontext = ({ children }) => {
     password: "",
     confirmPassword: "",
   };
+
+  useEffect(() => {
+    setSingleCategory(JSON.parse(localStorage.getItem("IS")));
+    setSingleTypeCategory(JSON.parse(localStorage.getItem("OS")));
+  }, []);
 
   const RegisterValidationSchema = Yup.object({
     email: Yup.string()
@@ -76,12 +114,14 @@ export const AuthWrappercontext = ({ children }) => {
     UID: Yup.string().required("UID is required"),
     Website: Yup.string().required("Website is required"),
     title: Yup.string().required("Title is required"),
-    country:  Yup.string().required("Country is required"),
-    street:  Yup.string().required("Street is required"),
-    phoneNumber:  Yup.string().required("Phone Number is required"),
+    country: Yup.string().required("Country is required"),
+    street: Yup.string().required("Street is required"),
+    phoneNumber: Yup.string().required("Phone Number is required"),
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string().required("Last Name is required"),
-    // Position: Yup.string().required("Position  is required"),
+    position: Yup.string().required("Position  is required"),
+    no: Yup.number().required("No  is required"),
+    city: Yup.string(),
   });
 
   const CompanyValidationSchema = CompanyBasedValidationSchema.shape({
@@ -113,6 +153,9 @@ export const AuthWrappercontext = ({ children }) => {
           mainrole: userData.singleCategory,
           role: userData.singleTypeCategory,
           website: userData.website,
+          city: userData.city,
+          No: userData.no,
+          position: userData.position,
           postalCode: "1234",
           gender: "male",
         },
@@ -129,6 +172,11 @@ export const AuthWrappercontext = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
+    localStorage.removeItem("signup-form");
+    localStorage.removeItem("company-details-form");
+    localStorage.removeItem("user-details-form");
+    localStorage.removeItem("IS");
+    localStorage.removeItem("PC");
   };
 
   return (
@@ -148,6 +196,8 @@ export const AuthWrappercontext = ({ children }) => {
         setSingleTypeCategory,
         CompanyBasedValidationSchema,
         CompanyValidationSchema,
+        token,
+        setToken,
       }}
     >
       {children}

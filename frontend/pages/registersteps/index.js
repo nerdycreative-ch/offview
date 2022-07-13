@@ -22,6 +22,8 @@ const Register = () => {
 
   const { setStepsActiveLink, changeStep } = useDashboardContext();
 
+  
+
   return (
     <RegisterStepsStyled>
       {page == "selectprofile" && (
@@ -52,7 +54,7 @@ const Register = () => {
 
       {page == "userdetails" &&
         singleCategory == "investor" &&
-        singleTypeCategory == "acompany" && (
+        singleTypeCategory == "company" && (
           <CompanyDetails
             whichType={singleCategory == "investor" && true}
             changeStep={() => setStepsActiveLink((prev) => prev + 1)}

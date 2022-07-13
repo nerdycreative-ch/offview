@@ -1,4 +1,5 @@
 import { Formik, Form } from "formik";
+import { Persist } from "formik-persist";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useAdvertisementContext } from "../../../context/advertisement";
@@ -324,6 +325,10 @@ const AIPliving = ({ changeStep }) => {
                     <Button title="Continue" type="submit" />
                   </div>
                 </div>
+
+
+                <Persist name="secondarea-adv-form" />
+
               </Form>
             );
           }}

@@ -4,7 +4,7 @@ const ImprintInfo = require("../model/imprint/imprintinfo");
 /**
  * @description get all imprints
  * @type GET
- * @url imprit/dashboard/getall
+ * @url /api/imprit/dashboard/getall
  */
 
 const imprintGet = async (req, res) => {
@@ -22,7 +22,7 @@ const imprintGet = async (req, res) => {
 /**
  * @description Get one imprints
  * @type GET
- * @url imprit/dashboard/getone
+ * @url /api/imprit/dashboard/getone
  */
 
 const imprintGetOne = async (req, res) => {
@@ -40,7 +40,7 @@ const imprintGetOne = async (req, res) => {
 /**
  * @description Create imprint
  * @type POST
- * @url imprint/dashboard/post
+ * @url /api/imprint/dashboard/post
  */
 const imprintPost = async (req, res) => {
   const { title, content } = req.body;
@@ -58,7 +58,7 @@ const imprintPost = async (req, res) => {
 /**
  * @description Edit imprint
  * @type PATCH
- * @url imprint/dashboard/patch/:id
+ * @url /api/imprint/dashboard/patch/:id
  */
 
 const imprintPatch = async (req, res) => {
@@ -79,7 +79,7 @@ const imprintPatch = async (req, res) => {
 /**
  * @description Delete imprint
  * @type DELETE
- * @url imprint/dashboard/delete/:id
+ * @url /api/imprint/dashboard/delete/:id
  */
 
 const imprintDelete = async (req, res) => {
@@ -99,7 +99,7 @@ const imprintDelete = async (req, res) => {
 /**
  * @description Get imprintinfo
  * @type GET
- * @url imprint/dashboard/information/get
+ * @url /api/imprint/dashboard/information/get
  */
 const imprintInfoGet = async (req, res) => {
   try {
@@ -116,7 +116,7 @@ const imprintInfoGet = async (req, res) => {
 /**
  * @description Create imprintinfo
  * @type POST
- * @url imprint/dashboard/information/post
+ * @url /api/imprint/dashboard/information/post
  */
 const imprintInfoPost = async (req, res) => {
   const { data, phoneNumber, email } = req.body;
@@ -138,7 +138,7 @@ const imprintInfoPost = async (req, res) => {
 /**
  * @description Edit imprintinfo
  * @type PATCH
- * @url imprint/dashboard/information/patch/:id
+ * @url /api/imprint/dashboard/information/patch/:id
  */
 
 const imprintInfoPatch = async (req, res) => {
@@ -159,7 +159,7 @@ const imprintInfoPatch = async (req, res) => {
 /**
  * @description Delete imprintinfo
  * @type DELETE
- * @url imprint/dashboard/information/delete/:id
+ * @url /api/imprint/dashboard/information/delete/:id
  */
 
 const imprintInfoDelete = async (req, res) => {

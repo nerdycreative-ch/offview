@@ -19,7 +19,8 @@ const util = require("util");
 const { unlinkSync } = require("fs-extra");
 //removes files from folder
 const unlinkFile = util.promisify(fs.unlink);
-const path = require('path');
+const path = require("path");
+const advertisementPagination = require("../functions/advertisementpagination.js");
 
 /*
 advertisement_Get,
@@ -28,16 +29,6 @@ advertisement_Post,
 advertisement_Put,
 advertisement_Delete,
 */
-const deletefilesmethod = (req)=>{
-
-  req.files["image"].forEach(file=>{
-    unlinkFile(file.path)
-  })
-  
-  req.files["file"].forEach(file =>{
-    unlinkFile(file.path)
-  })
-}
 
 /**
  * @description deletes files on folder upload after posting them to s3 bucket
@@ -56,7 +47,7 @@ const deletefilesmethod = (req) => {
 /**
  * @description Gets one advertisement
  * @type GET
- * @url /advertisements/dashboard/getOne/:id
+ * @url /api/advertisements/dashboard/getOne/:id
  */
 
 const advertisement_Get = async (req, res) => {
@@ -75,36 +66,92 @@ const advertisement_Get = async (req, res) => {
 /**
  * @description Gets all advertisement for web
  * @type GET
- * @url /advertisements/dashboard/getallwevb
+ * @url /api/advertisements/dashboard/getallweb
  */
 
 const advertisement_GetAllWeb = async (req, res) => {
   try {
-    const { location, minPrice, maxPrice, type } = req.body;
-    const advertisement = await advertisementBaseSchema.aggregate().match({
-      $and: [
-        { advertisementType: searchprofile.type },
-        { town: searchprofile.location },
-        { propertyType: searchprofile.propertyType },
+    const { location, minPrice, maxPrice, type, page, limit, sort } = req.query;
+    const pageOptions = {
+      page: parseInt(page, 10) || 0,
+      limit: parseInt(limit, 10) || 10,
+      sort: parseInt(sort),
+    };
+    let advertisements;
+    if (maxPrice && minPrice && location && type) {
+      advertisements = await advertisementBaseSchema.aggregate([
         {
-          salesPrice: {
-            $gte: minPrice,
-            $lte: maxPrice,
+          $match: {
+            $and: [
+              { advertisementType: type },
+              { town: location },
+              {
+                salesPrice: {
+                  $gte: parseInt(minPrice),
+                  $lte: parseInt(maxPrice),
+                },
+              },
+            ],
           },
         },
-      ],
-    });
-    if (advertisement == []) {
+        {
+          $facet: {
+            totalData: [
+              {
+                $skip: pageOptions.page * pageOptions.limit,
+              },
+              {
+                $limit: pageOptions.limit,
+              },
+              {
+                $sort: {
+                  yearOfConstruction: pageOptions.sort,
+                },
+              },
+            ],
+            totalCount: [
+              {
+                $count: "numberOAdvertisements",
+              },
+            ],
+          },
+        },
+      ]);
+    } else {
+      advertisements = await advertisementBaseSchema.aggregate().facet({
+        totalData: [
+          {
+            $skip: pageOptions.page * pageOptions.limit,
+          },
+          {
+            $limit: pageOptions.limit,
+          },
+          {
+            $sort: {
+              yearOfConstruction: pageOptions.sort,
+            },
+          },
+        ],
+        totalCount: [
+          {
+            $count: "numberOAdvertisements",
+          },
+        ],
+      });
+    }
+
+    if (advertisements == []) {
       return res
         .status(404)
         .json({ success: false, message: "No matches made" });
     }
     return res.status(200).json({
       success: true,
-      data: advertisement,
-      matches: advertisement.length,
+      data: advertisements,
+      length: advertisements.totalCount,
     });
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json({ success: false, message: "Error getting all advertisements" });
@@ -113,32 +160,32 @@ const advertisement_GetAllWeb = async (req, res) => {
 /**
  * @description Gets all advertisement
  * @type GET
- * @url /advertisements/dashboard/getAll
+ * @url /api/advertisements/dashboard/getAll
+ * @query page,limit,sort,search
  */
 
 const advertisement_GetAll = async (req, res) => {
-  try {
-    const user = req.user;
-    const advertisements = await advertisementBaseSchema.find({
-      account: user._id,
-    });
-    return res.status(200).json({ success: true, data: advertisements });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ success: false, message: "Error getting all advertisements" });
-  }
+  const { page, limit, sort, search } = req.query;
+  return advertisementPagination(
+    page,
+    limit,
+    sort,
+    search,
+    "approved",
+    req.user,
+    res
+  );
 };
 
 /**
  * @description Create advertisement
  * @type POST
- * @url /advertisements/dashboard/createAdvertisement
+ * @url /api/advertisements/dashboard/createAdvertisement
  */
 
 const advertisement_Post = async (req, res) => {
   try {
-   // const user = req.user;
+    const user = req.user;
     const {
       advertisementType,
       propertyType,
@@ -178,17 +225,14 @@ const advertisement_Post = async (req, res) => {
       glassFibreConnection,
     } = JSON.parse(req.body.data);
 
-      // image
-    } = JSON.parse(req.body.data);
-
     // upload file
     let filess = [];
     let promises = [];
     for (let i = 0; i < req.files["file"].length; ) {
       let fileSingle = req.files["file"][i];
-       promises.push(uploadFile(fileSingle, "file"));
+      promises.push(uploadFile(fileSingle, "file"));
       i++;
-      }
+    }
     await Promise.all(promises)
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -204,10 +248,10 @@ const advertisement_Post = async (req, res) => {
     let promisesImg = [];
     for (let i = 0; i < req.files["image"].length; ) {
       let fileSingleImg = req.files["image"][i];
-     promisesImg.push(uploadFile(fileSingleImg, "image"));
+      promisesImg.push(uploadFile(fileSingleImg, "image"));
       i++;
-      }
-    
+    }
+
     await Promise.all(promisesImg)
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -217,10 +261,11 @@ const advertisement_Post = async (req, res) => {
       .catch((err) => {
         console.log(err);
       });
-      deletefilesmethod(req);
+    deletefilesmethod(req);
 
     if (propertyType === "living") {
       const living = await invesmentLivingSchema.create({
+        account: user._id,
         advertisementType,
         propertyType,
         title,
@@ -254,6 +299,7 @@ const advertisement_Post = async (req, res) => {
       });
     } else if (propertyType === "commercial") {
       const coomercial = await invesmentCommercialSchema.create({
+        account: user._id,
         advertisementType,
         propertyType,
         title,
@@ -287,6 +333,7 @@ const advertisement_Post = async (req, res) => {
       });
     } else if (propertyType === "residentialandcommercial") {
       const resandcom = await invesmentResidencialAndCommercialSchema.create({
+        account: user._id,
         advertisementType,
         propertyType,
         title,
@@ -347,7 +394,7 @@ const advertisement_Post = async (req, res) => {
 /**
  * @description Edit advertisenent
  * @type PATCH
- * @url /advertisements/dashboard/edit/:id
+ * @url /api/advertisements/dashboard/edit/:id
  */
 
 const advertisement_Patch = async (req, res) => {
@@ -371,7 +418,7 @@ const advertisement_Patch = async (req, res) => {
 /**
  * @description Delete advertisement
  * @type DELETE
- * @url /advertisements/dashboard/delete/:id
+ * @url /api/advertisements/dashboard/delete/:id
  */
 
 const advertisement_Delete = async (req, res) => {
@@ -417,7 +464,7 @@ const advertisement_Delete = async (req, res) => {
 /**
  * @description Upload image after creating advertisement
  * @type POST
- * @url /advertisements/dashboard/image/uploadafter/:id
+ * @url /api/advertisements/dashboard/image/uploadafter/:id
  */
 const uploadAfter = async (req, res) => {
   const id = req.params.id;
@@ -449,7 +496,7 @@ const uploadAfter = async (req, res) => {
 /**
  * @description Edit file after creating advertisement
  * @type PATCH
- * @url /advertisements/dashboard/image/patchafter/:id/:key
+ * @url /api/advertisements/dashboard/image/patchafter/:id/:key
  */
 const patchAfter = async (req, res) => {
   try {
@@ -458,7 +505,7 @@ const patchAfter = async (req, res) => {
     let imageurlsplited = [];
     let imgKey = [];
     const advertisement = await advertisementBaseSchema.findOne({ _id: id });
-    for (let i = 0; i < advertisement.image.length; ) {
+    for (let i = 0; i < advertisement["image"].length; ) {
       imageurlsplited.push(advertisement.image[i].split("/"));
       imgKey.push(imageurlsplited[i][4]);
       if (imgKey[i] === key) {
@@ -482,7 +529,7 @@ const patchAfter = async (req, res) => {
 /**
  * @description Delete file after creating advertisement
  * @type DELETE
- * @url /advertisements/dashboard/image/deleteafter/:id/:key
+ * @url /api/advertisements/dashboard/image/deleteafter/:id/:key
  */
 const deleteAfter = async (req, res) => {
   try {
@@ -520,7 +567,7 @@ const deleteAfter = async (req, res) => {
 /**
  * @description Download file after creating advertisement
  * @type GET
- * @url /advertisements/dashboard/image/downloadfile/:key
+ * @url /api/advertisements/dashboard/image/downloadfile/:key
  */
 const downloadFile = async (req, res) => {
   try {

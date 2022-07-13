@@ -5,6 +5,7 @@ const {
   icompanySchema,
   iprivateSchema,
 } = require("../model/User");
+const Profile = require("../model/profile");
 
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie-parser");
@@ -33,9 +34,27 @@ const createToken = (id) => {
 };
 
 /**
+ * @description Creates profile for user
+ */
+const createProfile = async (useri) => {
+  try {
+    const profile = await Profile.create({
+      account: useri._id,
+      avatar: undefined,
+      firstName: useri.firstName,
+      lastName: useri.lastName,
+      fullName: `${useri.firstName} ${useri.lastName}`,
+    });
+    console.log("Profile has been created");
+  } catch (error) {
+    console.log("Profile wasn't created", err);
+  }
+};
+
+/**
  * @description Renders signup page
  * @type GET
- * @url /users/signup
+ * @url /api/users/signup
  */
 const signup_get = (req, res) => {
   res.render("signup");
@@ -44,7 +63,7 @@ const signup_get = (req, res) => {
 /**
  * @description get login method
  * @type GET
- * @url /users/login
+ * @url /api/users/login
  */
 const login_get = (req, res) => {
   console.log("REQ", req.user);
@@ -55,7 +74,7 @@ const login_get = (req, res) => {
 /**
  * @description Renders signup page
  * @type POST
- * @url /users/signup
+ * @url /api/users/signup
  */
 const signup_post = async (req, res) => {
   try {
@@ -99,11 +118,12 @@ const signup_post = async (req, res) => {
         country,
         verificationCode: randomBytes(20).toString("hex"),
       });
+      createProfile(owner);
 
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${owner.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${owner.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         owner.email,
@@ -112,9 +132,8 @@ const signup_post = async (req, res) => {
         html
       );
     }
-
     //create company investor and save to mongodb
-    if (role === "company") {
+    else if (role === "company") {
       const investorCompany = await icompanySchema.create({
         email,
         password,
@@ -131,15 +150,16 @@ const signup_post = async (req, res) => {
         phoneNumber,
         street,
         No,
+        position,
         postalCode,
         country,
         verificationCode: randomBytes(20).toString("hex"),
       });
-
+      createProfile(investorCompany);
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorCompany.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${investorCompany.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         investorCompany.email,
@@ -149,7 +169,7 @@ const signup_post = async (req, res) => {
       );
     }
     //create private investor and save to mongodb
-    if (role === "private") {
+    else if (role === "private") {
       const investorPrivate = await iprivateSchema.create({
         email,
         password,
@@ -166,11 +186,11 @@ const signup_post = async (req, res) => {
         country,
         verificationCode: randomBytes(20).toString("hex"),
       });
-
+      createProfile(investorPrivate);
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${investorPrivate.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         investorPrivate.email,
@@ -181,7 +201,7 @@ const signup_post = async (req, res) => {
     }
 
     //create broker and save to mongodb
-    if (role === "broker") {
+    else if (role === "broker") {
       const broker = await sbrokerSchema.create({
         email,
         password,
@@ -203,10 +223,11 @@ const signup_post = async (req, res) => {
         website,
         verificationCode: randomBytes(20).toString("hex"),
       });
+      createProfile(broker);
       let html = `
     <h1>Hello,</h1>
     <p>Please click the following link to verify your account</p>
-    <a href = "http://localhost:${process.env.PORT}/users/verify/${broker.verificationCode}">Verify Now</a>
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/verify/${broker.verificationCode}">Verify Now</a>
     `;
       await sendVerification(
         broker.email,
@@ -214,6 +235,10 @@ const signup_post = async (req, res) => {
         "Please verify your account",
         html
       );
+    } else {
+      return res
+        .status(500)
+        .json({ success: false, message: "server failed on creating account" });
     }
 
     return res.status(200).json({
@@ -232,7 +257,7 @@ const signup_post = async (req, res) => {
 /**
  * @description verify user
  * @type GET
- * @url /users/verify/:verificationCode
+ * @url /api/users/verify/:verificationCode
  */
 const verify_now = async (req, res) => {
   try {
@@ -258,7 +283,7 @@ const verify_now = async (req, res) => {
 /**
  * @description Reset password init
  * @type PUT
- * @url /users/resetpassword
+ * @url /api/users/resetpassword
  */
 
 //Initiating reset password
@@ -290,7 +315,7 @@ const resetPasswordInit = async (req, res) => {
     let html = `
     <h1>Hello,/h1>
     <p>Please click the following link to reset your password</p>
-    <a href = "http://localhost:${process.env.PORT}/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
+    <a href = "http://localhost:${process.env.APP_PORT}/api/users/resetpassword/${user.resetPasswordToken}">Reset your password</a>`;
     sendVerification(
       user.email,
       "Reset your password",
@@ -313,7 +338,7 @@ const resetPasswordInit = async (req, res) => {
 /**
  * @description Reset password
  * @type GET
- * @url /users/resetpassword/:resetPasswordToken
+ * @url /api/users/resetpassword/:resetPasswordToken
  */
 const resetPassword = async (req, res) => {
   try {
@@ -352,7 +377,7 @@ const resetPassword = async (req, res) => {
 /**
  * @description Reset password post method
  * @type Post
- * @url /users/resetpassword
+ * @url /api/users/resetpassword
  */
 const resetPasswordPost = async (req, res) => {
   try {
@@ -409,7 +434,7 @@ const resetPasswordPost = async (req, res) => {
 /**
  * @description log in user
  * @type POST
- * @url /users/login
+ * @url /api/users/login
  */
 
 const login_post = async (req, res) => {
@@ -420,7 +445,12 @@ const login_post = async (req, res) => {
     if (!(await user.comparePassword(password))) {
       return res.status(401).json({
         success: false,
-        message: "Failed, password is not correct",
+        message: "Email or password is not correct",
+      });
+    } else if (user.verified !== true) {
+      return res.status(401).json({
+        success: false,
+        message: "Email is not verifed, please verify ur email",
       });
     }
 
@@ -431,7 +461,9 @@ const login_post = async (req, res) => {
       token: `Bearer ${token}`,
       message: "Token has been created",
     });
-    res.status(200).json({ success: true, message: "successfully logged in" });
+    // return res
+    //   .status(200)
+    //   .json({ success: true, message: "Successfully logged in" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -444,7 +476,7 @@ const login_post = async (req, res) => {
 /**
  * @description Edit user
  * @type PATCH
- * @url /users/dashboard/editUser/:id
+ * @url /api/users/dashboard/editUser/:id
  */
 
 const editUser = async (req, res) => {
@@ -464,7 +496,7 @@ const editUser = async (req, res) => {
 /**
  * @description Delete user
  * @type DELETE
- * @url /users/dashboard/deleteuser/:id
+ * @url /api/users/dashboard/deleteuser/:id
  */
 const deleteUser = async (req, res) => {
   try {
@@ -480,7 +512,7 @@ const deleteUser = async (req, res) => {
 /**
  * @description gets only one user
  * @type GET
- * @url /users/dashboard/getOne/:id
+ * @url /api/users/dashboard/getOne/:id
  */
 
 const getOne = async (req, res) => {
@@ -504,7 +536,7 @@ const getOne = async (req, res) => {
 /**
  * @description gets all user
  * @type GET
- * @url /users/dashboard/getAll
+ * @url /api/users/dashboard/getAll
  */
 const getAll = async (req, res) => {
   const userat = await baseSchema

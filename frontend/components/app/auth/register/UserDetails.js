@@ -10,6 +10,8 @@ import AuthContainer from "../../wrappers/AuthContainer";
 import { Formik, Form } from "formik";
 import { useAuthContext } from "../../../../context/auth";
 import { useRouter } from "next/router";
+import { Persist } from 'formik-persist'
+
 
 const UserDetails = ({ privateDetails, changeStep }) => {
   const Router = useRouter();
@@ -167,6 +169,9 @@ const UserDetails = ({ privateDetails, changeStep }) => {
                             width="100%"
                           />
                         </div>
+
+                        <Persist name="user-details-form" />
+
                       </Form>
                     );
                   }}

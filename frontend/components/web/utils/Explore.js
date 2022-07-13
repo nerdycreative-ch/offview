@@ -12,14 +12,14 @@ const Explore = () => {
           <h1>Explore right property for you.</h1>
           <p>Exercitation veniam consequat sunt nostrud amet.</p>
         </div>
-        <div className="rightSide">
+        {/* <div className="rightSide">
           <p>More property</p>
           <div className="arrowContainer">
             <img src="../../../assets/images/web/greyLeftArrow.png" alt="" />
             <div className="borderContainer"></div>
             <img src="../../../assets/images/web/GreyRightArrow.png" alt="" />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="bottomContainer">
         <img

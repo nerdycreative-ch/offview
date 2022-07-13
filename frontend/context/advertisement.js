@@ -3,11 +3,14 @@ import { useRouter } from "next/router";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { useAuthContext } from "./auth";
 
 const AdvertisementContext = createContext();
 
 export const Advertisementcontext = ({ children }) => {
   const router = useRouter();
+
+  const {token} = useAuthContext();
 
   const [finalAdvertisement, setFinalAdvertisement] = useState("");
   const [AdvadvertisementActiveLink, AdvsetAdvertisementActiveLink] =
@@ -16,20 +19,22 @@ export const Advertisementcontext = ({ children }) => {
 
   const [listOfAdvertisement, setListOfAdvertisement] = useState([]);
 
-  const getAdvertisement = async () => {
-    try {
-      await axios(
-        `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
-      ).then((response) => setListOfAdvertisement(response.data.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   //GET ADVERTISEMENT
-  useEffect(() => {
-    getAdvertisement();
-  }, []);
+  // useEffect(() => {
+  //   const getAdvertisement = async () => {
+  //     try {
+  //       await axios(
+  //         `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/getAll`
+  //       ).then((response) => setListOfAdvertisement(response.data.data));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   getAdvertisement();
+  // }, [listOfAdvertisement.length]);
 
   // const {
   //   AdvadvertisementActiveLink,
@@ -272,22 +277,43 @@ export const Advertisementcontext = ({ children }) => {
     formData.append("data", JSON.stringify(dataWithOutImage));
 
     for (let index = 0; index < finalAdvertisement.image.length; index++) {
-      formData.append("image", finalAdvertisement.image[index]);
+      const test = await finalAdvertisement.file[index];
+      formData.append("image", test);
     }
 
     for (let index = 0; index < finalAdvertisement.file.length; index++) {
-      formData.append("file", finalAdvertisement.file[index]);
+      const test = await finalAdvertisement.file[index];
+      formData.append("file", test);
     }
+
+    // for (let index = 0; index < finalAdvertisement.image.length; index++) {
+    //   const test = await finalAdvertisement.file[index];
+    //   formData.append("image", test);
+    // }
+
+    // for (let index = 0; index < finalAdvertisement.file.length; index++) {
+    //   const test = await finalAdvertisement.file[index];
+    //   formData.append("file", test);
+    // }
 
     await axios.post(
       `${process.env.NEXT_PUBLIC_URL}advertisements/dashboard/createAdvertisement`,
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          Authorization:
+           token,
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );
+
+    localStorage.removeItem("advertisementActiveLink");
+    localStorage.removeItem("propertyActiveLink");
+    localStorage.removeItem("firstarea-adv-form");
+    localStorage.removeItem("secondarea-adv-form");
+    localStorage.removeItem("thirdarea-adv-form");
   };
 
   return (

@@ -39,6 +39,7 @@ const baseSchema = mongoose.model(
         enum: ["owner", "broker", "private", "company", "root", "admin"],
       },
       verified: {
+        default: false,
         type: Boolean,
         required: false,
       },
@@ -58,6 +59,9 @@ const baseSchema = mongoose.model(
         type: String,
         enum: ["female", "male", "other", "unknown"],
         required: true,
+      },
+      notifications: {
+        type: Array,
       },
     },
     baseOptions,
@@ -119,9 +123,7 @@ const icompanySchema = baseSchema.discriminator(
     },
     website: {
       type: String,
-      required: true,
     },
-
     title: {
       type: String,
       required: true,
@@ -146,13 +148,17 @@ const icompanySchema = baseSchema.discriminator(
       type: Number,
       required: true,
     },
+    position: {
+      type: String,
+      required: true,
+    },
     postalCode: {
       type: String,
       required: true,
     },
     city: {
       type: String,
-      required: true,
+      //required: true,
     },
     country: {
       type: String,

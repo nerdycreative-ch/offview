@@ -68,15 +68,15 @@ mongoose
 
 //routes
 
-app.use("/users", authRoutes);
-app.use("/advertisements", advertisementRoutes);
-app.use("/profiles", profileRoutes);
-app.use("/privacypolicy", privacyPolicyroutes);
-app.use("/imprint", imprintRoutes);
-app.use("/contact", contactRoutes);
-app.use("/socialmedia", socialmediaRoutes);
-app.use("/faq", faqRoutes);
-app.use("/searchprofiles", searchRoutes);
-app.use("/offers", offerRoutes);
-app.use("/location", locationRoutes);
-app.use("/root", rootRoutes);
+app.use("/api/users", authRoutes);
+app.use("/api/advertisements", advertisementRoutes);
+app.use("/api/profiles", profileRoutes);
+app.use("/api/privacypolicy", privacyPolicyroutes);
+app.use("/api/imprint", imprintRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/socialmedia", socialmediaRoutes);
+app.use("/api/faq", faqRoutes);
+app.use("/api/searchprofiles", searchRoutes);
+app.use("/api/offers", offerRoutes);
+app.use("/api/location", locationRoutes);
+app.use("/api/root", rootRoutes);

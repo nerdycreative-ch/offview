@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import AuthContainer from "../../wrappers/AuthContainer";
 import BackButton from "../../utils/BackButton";
 import StepsNumber from "../../utils/StepsNumber";
@@ -9,6 +9,13 @@ import BigRadioButton from "../../utils/BigRadioButton";
 import Button from "../../utils/Button";
 import { useAuthContext } from "../../../../context/auth";
 import { useRouter } from "next/router";
+import { zoomIn } from "react-animations";
+
+const bounceAnimation = keyframes`${zoomIn}`;
+
+const BouncyDiv = styled.div`
+  animation: 0.7s ${bounceAnimation};
+`;
 
 const SelectProfile = ({ changeStep }) => {
   const Router = useRouter();
@@ -30,7 +37,27 @@ const SelectProfile = ({ changeStep }) => {
 
   useEffect(() => {
     setSingleTypeCategory("");
-  }, [singleCategory]);
+  }, [singleCategory, singleTypeCategory]);
+
+  console.log("SINGLE TYPE CATEGORY", singleCategory);
+
+  // useEffect(() => {
+  //   let momentaryAdvertisemetLink = JSON.parse(localStorage.getItem("IS"));
+  //   let momentaryActiveLink = JSON.parse(localStorage.getItem("PC"));
+  //   let momentaryElement;
+
+  //   if (momentaryAdvertisemetLink) {
+  //     document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+  //       momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+  //       if (
+  //         momentaryElement == momentaryAdvertisemetLink ||
+  //         momentaryElement == momentaryActiveLink
+  //       ) {
+  //         element.click();
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const [categories, setCategories] = useState([
     {
@@ -63,26 +90,43 @@ const SelectProfile = ({ changeStep }) => {
     },
     {
       id: 6,
-      ["name"]: singleCategory == "seller" ? "Broker" : "Acomapny",
+      ["name"]: singleCategory == "seller" ? "Broker" : "company",
 
-      // name: "Company",
-      // key: "company",
-      ["key"]: singleCategory == "seller" ? "broker" : "acomapny",
+      ["key"]: singleCategory == "seller" ? "broker" : "company",
     },
   ]);
 
-  // const [singleCategory, setSingleCategory] = useState("");
-  // const [singleTypeCategory, setSingleTypeCategory] = useState("");
-
   const onClick = () => {
+    localStorage.setItem("IS", JSON.stringify(singleCategory));
+    localStorage.setItem("PC", JSON.stringify(singleTypeCategory));
+
     changeStep();
     setUserData({
       ...userData,
       singleCategory: singleCategory,
       singleTypeCategory: singleTypeCategory,
     });
+
     Router.push("/registersteps?page=userdetails");
   };
+
+  useEffect(() => {
+    let momentaryAdvertisemetLink = JSON.parse(localStorage.getItem("IS"));
+    let momentaryActiveLink = JSON.parse(localStorage.getItem("PC"));
+    let momentaryElement;
+
+    if (momentaryAdvertisemetLink) {
+      document.querySelectorAll(".radioButtonGroup h1").forEach((element) => {
+        momentaryElement = element.innerHTML.replace(" ", "").toLowerCase();
+        if (
+          momentaryElement == momentaryAdvertisemetLink ||
+          momentaryElement == momentaryActiveLink
+        ) {
+          element.click();
+        }
+      });
+    }
+  }, []);
 
   console.log(userData);
 
@@ -120,57 +164,64 @@ const SelectProfile = ({ changeStep }) => {
                 })}
               </div>
             </div>
-            <div
-              style={{
-                marginTop: `${heightOfScreen < 900 ? "14px" : "55px"}`,
-              }}
-              className="radioButtonForm"
-            >
-              <p className={`smallText`}>How are you going to use offview?</p>
-              <div className="radioButtonGroup">
-                {singleCategory == "investor" ? (
-                  <BigRadioButton
-                    onClick={() => setSingleTypeCategory("private")}
-                    // key={index}
-                    width={45}
-                    type="Private"
-                    height={116}
-                    PCactiveLink={singleTypeCategory}
-                    id="private"
-                    nameOfCat="PC"
-                    typeOfCat
-                  />
-                ) : (
-                  <BigRadioButton
-                    onClick={() => setSingleTypeCategory("owner")}
-                    // key={index}
-                    width={45}
-                    type="Owner"
-                    height={116}
-                    PCactiveLink={singleTypeCategory}
-                    id="owner"
-                    nameOfCat="PC"
-                    typeOfCat
-                  />
-                )}
 
-                <BigRadioButton
-                  onClick={() =>
-                    setSingleTypeCategory(
-                      singleCategory == "seller" ? "broker" : "acompany"
-                    )
-                  }
-                  // key={index}
-                  width={45}
-                  type={singleCategory == "seller" ? "Broker" : "Company"}
-                  height={116}
-                  PCactiveLink={singleTypeCategory}
-                  id={singleCategory == "seller" ? "broker" : "acompany"}
-                  nameOfCat="PC"
-                  typeOfCat
-                />
-              </div>
-            </div>
+            {singleCategory != null && (
+              <BouncyDiv>
+                <div
+                  style={{
+                    marginTop: `${heightOfScreen < 900 ? "14px" : "55px"}`,
+                  }}
+                  className="radioButtonForm"
+                >
+                  <p className={`smallText`}>
+                    How are you going to use offview?
+                  </p>
+                  <div className="radioButtonGroup">
+                    {singleCategory == "investor" ? (
+                      <BigRadioButton
+                        onClick={() => setSingleTypeCategory("private")}
+                        // key={index}
+                        width={45}
+                        type="Private"
+                        height={116}
+                        PCactiveLink={singleTypeCategory}
+                        id="private"
+                        nameOfCat="PC"
+                        typeOfCat
+                      />
+                    ) : (
+                      <BigRadioButton
+                        onClick={() => setSingleTypeCategory("owner")}
+                        // key={index}
+                        width={45}
+                        type="Owner"
+                        height={116}
+                        PCactiveLink={singleTypeCategory}
+                        id="owner"
+                        nameOfCat="PC"
+                        typeOfCat
+                      />
+                    )}
+
+                    <BigRadioButton
+                      onClick={() =>
+                        setSingleTypeCategory(
+                          singleCategory == "seller" ? "broker" : "company"
+                        )
+                      }
+                      // key={index}
+                      width={45}
+                      type={singleCategory == "seller" ? "Broker" : "Company"}
+                      height={116}
+                      PCactiveLink={singleTypeCategory}
+                      id={singleCategory == "seller" ? "broker" : "company"}
+                      nameOfCat="PC"
+                      typeOfCat
+                    />
+                  </div>
+                </div>
+              </BouncyDiv>
+            )}
           </div>
         </div>
 

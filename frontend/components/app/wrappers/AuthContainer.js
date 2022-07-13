@@ -31,6 +31,12 @@ const AuthContainerStyle = styled.div`
   .leftSideRegister {
     flex: 1;
     background: #175041;
+    position: sticky;
+    background: orange;
+    top: 0px;
+    z-index: 50;
+    width: 100%;
+    height: 0px;
   }
   .rightSideRegister {
     flex: 1.6;

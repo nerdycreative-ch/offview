@@ -17,7 +17,7 @@ const { isError, first } = require("lodash");
 /**
  * @description Searches profile by name
  * @type GET
- * @url /dashboard/searchProfiles
+ * @url /api/profiles/dashboard/searchProfiles
  */
 const searchProfiles = async (req, res) => {
   try {
@@ -74,7 +74,7 @@ const searchProfiles = async (req, res) => {
 /**
  * @description Gets your profile
  * @type GET
- * @url /dashboard/myprofile
+ * @url /api/profiles/dashboard/myprofile
  */
 const getMyProfile = async (req, res) => {
   const { user } = req;
@@ -88,7 +88,7 @@ const getMyProfile = async (req, res) => {
         foreignField: "_id",
         as: "userinfo",
       });
-    if (profile.length() == 0) {
+    if (profile.length == 0) {
       return res
         .status(404)
         .json({ success: false, message: "Profile was not found" });
@@ -115,35 +115,35 @@ const getMyProfile = async (req, res) => {
   }
 };
 
-/**
- * @description Creates profile
- * @type POST
- * @url /dashboard/createprofile
- */
-const createProfile = async (req, res) => {
-  let { body, user } = req;
-  try {
-    const useri = await baseSchema.findOne({ _id: user._id });
-    const profile = await Profile.create({
-      account: useri._id,
-      avatar: undefined,
-      firstName: useri.firstName,
-      lastName: useri.lastName,
-      fullName: `${useri.firstName} ${useri.lastName}`,
-    });
-    return res.status(201).json({ success: true, data: profile });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Error creating profile" });
-  }
-};
+// /**
+//  * @description Creates profile
+//  * @type POST
+//  * @url /api/profiles/dashboard/createprofile
+//  */
+// const createProfile = async (req, res) => {
+//   let { user } = req;
+//   try {
+//     const useri = await baseSchema.findOne({ _id: user._id });
+//     const profile = await Profile.create({
+//       account: useri._id,
+//       avatar: undefined,
+//       firstName: useri.firstName,
+//       lastName: useri.lastName,
+//       fullName: `${useri.firstName} ${useri.lastName}`,
+//     });
+//     return res.status(201).json({ success: true, data: profile });
+//   } catch (error) {
+//     console.log(error);
+//     return res
+//       .status(500)
+//       .json({ success: false, message: "Error creating profile" });
+//   }
+// };
 
 /**
  * @description Edits profile
  * @type PATCH
- * @url /dashboard/editprofile
+ * @url /api/profiles/dashboard/editprofile
  */
 const editProfile = async (req, res) => {
   const { body, user } = req;
@@ -176,7 +176,7 @@ const editProfile = async (req, res) => {
 /**
  * @description Edits profile pic
  * @type PATCH
- * @url /dashboard/editprofilepic/
+ * @url /api/profiles/dashboard/editprofilepic/
  */
 const editProfilePic = async (req, res) => {
   const { user } = req;
@@ -206,7 +206,7 @@ const editProfilePic = async (req, res) => {
 module.exports = {
   getMyProfile,
   searchProfiles,
-  createProfile,
+  // createProfile,
   editProfile,
   editProfilePic,
 };

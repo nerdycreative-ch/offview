@@ -6,7 +6,6 @@ import axios from "axios";
 const Footer = () => {
   const [socialMedia, setSocialMedia] = useState([]);
 
-  console.log(socialMedia);
 
   const getSocialMediaItem = async () => {
     try {
@@ -25,16 +24,22 @@ const Footer = () => {
   return (
     <FooterStyled>
       <div className="bothSide">
+        <div className="borderWhite"></div>
         <div className="leftSide">
-          <div className="imgContainer">
-            <Link href="/">
-              {/* <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" /> */}
-              <img src="../../../assets/images/web/whiteLogo.svg" alt="logo" />
-            </Link>
+          <div className="leftSideBorder">
+            <div className="imgContainer">
+              <Link href="/">
+                {/* <img src="../../../assets/images/web/GreyLogo.svg" alt="logo" /> */}
+                <img
+                  src="../../../assets/images/web/whiteLogo.svg"
+                  alt="logo"
+                />
+              </Link>
+            </div>
+            <p className="information">
+              offview is a brokerage platform for real estate.
+            </p>
           </div>
-          <p className="information">
-            offview is a brokerage platform for real estate.
-          </p>
         </div>
 
         {/* SITEMAP */}
@@ -133,6 +138,21 @@ const FooterStyled = styled.div`
   .leftSide {
     flex: 1;
   }
+  .leftSideBorder {
+    width: 320px;
+    /* border-right: 1px solid white; */
+    /* position: absolute;
+    width: 1px;
+    height: 300px;
+    background-color: white; */
+  }
+  .borderWhite {
+    position: absolute;
+    width: 1px;
+    height: 210px;
+    background-color: var(--lightGrey-2);
+    left: 40%;
+  }
   .rightSide {
     display: flex;
     flex-wrap: wrap;
@@ -196,6 +216,13 @@ const FooterStyled = styled.div`
     }
     .information {
       margin-top: 20px;
+    }
+    .leftSideBorder {
+      border-right: 0px solid white;
+    }
+
+    .borderWhite {
+      display: none;
     }
   }
 
