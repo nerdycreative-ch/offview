@@ -32,8 +32,10 @@ const getAll = async (req, res) => {
       limit: parseInt(req.query.limit, 10) || 10,
       sort: parseInt(req.query.sort),
     };
+    pageOptions.page = pageOptions.page - 1;
     let advertisements;
     if (req.query.search) {
+      console.log(pageOptions.page,pageOptions.limit,pageOptions.sort);
       pageOptions.search = req.query.search;
       advertisements = await advertisementBaseSchema.aggregate([
         {
@@ -74,6 +76,8 @@ const getAll = async (req, res) => {
         },
       ]);
     } else if (!req.query.search) {
+      console.log("else")
+      console.log(pageOptions.page,pageOptions.limit,pageOptions.sort)
       advertisements = await advertisementBaseSchema.aggregate([
         {
           $match: { stateOfAdvertisement: "waiting" },

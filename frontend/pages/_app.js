@@ -5,6 +5,7 @@ import { Dashboardcontext } from "../context/dashboard";
 import { Searchprofilecontext } from "../context/searchprofile";
 import { Webcontext } from "../context/webContext";
 import "../styles/globals.css";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -17,6 +18,11 @@ function MyApp({ Component, pageProps }) {
           crossOrigin="anonymous"
           referrerpolicy="no-referrer"
         />{" "}
+        <script
+          type="text/javascript"
+          src="https://code.jquery.com/jquery-3.3.1.min.js"
+        ></script>
+        <script src="maphilight.js" async></script>
       </Head>
 
       <AuthWrappercontext>

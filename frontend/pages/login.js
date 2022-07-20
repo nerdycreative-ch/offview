@@ -41,9 +41,12 @@ const Login = () => {
         password: values.password,
       });
 
-      setToken(localStorage.setItem("token", res.token));
+      // setToken(localStorage.setItem("token", res.token));
       // setToken("asdasd" + res.token);
 
+      localStorage.setItem("token", res.token);
+
+      setToken(res.token);
       onSubmitProps.resetForm();
       Router.push("/dashboard");
     } catch (error) {

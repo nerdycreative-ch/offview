@@ -9,12 +9,19 @@ import Button from "../utils/Button";
 import Link from "next/link";
 import ExitButton from "../utils/ExitButton";
 import { useSearchProfileContext } from "../../../context/searchprofile";
+import ModalSearchProfile from "../searchProfile/ModalSearchProfile";
+import RegisterSuccessFullModal from "../auth/register/RegisterSuccessFullModal";
 
 var thumbsize = 14;
 
 const Price = ({ changeStep }) => {
-  const { finalSubmit, setFinalSubmit, submitDataToBackEnd } =
-    useSearchProfileContext();
+  const {
+    finalSubmit,
+    setFinalSubmit,
+    submitDataToBackEnd,
+    modalSearchProfile,
+    setModalSearchProfile,
+  } = useSearchProfileContext();
 
   let min = 0;
   let max = 199;
@@ -54,18 +61,22 @@ const Price = ({ changeStep }) => {
     localStorage.setItem("maxVal", JSON.stringify(maxVal));
   }, [minVal, maxVal]);
 
-  const onClick =  () => {
-     setFinalSubmit(prev => ({
+  const onClick = () => {
+    setFinalSubmit((prev) => ({
       ...prev,
       minPrice: minVal,
       maxPrice: maxVal,
     }));
     submitDataToBackEnd();
+    setModalSearchProfile(true);
+
   };
 
   return (
     <PriceStyled>
       <div>
+        {" "}
+        {modalSearchProfile && <RegisterSuccessFullModal />}
         <AppContainer>
           <div className="SPContainer" style={{ borderTopLeftRadius: 5 }}>
             <ExitButton content="Exit Search profile" />

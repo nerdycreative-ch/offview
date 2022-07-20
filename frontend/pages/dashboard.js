@@ -9,9 +9,14 @@ import DSingleSection from "../components/app/utils/DSingleSection";
 import DashboardLabel from "../components/app/utils/DashboardLabel";
 import styled from "styled-components";
 import { useAdvertisementContext } from "../context/advertisement";
+import { useSearchProfileContext } from "../context/searchprofile";
 
 const Dashboard = () => {
   const { listOfAdvertisement } = useAdvertisementContext();
+
+
+  const { filtredSearch } = useSearchProfileContext();
+
 
   const [serachResult, setSearchResults] = useState([
     {
@@ -72,14 +77,14 @@ const Dashboard = () => {
                 navigateTo="/search"
               />
 
-              {serachResult.length == 0 ? (
+              {filtredSearch.length == 0 ? (
                 <div className="noItemsInArray">
                   <SubTitle content="You have no purchase profiles created yet." />
                 </div>
               ) : (
                 <div style={{ marginTop: 21 }}>
-                  {serachResult.map((item, index) => {
-                    return <SinglePropertyTest key={index} {...item} />;
+                  {filtredSearch.slice(0,5).map((item, index) => {
+                    return <SingleProperty key={index} {...item} searchItem searchProfileImage />;
                   })}
                 </div>
               )}

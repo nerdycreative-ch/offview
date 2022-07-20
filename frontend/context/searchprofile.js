@@ -12,9 +12,7 @@ export const Searchprofilecontext = ({ children }) => {
 
   const { token } = useAuthContext();
 
-  console.log("TOKEN NGA ASKUSHI ", token);
-
-  console.log("A" + token);
+  const [modalSearchProfile, setModalSearchProfile] = useState(false);
 
   const [finalSubmit, setFinalSubmit] = useState();
   const [advertisementActiveLink, setAdvertisementActiveLink] = useState(0);
@@ -52,37 +50,19 @@ export const Searchprofilecontext = ({ children }) => {
     },
   ]);
 
-  console.log("FINAL SUBMIT", finalSubmit);
-
-  useEffect(() => {
-    const getFiltredProfiles = async () => {
-      try {
-        await axios(`${process.env.NEXT_PUBLIC_URL}searchprofiles/getall`).then(
-          // (response) => setFiltredSearch(response.data.data)
-          (response) => console.log("response" + response.data)
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getFiltredProfiles();
-  }, []);
-
   const submitDataToBackEnd = async () => {
     await axios
       .post(
         `${process.env.NEXT_PUBLIC_URL}searchprofiles/create`,
         {
           advertisementType: finalSubmit.advertisementType,
-          propertyType: finalSubmit.propertyType,
+          propertyTypeName: finalSubmit.propertyType,
           region: finalSubmit.region,
           minPrice: finalSubmit.minPrice,
           maxPrice: finalSubmit.maxPrice,
         },
         {
           headers: {
-            // Authorization: token,
             Authorization: token,
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -103,6 +83,28 @@ export const Searchprofilecontext = ({ children }) => {
     localStorage.removeItem("maxVal");
   };
 
+  useEffect(() => {
+    const getFiltredProfiles = async () => {
+      try {
+        await axios(`${process.env.NEXT_PUBLIC_URL}searchprofiles/getall`, {
+          headers: {
+            Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlhbWFkYV9sb3JpQGhvdG1haWwuY29tIiwiaWQiOiI2MmNkY2E2MWFhZWFmYjM2ZjE1YmRiODUiLCJpYXQiOjE2NTgxNDQwMzksImV4cCI6MTY1ODQwMzIzOX0.3NLtvYFEdjE79JVWo8Lz3vQYHkLalpKHMiek6Zp8GX8",
+            // Authorization: token,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }).then(
+          // (response) => setFiltredSearch(response.data.data)
+          (response) => setFiltredSearch(response.data.data)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFiltredProfiles();
+  }, [filtredSearch.length, token]);
+
   return (
     <SearchProfileContext.Provider
       value={{
@@ -117,6 +119,9 @@ export const Searchprofilecontext = ({ children }) => {
         finalSubmit,
         setFinalSubmit,
         submitDataToBackEnd,
+        filtredSearch,
+        modalSearchProfile,
+        setModalSearchProfile,
       }}
     >
       {children}

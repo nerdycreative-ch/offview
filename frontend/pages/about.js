@@ -21,6 +21,8 @@ const About = () => {
         content="Offview is a brokerage platform for real estate."
         aboutBanner
       />
+
+
       <GreenContainer color="grey">
         <div>
           <h1 className="aboutSubTitle">Our vision</h1>
@@ -34,6 +36,12 @@ const About = () => {
             interested party qualifications match, the seller and interested
             party are brought together.
           </p>
+        </div>
+
+        <div>
+
+          
+
         </div>
 
         <div className="aboutContentContainer">

@@ -36,7 +36,6 @@ const UserDetails = ({ privateDetails, changeStep }) => {
       country: values.country,
     });
 
-    console.log("A PO A??");
     Router.push("/registersteps?page=atc");
   };
 

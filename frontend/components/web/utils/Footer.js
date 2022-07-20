@@ -193,7 +193,7 @@ const FooterStyled = styled.div`
   }
   .socialMedia i {
     margin-left: 16px;
-    font-size: 22px;
+    font-size: 18px;
   }
   .imgContainer img {
     cursor: pointer;

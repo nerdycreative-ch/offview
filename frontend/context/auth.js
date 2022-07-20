@@ -9,15 +9,19 @@ const AuthContext = createContext();
 export const AuthWrappercontext = ({ children }) => {
   const [token, setToken] = useState("");
 
-  const [currentUser, setCurrentUser] = useState();
+  //UN COMMENT GJITHQYSH
+
+  // useEffect(() => {
+  //   setToken(localStorage.getItem("token"));
+  // }, [token]);
+
+  // console.log("ZOTRI TOKEN", token);
 
   // SELECT PROFILE
   const [singleCategory, setSingleCategory] = useState("");
   const [singleTypeCategory, setSingleTypeCategory] = useState("");
 
-  const [registerSteps, setRegisterSteps] = useState(1);
-
-  const [userData, setUserData] = useState({});
+  const [currentUserData, setCurrentUserData] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
@@ -26,26 +30,44 @@ export const AuthWrappercontext = ({ children }) => {
           `${process.env.NEXT_PUBLIC_URL}profiles/dashboard/myprofile`,
           {
             headers: {
-              Authorization: token,
+              // Authorization: JSON.parse(
+              //   localStorage.getItem("token")
+              // )
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlhbWFkYV9sb3JpQGhvdG1haWwuY29tIiwiaWQiOiI2MmNkY2E2MWFhZWFmYjM2ZjE1YmRiODUiLCJpYXQiOjE2NTgxNDQwMzksImV4cCI6MTY1ODQwMzIzOX0.3NLtvYFEdjE79JVWo8Lz3vQYHkLalpKHMiek6Zp8GX8",
             },
           }
-        ).then((response) => console.log("responsi e kta " + response));
+        ).then((response) => setCurrentUserData(response.data.data));
       } catch (error) {
         console.log(error);
       }
     };
 
     getUser();
-  }, [token]);
+  }, []);
+
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       await axios(
+  //         `${process.env.NEXT_PUBLIC_URL}profiles/dashboard/myprofile`,
+  //         {
+  //           headers: {
+  //             Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlhbWFkYV9sb3JpQGhvdG1haWwuY29tIiwiaWQiOiI2MmNkY2E2MWFhZWFmYjM2ZjE1YmRiODUiLCJpYXQiOjE2NTgxNDQwMzksImV4cCI6MTY1ODQwMzIzOX0.3NLtvYFEdjE79JVWo8Lz3vQYHkLalpKHMiek6Zp8GX8",
+  //           },
+  //         }
+  //       ).then((response) => setCurrentUserData(response.data.data));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   getUser();
+  // }, [currentUserData]);
 
   useEffect(() => {
     console.log("TOKEN MAFIA", token);
-
-  },[token])
-
-
-
-
+  }, [token]);
 
   const globalValues = {
     // email: "",
@@ -187,8 +209,8 @@ export const AuthWrappercontext = ({ children }) => {
         RegisterValidationSchema,
         UserValidationSchema,
         RegisterOnSubmit,
-        userData,
-        setUserData,
+        currentUserData,
+        setCurrentUserData,
         submitDataToBackend,
         singleCategory,
         setSingleCategory,

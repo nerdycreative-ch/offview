@@ -10,6 +10,10 @@ const searchProfilesSchema = new mongoose.Schema({
     type: String,
     enum: ["investmentproperties", "land", "newbuildingprojects"],
   },
+  propertyTypeName: {
+    type: String,
+    enum: ["Living","Commercial","Residential and Commercial"]
+  },
   propertyType: {
     type: String,
     enum: ["living", "commercial", "residentialandcommercial"],
@@ -23,6 +27,7 @@ const searchProfilesSchema = new mongoose.Schema({
   maxPrice: {
     type: Number,
   },
+  
   //geolocations
   // address: {
   //   type: String,
@@ -46,6 +51,12 @@ const searchProfilesSchema = new mongoose.Schema({
   //   default: Date.now,
   // },
 });
+searchProfilesSchema.pre('save', function(next) {
+  let momentaryPropertyType = this.propertyTypeName
+  momentaryPropertyType = momentaryPropertyType.toLowerCase().replace(" ", "")
+  this.propertyType = momentaryPropertyType
+  next()
+})
 // searchProfilesSchema.pre("save", async function (next) {
 //   const locat = await geocoder.geocode(this.address);
 //   this.location = {

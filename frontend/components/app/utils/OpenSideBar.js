@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { useAuthContext } from "../../../context/auth";
 
 const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
+  const { currentUserData } = useAuthContext();
+
   return (
     <OpenSideBarStyled>
       <div className="oLinksAndIcon">
@@ -36,7 +39,7 @@ const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
               <h1 className="titleOfLink">Search profiles</h1>
             </div>
           </Link>
-         
+
           <Link href="/offers">
             <div className="singleLink">
               <img
@@ -73,11 +76,16 @@ const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
       <div className="oBottom">
         <div className="oLeftSide">
           <div className="profileImage">
-            <h1 className="imageTitle">F</h1>
+            <h1 className="imageTitle">
+              {" "}
+              {currentUserData?.firstName?.slice(0, 1)}
+            </h1>
           </div>
           <div className="personalInfo">
-            <h1 className="firstName">First Name</h1>
-            <p className="position">Position</p>
+            <h1 className="firstName">
+              {currentUserData.firstName} {currentUserData.lastName}
+            </h1>
+            <p className="position">{currentUserData.mainrole}</p>
           </div>
         </div>
         <img
@@ -91,7 +99,7 @@ const OpenSideBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
 
 const OpenSideBarStyled = styled.div`
   width: 250px;
-  height: 100vh;  
+  height: 100vh;
   background-color: var(--greenToBlack);
   padding: 20px;
   display: flex;
@@ -147,6 +155,7 @@ const OpenSideBarStyled = styled.div`
     font-size: 12px;
     line-height: 18px;
     color: #ffffff;
+    text-transform: capitalize;
   }
 
   .personalInfo {
@@ -159,12 +168,14 @@ const OpenSideBarStyled = styled.div`
     font-size: 14px;
     line-height: 18px;
     color: var(--whiteColor);
+    text-transform: capitalize;
   }
   .position {
     font-weight: 400;
     font-size: 10px;
     line-height: 15px;
     color: var(--lightGrey-0);
+    text-transform: capitalize;
   }
 
   .closeSideBarMenuIcon {

@@ -80,7 +80,7 @@ const Navbar = ({ propertyDetail }) => {
           </ul>
         </div>
         <div className="rightSide ">
-          {token == null ? (
+          {token == null || token=="" ? (
             <>
               <Link href="/login">
                 <a>Login</a>
@@ -95,10 +95,10 @@ const Navbar = ({ propertyDetail }) => {
             </>
           ) : (
             <>
-              <a onClick={() => setToken(localStorage.removeItem("token"))}>
+              <a className="logoutBtn" onClick={() => setToken(localStorage.removeItem("token"))}>
                 Logout
               </a>
-              <Link href="/register">
+              <Link href="/dashboard">
                 <div className="showElement">
                   <div className="registerBtnContainer">
                     <Button text="Go to App" green />
@@ -199,6 +199,9 @@ const NavbarStyled = styled.nav`
   }
   .btnOpenDropDownMenu {
     display: none;
+  }
+  .logoutBtn {
+    cursor: pointer;
   }
   @media (max-width: 991.98px) {
     /* height: ${(props) => (props.isDropDownOpen ? "55vh" : "10vh")}; */

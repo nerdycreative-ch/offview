@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const PersonalDataItem = ({ type, result }) => {
+const PersonalDataItem = ({ type, result,textTransformNone }) => {
   return (
-    <PersonalDataItemStyled>
+    <PersonalDataItemStyled textTransformNone={textTransformNone}>
       <p className="type">{type}</p>
       <p className="result">{result}</p>
     </PersonalDataItemStyled>
@@ -24,6 +24,7 @@ const PersonalDataItemStyled = styled.div`
     line-height: 18px;
     color: var(--black-0);
     margin-top: 8px;
+    text-transform: ${props => props.textTransformNone == true ? "none" : "capitalize"};
   }
 
   @media (max-width: 767.98px) {

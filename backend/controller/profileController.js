@@ -144,6 +144,7 @@ const getMyProfile = async (req, res) => {
  * @description Edits profile
  * @type PATCH
  * @url /api/profiles/dashboard/editprofile
+ * ndrro url o tup http://localhost:3000/api/profiles/dashboard/myprofile put 
  */
 const editProfile = async (req, res) => {
   const { body, user } = req;

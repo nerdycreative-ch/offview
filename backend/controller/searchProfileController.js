@@ -5,6 +5,7 @@ const {
   invesmentLivingSchema,
   invesmentResidencialAndCommercialSchema,
 } = require("../model/Advertisement");
+const searchProfiles = require("../model/searchProfiles");
 const getSearchedAdvertisement = (req, res) => {
   try {
   } catch (err) {
@@ -23,9 +24,10 @@ const getSearchedAdvertisement = (req, res) => {
 const getAllSearchProfiles = async (req, res) => {
   try {
     const id = req.user._id;
-    const searchprofile = await Searchprofile.find({
+    const searchprofile = await searchProfiles.find({
       account: id,
     });
+    console.log(searchprofile);
     return res.status(200).json({ success: true, data: searchprofile });
   } catch (err) {
     console.log(err);
@@ -83,12 +85,12 @@ const getOneSearchProfile = async (req, res) => {
 const createSearchProfile = async (req, res) => {
   try {
     const user = req.user;
-    const { advertisementType, propertyType, region, minPrice, maxPrice } =
+    const { advertisementType, propertyTypeName, region, minPrice, maxPrice } =
       req.body;
     const searchprofile = await Searchprofile.create({
-      // account: user._id,
+      account: user._id,
       advertisementType,
-      propertyType,
+      propertyTypeName,
       region,
       minPrice,
       maxPrice,
@@ -96,16 +98,18 @@ const createSearchProfile = async (req, res) => {
     const advertisement = await advertisementBaseSchema.aggregate().match({
       $and: [
         { advertisementType: advertisementType },
-        { propertyType: propertyType },
+        { propertyType: searchprofile.propertyType },
         { town: region },
         { salesPrice: { $gte: minPrice, $lte: maxPrice } },
       ],
     });
-    if (advertisement == []) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No matches made" });
-    }
+
+    // if (advertisement.length == 0) {
+    //   return res
+    //     .status(404)
+    //     .json({ success: false, message: "No matches made" });
+    // }
+
     return res.status(200).json({
       success: true,
       data: advertisement,

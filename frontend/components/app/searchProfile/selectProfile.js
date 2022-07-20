@@ -44,7 +44,7 @@ const SelectProfile = ({ changeStep }) => {
     );
     localStorage.setItem(
       "propertyActiveLink",
-      JSON.stringify(propertyActiveLink)
+      JSON.stringify(propertyActiveLink.toLowerCase().trim())
     );
 
     setFinalSubmit({
@@ -78,13 +78,6 @@ const SelectProfile = ({ changeStep }) => {
         }
       });
     }
-
-    // setAdvertisementActiveLink(
-    //   JSON.parse(localStorage.getItem("advertisementActiveLink"))
-    // );
-    // setPropertyActiveLink(
-    //   JSON.parse(localStorage.getItem("propertyActiveLink"))
-    // );
   }, []);
 
   return (
@@ -144,13 +137,13 @@ const SelectProfile = ({ changeStep }) => {
                       {propertyType.map((item, index) => {
                         return (
                           <BigRadioButton
-                            onClick={() => setPropertyActiveLink(item.id)}
+                            onClick={() => setPropertyActiveLink(item.name)}
                             key={index}
                             width={45}
                             height={136}
                             type={item.name}
                             PCactiveLink={propertyActiveLink}
-                            id={item.id}
+                            id={item.name}
                             nameOfCat="PC"
                             paddingVertical={20}
                             paddingHorizontal={42}

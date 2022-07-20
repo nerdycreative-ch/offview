@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
 const SingleProperty = ({
-  title,
-  place,
-  image,
+  // title,
+  // place,
+  // image,
   realEstate,
   searchItem,
-  street,
-  town,
+  region,
+  // street,
+  // town,
+  propertyTypeName,
+  searchProfileImage,
 }) => {
-
   return (
     <SinglePropertyStyled>
       <div className="singleSearchItem">
@@ -18,11 +20,14 @@ const SingleProperty = ({
             <img src={image[0]} className="imageRealEstateOffers" />
           ) : (
             <div className="searchIconContainer">
-              {/* <img
-                src="../../../../assets/images/app/dashboard/greySearchIcon.svg"
-                alt="search icon"
-              /> */}
-              <img src={image[0]} alt="single item image" />
+              {searchProfileImage ? (
+                <img
+                  src="../../../../assets/images/app/dashboard/greySearchIcon.svg"
+                  alt="search icon"
+                />
+              ) : (
+                <img src={image[0]} alt="single item image" />
+              )}
             </div>
           )}
         </div>
@@ -36,10 +41,8 @@ const SingleProperty = ({
           className="test"
         >
           <div className="searchItemContent">
-            <p className="typeOf">{title}</p>
-            <p className="sPlace">
-              {street},{town}
-            </p>
+            <p className="typeOf">{propertyTypeName}</p>
+            <p className="sPlace">{region},Switzerland</p>
           </div>
           {searchItem && (
             <div className="rightSideItemContainer">

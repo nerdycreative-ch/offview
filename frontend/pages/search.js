@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppContainer from "../components/app/wrappers/AppContainer";
 import TopContainer from "../components/app/utils/TopContainer";
 import NoItem from "../components/app/utils/NoItem";
 import SignleProperty from "../components/app/utils/SingleProperty";
 import styled from "styled-components";
+import { useSearchProfileContext } from "../context/searchprofile";
+import axios from "axios";
+import { useAuthContext } from "../context/auth";
 
 const Search = () => {
+
+  
+  const { filtredSearch } = useSearchProfileContext();
+
+
+  // const [filtredSearch, setFiltredSearch] = useState([]);
+
   const [activeAllDrafts, setActiveAllDrafts] = useState("all");
 
   const [allEstateItem, setAllEstateItem] = useState([
@@ -61,7 +71,7 @@ const Search = () => {
         {/* ALL */}
         {activeAllDrafts == "all" && (
           <div>
-            {allEstateItem.length == 0 ? (
+            {filtredSearch.length == 0 ? (
               <div
                 style={{
                   height: "65vh",
@@ -78,8 +88,15 @@ const Search = () => {
               </div>
             ) : (
               <div style={{ marginTop: 20 }}>
-                {allEstateItem.map((estate, index) => {
-                  return <SignleProperty key={index} searchItem {...estate} />;
+                {filtredSearch.map((estate, index) => {
+                  return (
+                    <SignleProperty
+                      key={index}
+                      searchItem
+                      {...estate}
+                      searchProfileImage
+                    />
+                  );
                 })}
               </div>
             )}

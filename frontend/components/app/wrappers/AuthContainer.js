@@ -6,10 +6,6 @@ import AuthLeftSideContainer from "./AuthLeftSideContainer";
 import { useDashboardContext } from "../../../context/dashboard";
 
 const AuthContainer = ({ children, login }) => {
-  //   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-
-  const { isSideBarOpen, setIsSideBarOpen } = useDashboardContext();
-
   return (
     <AuthContainerStyle>
       <div className="leftSideRegister">
@@ -45,8 +41,7 @@ const AuthContainerStyle = styled.div`
     justify-content: center;
   }
 
-  @media (max-width: 991.98px) {
-  }
+
 `;
 
 export default AuthContainer;

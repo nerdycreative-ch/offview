@@ -72,7 +72,6 @@ export const Advertisementcontext = ({ children }) => {
     },
   ]);
 
-  console.log("A PO A ", finalAdvertisement);
 
   const globalValuesAdv = {
     advertisementType: "",

@@ -2,11 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import PersonalDataItem from "../components/app/utils/PersonalDataItem";
 import AppContainer from "../components/app/wrappers/AppContainer";
+import { useAuthContext } from "../context/auth";
 
 // import sda from "../public/assets/images/app/dashboard/pencil.svg";
 
 const Profile = () => {
   const [isActive, setIsActive] = useState("account");
+
+  const { currentUserData } = useAuthContext();
+
+  console.log("CURRENT USER DATA", currentUserData);
 
   return (
     <AppContainer>
@@ -14,8 +19,10 @@ const Profile = () => {
         <div className="leftSideProfile">
           <div className="imageProfileContainer"></div>
           <div className="info">
-            <h1>Albert Flores</h1>
-            <p className="role">Investor</p>
+            <h1>
+              {currentUserData.firstName} {currentUserData.lastName}
+            </h1>
+            <p className="role">{currentUserData.mainrole}</p>
 
             <div className="editBtn">
               <img src="../assets/images/app/dashboard/pencil.svg" alt="" />
@@ -66,16 +73,34 @@ const Profile = () => {
 
               <div className="personalData">
                 <div className="personalDataLeftSide">
-                  <PersonalDataItem type="Gender" result="Male" />
-                  <PersonalDataItem type="Email" result="first.last@mail.com" />
-                  <PersonalDataItem type="Category" result="Private" />
+                  <PersonalDataItem
+                    type="Gender"
+                    result={currentUserData.gender}
+                  />
+                  <PersonalDataItem
+                    type="Email"
+                    result={currentUserData.email}
+                    textTransformNone
+                  />
+                  <PersonalDataItem
+                    type="Category"
+                    result={currentUserData.role}
+                  />
                 </div>
                 <div className="personalDataRightSide secondColumn">
-                  <PersonalDataItem type="Name" result="Albert Flores" />
-                  <PersonalDataItem type="Phone" result="0 (1) 123 45 6789" />
+                  <PersonalDataItem
+                    type="Name"
+                    result={
+                      currentUserData.firstName + " " + currentUserData.lastName
+                    }
+                  />
+                  <PersonalDataItem
+                    type="Phone"
+                    result={currentUserData.phone}
+                  />
                   <PersonalDataItem
                     type="Address"
-                    result="2972 Westheimer Rd. Santa Ana, Illinois 85486 "
+                    result={currentUserData.street}
                   />
                 </div>
               </div>
@@ -117,6 +142,7 @@ const ProfileStyed = styled.div`
       line-height: 36px;
       color: var(--black-0);
       margin-top: 26px;
+      text-transform: capitalize;
     }
     .role {
       font-weight: 400;
@@ -124,6 +150,7 @@ const ProfileStyed = styled.div`
       line-height: 18px;
       color: var(--Grey-500);
       margin: 4px 0 32px 0;
+      text-transform: capitalize;
     }
   }
 
